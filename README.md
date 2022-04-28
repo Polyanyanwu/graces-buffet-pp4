@@ -28,7 +28,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
       - [Operator Stories](#operator-stories)
       - [**Authentication stories**](#authentication-stories)
       - [**Site Owner/Admin stories**](#site-owneradmin-stories)
-    - [**Wireframe**](#wireframe)
+    - [**Wireframes**](#wireframes)
       - [Site Map](#site-map)
 
 ## **Objectives of the Site**
@@ -196,7 +196,7 @@ The functionalities in the application shall be provided through two user epics:
 
 #### **Site Owner/Admin stories**
 
-### **Wireframe**
+### **Wireframes**
 
 #### Site Map
 
@@ -204,24 +204,7 @@ The design site map of the website is given below:
 
 ![Site Map](/docs/wireframes/site_map.jpg)
 
-The wireframes are listed below for each of the pages to be implemented:
-
-- [Home Page](/docs/wireframes/home_page.png)
-- [User Profile](/docs/wireframes/profile.png)
-- [Dining History](/docs/wireframes/dining_history.png)
-- [Cancel Booking](/docs/wireframes/user_cancel_booking.png)
-- [Upcoming Bookings](/docs/wireframes/upcoming_bookings.png)
-- [Notifications](/docs/wireframes/notifications.png)
-- [Contact Us](/docs/wireframes/contact_us.png)
-- [Terms of Use](/docs/wireframes/terms_of_use.png)
-- [Privacy Policy](/docs/wireframes/privacy.png)
-- [Operator Cancel Booking](/docs/wireframes/operator_cancel_booking.png)
-- [Operator Book for Customer](/docs/wireframes/operator_booking_for_customer.png)
-- [Update Booking](/docs/wireframes/update_booking.png)
-- [Booking History Enquiry](/docs/wireframes/operator_booking_history.png)
-- [Login Page](/docs/wireframes/sign_in.png)
-
-The full wiframes on same page is provided [HERE](/docs/wireframes.md)
+The full wireframes are provided [HERE](/docs/wireframes.md)
   
                 Color Scheme
                 Fonts

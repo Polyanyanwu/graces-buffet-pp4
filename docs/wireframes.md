@@ -17,6 +17,8 @@
   - [Update Booking](#update-booking)
   - [\[Booking History Enquiry](#booking-history-enquiry)
   - [Login Page](#login-page)
+  - [Sign Up](#sign-up)
+  - [Logout](#logout)
 
 ## Home Page
   
@@ -73,3 +75,11 @@
 ## Login Page
 
 - ![Login Page](/docs/wireframes/sign_in.png)
+
+## Sign Up
+
+- ![Sign Up](/docs/wireframes/sign_up.png)
+
+## Logout
+
+- ![Logout Page](/docs/wireframes/sign_out.png)
