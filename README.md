@@ -1,108 +1,232 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# **GRACES BUFFET WEBSITE**
 
-Welcome USER_NAME,
+    The Graces Buffet is a web application that powers a buffet seat reservation system for a hypothetical restaurant in Dublin Ireland.  
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## Live Site
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+## Repository
 
-## Gitpod Reminders
+[View Repository Here](https://github.com/Polyanyanwu/graces-buffet-pp4)
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## Table of Contents
 
-`python3 -m http.server`
+- [**GRACES BUFFET WEBSITE**](#graces-buffet-website)
+  - [Live Site](#live-site)
+  - [Repository](#repository)
+  - [Table of Contents](#table-of-contents)
+  - [**Objectives of the Site**](#objectives-of-the-site)
+  - [**User Experience Design**](#user-experience-design)
+    - [**Initial Design Features**](#initial-design-features)
+    - [**User Roles**](#user-roles)
+      - [**A. Admin user**](#a-admin-user)
+      - [**B. Operator**](#b-operator)
+      - [**C. Public**](#c-public)
+    - [**Agile Initiative**](#agile-initiative)
+      - [**Epics**](#epics)
+    - [**User Stories**](#user-stories)
+      - [Customer Stories](#customer-stories)
+      - [Operator Stories](#operator-stories)
+      - [**Authentication stories**](#authentication-stories)
+      - [**Site Owner/Admin stories**](#site-owneradmin-stories)
+    - [**Wireframe**](#wireframe)
 
-A blue button should appear to click: _Make Public_,
+## **Objectives of the Site**
 
-Another blue button should appear to click: _Open Browser_.
+    The site has objective of providing easy to use restaurant dining reservation system. The user desires to book seats for guests for a dinner, and the site owner wants to manage available seats/tables automatically with options to book on behalf of users who called on the phone. The application will provide historical and statistical reports to the validated user, the operator and the admin user.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+## **User Experience Design**
 
-A blue button should appear to click: _Make Public_,
+### **Initial Design Features**
 
-Another blue button should appear to click: _Open Browser_.
+- The seats are reserved for the user for 2 hours before assigning another booking for the same table. The 2 hours should be changeable by the Admin based on user experience on average times taken for each guests over time.
+  
+- Bookings would be for specified Date and desired time slots. Available times for the chosen date will be displayed to the user.
+  
+- Admin maintains the opening and closing times for the restaurant and the time required to serve a reservation.
+  
+- The system would maintain a table of the available times per day. If a user makes the initial request for a day, a record is created in the reservation table. Subsequently, the application will search the database to know which slots have been taken before suggesting the remaining times to the user
+  
+- Cancellations are permitted before 4 hours to the time. Admin can adjust this limit in the database.
+  
+- Admin will maintain the different types of tables available, i.e 1-seater, 2-seater, 3-seater, 4-seater and Reservations are booked to occupy the least number of tables. A reservation could take 2 or more tables depending on the number of people.
+  
+- Online bookings are limited to a maximum of 8 people, bookings for larger number of people could be arranged by calling the restaurant Admin for special arrangement.
+  
+- Seats are uniquely booked. Once booked, the seat won’t become available for another booking unless there is cancellation.
+  
+- The Operator/Admin can cancel a booking if the guest fails to turn up after 45 minutes (time is configurable by the Admin).
+  
+- The Restaurant operate only buffet style, however there are given number of categories of meals, which a user could indicate interest in. The indication enables the restaurant manager to have an idea of how many people may be interested in a type of buffet for a given day. E.g.,
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+    1. Nigerian dish
+    2. Italian food
+    3. Asian food
 
-To log into the Heroku toolbelt CLI:
+- Price of buffet per person is displayed but payment will be after service delivery at the restaurant.
+User Interaction
+- A user will need to login to complete making a booking. Initially the book a date & time screen will be presented. User could decide to check availability first but to complete the booking, user needs to create an account.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+- An email address and password would be sufficient to create an account, but the email has to be confirmed with a code to be emailed to the user.A user remains signed in until user choses to sign out, in line with current UX design.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+- A nice to have feature will be integration with the Google/ Facebook for authentication instead of only email address.
 
-------
+- Users not logged in can only view the make a reservation but are not able to save until they create an account successfully. Menu items for booking list, update messages are only available to logged in users.
 
-## Release History
+- When a user makes a booking successfully, it will appear on the bookings list dropdown, any cancellation will appear on the update messages dropdown.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+- Confirmation of bookings or cancellations will fire an email to the user informing them accordingly. Admin could cancel a reservation giving the user valid reasons and suggesting alternate times for the booking.
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+- Login button will change to Logout when a user successfully logged in. The name of the logged in user will be displayed.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+### **User Roles**
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+There shall be three roles for the application:
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+#### **A. Admin user**
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+    1. Assign user role to signed-in users
+    2. Set system preferences
+    3. Cancel bookings where necessary
+    4. Update booking status – close booking after service has been delivered
+    5. Maintain buffet categories (meal menu) including description, price and image of the buffet
+    6. Maintain table/seat types and quantities available
+    7. Maintain duration of each table reservation
+    8. Maintain reason for cancellations
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+#### **B. Operator**
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+    1. Cancel bookings where necessary e.g where guest fail to turn up after a given time has elapsed
+    2. Update booking status – close booking after service has been delivered
+    3. Make booking on behalf of a customer (could have)
+    4. Enquiry on Guests that have not turned up for the booking
+    5. Enquiry on the details of bookings for a given period
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+#### **C. Public**
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+    1. Sign-in to the site
+    2. Make bookings
+    3. Cancel bookings
+    4. Enquiries on booking history
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+    Only the Admin will use the Admin portal, while Operator and Public will use the application main page. Accessible menu items will depend on the role assigned to the user by the operator.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+### **Agile Initiative**
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+The project will consist of one initiative which is to provide an intuitive user-friendly online restaurant booking/reservation for the administration of Graces Buffet.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+#### **Epics**
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+The functionalities in the application shall be provided through two user epics:
 
-------
+1. The application shall provide a role-based access control enabling users to register with the site, maintain passwords, and possibly integrate with social media for authentication.
+2. The application shall provide seat reservation functionality where an authenticated user can complete seat reservation and book a buffet type dinner with reports on booking history and past due bookings
 
-## FAQ about the uptime script
+### **User Stories**
 
-**Why have you added this script?**
+#### Customer Stories
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+| User Story                                                                                                                                 | Acceptance Criteria                                                                      | Tasks                                                                                         |
+|--------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| 1.     As a public user, I want a user-friendly interactive website so that bookings are easy to make.                                     | - Booking details are visible on home page                                               | - Chose a color scheme for the website                                                        |
+|                                                                                                                                            | - Responsive in mobile and desktop browsers                                              | - Chose the fonts to use                                                                      |
+|                                                                                                                                            | - Feedback on user actions are given                                                     | - Create the logo                                                                             |
+|                                                                                                                                            | - User finds links to navigate to other functions easy                                   | - Create the HTML and CSS for the dropdown menus on home page                                 |
+|                                                                                                                                            | - Font is legible                                                                        | - Create the model and views for the booking on home page                                     |
+|                                                                                                                                            | - Color contrast is effective                                                            | - Deploy to Heroku                                                                            |
+|                                                                                                                                            |                                                                                          | - Test the completed home page.                                                               |
+| 2.     As a public user, I want to be able to access the website using different devices so that I will have same friendly experience.     | - Website is accessible on different sized devices                                       | - Use Bootstrap responsive design on all pages                                                |
+|                                                                                                                                            | - Information is easy to find both on small and large screens                            | - Ensure logo, title and menus appear on all pages consistently                               |
+|                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
+|                                                                                                                                            |                                                                                          |                                                                                               |
+| 3.    As a public user, I can have option to select number of people for the dinner so that the availability will be confirmed immediately | - On the booking form a selection box is available with options for number of people     | - Create the model for table and seats                                                        |
+|                                                                                                                                            |                                                                                          | - On the model for booking, create select option                                              |
+|                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
+| 4.      As a public user, I can see the buffet price so that I decide to book or not                                                       | - The booking form displays the price per person                                         | - Create a paragraph for the cost of booking per person on the booking form                   |
+|                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
+| 5.      In order to book a specific time as a public user, I can have time options to select from on a chosen date.                        | - On the booking form a selection box is available with options for available time slots | - Create model for time slots                                                                 |
+|                                                                                                                                            |                                                                                          | - Connect the available time slots to the booking form                                        |
+|                                                                                                                                            |                                                                                          | - Display only available time slots                                                           |
+|                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
+| 6.      As a public user, I can make booking so that the dinner time is confirmed.                                                         | - Booking form is available to user                                                      | - Add email confirmation to booking                                                           |
+|                                                                                                                                            | - Signup form is available to user                                                       | - Check that user is signed-in to save booking or redirect to signup page if not signed-in    |
+|                                                                                                                                            | - A signed-in user can save a booking and receive immediate confirmation plus an email   | - Verify from the model that seats are available for selected time and date and give feedback |
+|                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
+| 7.        In order to know the type of meals available as a public user, I can see images and descriptions of buffet types.                | - Images and description of buffet types available on the booking page                   | - Create model and view for maintain buffet types                                             |
+|                                                                                                                                            |                                                                                          | - Display buffet type on booking page                                                         |
+|                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
+| 8.        In order to inform the restaurant of my unavailability as a public user, I can cancel a booking.                                 | - Menu has option for cancel booking                                                     | - Add cancel booking as user menu option                                                      |
+|                                                                                                                                            | - Cancel booking page has details of all active bookings                                 | - Create list of all active bookings on the cancel booking page                               |
+|                                                                                                                                            | - A button is available to click and cancel desired booking                              | - Give immediate feedback if successfully cancelled                                           |
+|                                                                                                                                            | - Feedback is given and list of bookings updated immediately                             | - Refresh the page display to show the booking has been cancelled                             |
+|                                                                                                                                            |                                                                                          | - Add the cancelled booking to the Notifications page                                         |
+|                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
+| 9.         In order to know the times I was at the restaurant as a public user, I can view booking history.                                | - Option for booking history available on the menu                                       | - Add booking history to user menu option                                                     |
+|                                                                                                                                            | - Booking history page contains details of all previous bookings                         | - Create booking history template and view                                                    |
+|                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
+| 10.     In order to know of successful booking/cancellation as a public user, I can receive email notifications.                           | - Email is received upon confirmation/cancellation of booking                            | - Create the email template                                                                   |
+|                                                                                                                                            |                                                                                          | - Add email send details to settings.py and env.py                                            |
+|                                                                                                                                            |                                                                                          | - Send email after confirmation or cancellation of a booking                                  |
+|                                                                                                                                            |                                                                                          | - Test functionality                                                                          |
+                                                                         |
 
-**How will this affect me?**
+#### Operator Stories
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+| User Story                                                                                                                                             | Acceptance Criteria                                             | Tasks                                                                                                 |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| 1.    As an operator, I can cancel bookings where guest fail to turn up after a given time has elapsed so that the seats could become available to use | - Menu option for cancel booking available                      | - Add cancel booking to Operator menu                                                                 |
+|                                                                                                                                                        | - Ability to select all active bookings                         | - Create a cancel booking template and view with list of active bookings and button to cancel an item |
+|                                                                                                                                                        | - Button to pick and cancel a booking                           | - Create a confirmation modal form and request confirmation of cancellation                           |
+|                                                                                                                                                        | - Confirmation to proceed with the cancellation                 | - Create a feedback for the cancellation outcome                                                      |
+|                                                                                                                                                        | - Feedback message on successful cancellation                   | - Display updated list of active bookings                                                             |
+|                                                                                                                                                        | - Updated list of active bookings                               | - Test functionality                                                                                  |
+| 2.    As an operator, I can update booking status so that seats could become available after service has been delivered                                | - Menu option for update booking is available                   | - Add update booking to operator menu                                                                 |
+|                                                                                                                                                        | - A page is provided where active bookings are displayed        | - Create update booking template and view                                                             |
+|                                                                                                                                                        | - Buttons are provided to click and select to update status     | - Create a confirmation modal form and request confirmation of status change                          |
+|                                                                                                                                                        | - Status of booking changes after confirmation of status change | - Create a feedback for the status change outcome                                                     |
+|                                                                                                                                                        |                                                                 | - Test the functionality                                                                              |
+| 3.    As an operator, I can make booking on behalf of a customer so that customers that call in on phone could receive service.                        | - Make booking option is available for operator                 | - Add make booking to operator menu                                                                   |
+|                                                                                                                                                        | - Operator can find the customer using phone or email address   | - Create form for booking for customer                                                                |
+|                                                                                                                                                        | - Successful booking visible on booking history enquiry         | - When saved send email to customer and update booking table                                          |
+|                                                                                                                                                        |                                                                 | - Test the functionality                                                                              |
+| 4.    As an operator, I can make enquiry on bookings by data range and booking status so that I can take decisions                                     | - Booking history enquiry available                             | - Create a form to accept the criteria and list the booking details                                   |
+|                                                                                                                                                        | - Query has options to select date range and booking status     | - Test the functionality                                                                              |
+|                                                                                                                                                        | - List of data is displayed meeting the given criteria          |                                                                                                       |
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+#### **Authentication stories**
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+#### **Site Owner/Admin stories**
 
-**So….?**
+### **Wireframe**
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+                Color Scheme
+                Fonts
+                Background Image
+                Flowchart
+        Features
+            Go through the Instructions
+            Print existing result of enquiries
+            Run new enquiry
+            Delete all existing enquiry results
+        Future Features
+        Data Model
+        Technologies Used
+            Python Libraries
+            Ancillary Technologies
+            VSCode Extensions Used
+        Testing
+            PEP8 Testing
+            Python Testing during Development
+            Manual Testing
+            HTML W3C Validator
+                HTML Validation Outcome
+                CSS Validation Outcome
+            Lighthouse
+        Bugs
+            Current Bugs
+            Resolved Bugs
+        Deployment
+        Credits
+            Content
+            Code
+            Media
+            Acknowledgements
