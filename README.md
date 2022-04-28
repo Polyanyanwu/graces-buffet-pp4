@@ -1,6 +1,6 @@
 # **GRACES BUFFET WEBSITE**
 
-    The Graces Buffet is a web application that powers a buffet seat reservation system for a hypothetical restaurant in Dublin Ireland.  
+The Graces Buffet is a web application that powers a buffet seat reservation system for a hypothetical restaurant in Dublin Ireland.  
 
 ## Live Site
 
@@ -29,10 +29,11 @@
       - [**Authentication stories**](#authentication-stories)
       - [**Site Owner/Admin stories**](#site-owneradmin-stories)
     - [**Wireframe**](#wireframe)
+      - [Site Map](#site-map)
 
 ## **Objectives of the Site**
 
-    The site has objective of providing easy to use restaurant dining reservation system. The user desires to book seats for guests for a dinner, and the site owner wants to manage available seats/tables automatically with options to book on behalf of users who called on the phone. The application will provide historical and statistical reports to the validated user, the operator and the admin user.
+The site has objective of providing easy to use restaurant dining reservation system. The user desires to book seats for guests for a dinner, and the site owner wants to manage available seats/tables automatically with options to book on behalf of users who called on the phone. The application will provide historical and statistical reports to the validated user, the operator and the admin user.
 
 ## **User Experience Design**
 
@@ -108,7 +109,7 @@ There shall be three roles for the application:
     3. Cancel bookings
     4. Enquiries on booking history
 
-    Only the Admin will use the Admin portal, while Operator and Public will use the application main page. Accessible menu items will depend on the role assigned to the user by the operator.
+Only the Admin will use the Admin portal, while Operator and Public will use the application main page. Accessible menu items will depend on the role assigned to the user by the operator.
 
 ### **Agile Initiative**
 
@@ -136,8 +137,7 @@ The functionalities in the application shall be provided through two user epics:
 |                                                                                                                                            |                                                                                          | - Test the completed home page.                                                               |
 | 2.     As a public user, I want to be able to access the website using different devices so that I will have same friendly experience.     | - Website is accessible on different sized devices                                       | - Use Bootstrap responsive design on all pages                                                |
 |                                                                                                                                            | - Information is easy to find both on small and large screens                            | - Ensure logo, title and menus appear on all pages consistently                               |
-|                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
-|                                                                                                                                            |                                                                                          |                                                                                               |
+|                                                                                                                                            |                                                                                          | - Test the functionality                                      |
 | 3.    As a public user, I can have option to select number of people for the dinner so that the availability will be confirmed immediately | - On the booking form a selection box is available with options for number of people     | - Create the model for table and seats                                                        |
 |                                                                                                                                            |                                                                                          | - On the model for booking, create select option                                              |
 |                                                                                                                                            |                                                                                          | - Test the functionality                                                                      |
@@ -198,6 +198,31 @@ The functionalities in the application shall be provided through two user epics:
 
 ### **Wireframe**
 
+#### Site Map
+
+The design site map of the website is given below:
+
+![Site Map](/docs/wireframes/site_map.jpg)
+
+The wireframes are listed below for each of the pages to be implemented:
+
+- [Home Page](/docs/wireframes/home_page.png)
+- [User Profile](/docs/wireframes/profile.png)
+- [Dining History](/docs/wireframes/dining_history.png)
+- [Cancel Booking](/docs/wireframes/user_cancel_booking.png)
+- [Upcoming Bookings](/docs/wireframes/upcoming_bookings.png)
+- [Notifications](/docs/wireframes/notifications.png)
+- [Contact Us](/docs/wireframes/contact_us.png)
+- [Terms of Use](/docs/wireframes/terms_of_use.png)
+- [Privacy Policy](/docs/wireframes/privacy.png)
+- [Operator Cancel Booking](/docs/wireframes/operator_cancel_booking.png)
+- [Operator Book for Customer](/docs/wireframes/operator_booking_for_customer.png)
+- [Update Booking](/docs/wireframes/update_booking.png)
+- [Booking History Enquiry](/docs/wireframes/operator_booking_history.png)
+- [Login Page](/docs/wireframes/sign_in.png)
+
+The full wiframes on same page is provided [HERE](/docs/wireframes.md)
+  
                 Color Scheme
                 Fonts
                 Background Image
