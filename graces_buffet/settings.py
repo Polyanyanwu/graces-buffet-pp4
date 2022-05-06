@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["graces_buffet.herokuapp.com", "localhost"]
+ALLOWED_HOSTS = ["graces-buffet.herokuapp.com", "localhost"]
 
 # Application definition
 
