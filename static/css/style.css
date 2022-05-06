@@ -1,0 +1,14 @@
+body{
+    font-family: 'Exo', sans-serif;
+    font-weight: 300;
+}
+/* .nav-area{ */
+    /* background-color: #f8f3e1; */
+    /* background-color: #56351E; */
+/* } */
+footer{
+    background-color: #56351E;
+}
+footer i {
+    color: whitesmoke;
+}

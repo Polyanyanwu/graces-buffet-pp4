@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'home',
     'bookings',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
