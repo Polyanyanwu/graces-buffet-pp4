@@ -30,6 +30,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
       - [**Site Owner/Admin stories**](#site-owneradmin-stories)
     - [**Wireframes**](#wireframes)
       - [Site Map](#site-map)
+  - [**Database Design**](#database-design)
 
 ## **Objectives of the Site**
 
@@ -210,6 +211,15 @@ The full wireframes are provided [HERE](/docs/wireframes.md)
                 Fonts
                 Background Image
                 Flowchart
+
+## **Database Design**
+
+The database used in this project is a relational database, Postgres. It is provided by Heroku.
+
+The database Entity Diagram is given below:
+
+![Entity Diagram](/docs/wireframes/entity_diagram.png)
+
         Features
             Go through the Instructions
             Print existing result of enquiries
