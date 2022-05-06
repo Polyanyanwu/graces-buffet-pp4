@@ -30,6 +30,8 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
       - [**Site Owner/Admin stories**](#site-owneradmin-stories)
     - [**Wireframes**](#wireframes)
       - [Site Map](#site-map)
+    - [**Color Scheme**](#color-scheme)
+    - [**Fonts**](#fonts)
   - [**Database Design**](#database-design)
 
 ## **Objectives of the Site**
@@ -206,9 +208,18 @@ The design site map of the website is given below:
 ![Site Map](/docs/wireframes/site_map.jpg)
 
 The full wireframes are provided [HERE](/docs/wireframes.md)
-  
-                Color Scheme
-                Fonts
+
+### **Color Scheme**
+
+In order to enhance the user experience and have consistent look and feel throughout the website, I chose a color scheme through the [Colors.co](https://coolors.co/). The color palette used is shown below:
+
+![Color Pallet](/docs/color_scheme.png)
+
+### **Fonts**
+
+The font for the website is "Exo", which was chosen from [Google fonts](https://fonts.google.com/specimen/Exo?query=exo). This font looks great to me for a website where the user need not struggle to see details of the site.
+![Font](/docs/font.png)
+
                 Background Image
                 Flowchart
 
