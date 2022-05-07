@@ -43,10 +43,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-                <span class="navbar-text text-muted">
-                    
-                </span>
+                {% if user.is_authenticated %}
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <span class="navbar-text text-muted">
+                            <span>Welcome {{ user.username}}</span>
+                    </span>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" title="User Account Dropdown">
@@ -56,7 +57,7 @@
                             <li><a class="dropdown-item" href="#">My Profile</a></li>
                             <li><a class="dropdown-item" href="#">Dinning History</a></li>
                             <li><a class="dropdown-item" href="#">Cancel Booking</a></li>
-                            <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
                         </ul>
                     </li>
 
@@ -70,10 +71,31 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'home' %}" title="Find seats to book"><i class="fa-solid fa-magnifying-glass"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" title="Sign in"><i class="fa-solid fa-right-to-bracket"></i></a>
+                        <a class="nav-link" href="{% url 'account_logout' %}" title="Logout"><i class="fa-solid fa-right-to-bracket"></i></a>
                     </li>
-
                 </ul>
+                {% else %} 
+                <!-- only show sign up and login button if user is not already signed in -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{% url 'account_signup' %}" title="Sign Up">
+                                <div class="text-center nav-icons-wrapper-lg">
+                                    <div><i class="fa-solid fa-person-praying"></i></div>
+                                    <p class="my-0 small">Sign Up</p>
+                                </div>
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'account_login' %}" title="Login">
+                                <div class="text-center nav-icons-wrapper-lg">
+                                    <div><i class="fa-solid fa-right-to-bracket"></i></div>
+                                    <p class="my-0 small">Login</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                {% endif %}
             </div>
         </div>
     </nav>
