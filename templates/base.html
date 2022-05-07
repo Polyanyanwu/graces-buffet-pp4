@@ -24,7 +24,11 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
-
+    <style>
+        body {
+          background-image: url("{% static 'images/spiration-light.png' %}");
+        }
+        </style> 
 </head>
 
 <body class="d-flex flex-column h-100 main-bg">
@@ -107,10 +111,12 @@
 
     <!-- Footer -->
     <footer class="footer mt-auto py-3">
-        <p class="m-0 text-center text-white"><a href="">Terms of Use <i class="fas fa-grip-lines-vertical"></i></a>
-            <a href="">Privacy Policy</a><i class="fas fa-grip-lines-vertical"></i>
-            <a href="">Contact Us: </a> <a href=""><i class="fab fa-linkedin"></i></a>
-            <a href=""><i class="fab fa-github"></i></a>
+        <p class="m-0 text-center text-white"><a href="">Terms of Use</a> <span>|</span>
+            <a href="">Privacy Policy</a> <span>|</span>
+            <a href="">Contact Us </a> <span>|</span>
+            <span><a href="" title="LinkedIn"><i class="fab fa-linkedin"></i></a></span>
+            <span>|</span>
+            <a href="" title="Github"><i class="fab fa-github"></i></a>
         </p>
     </footer>
 </body>

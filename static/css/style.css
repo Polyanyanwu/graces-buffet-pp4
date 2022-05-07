@@ -1,13 +1,41 @@
+
 body{
     font-family: 'Exo', sans-serif;
     font-weight: 300;
 }
 /* .nav-area{ */
-    /* background-color: #f8f3e1; */
     /* background-color: #56351E; */
 /* } */
+
+form label{
+    display: block;
+}
+.main-title{
+    background-color: #F19953;
+}
+.btn-color{
+    background-color: #56351E;
+}
+.btn-color:hover, .my-link:hover{
+    background-color: #F19953;
+}
+.my-link{
+    color: #56351E;
+    font-weight: 400;
+}
 footer{
     background-color: #56351E;
+    color: #EDF7F6;
+}
+footer a{
+    color: #EDF7F6; 
+}
+footer a:hover{
+    background-color:  #F19953;
+    color: #56351E;
+}
+footer span{
+    margin: 2px 0;
 }
 footer i {
     color: whitesmoke;
