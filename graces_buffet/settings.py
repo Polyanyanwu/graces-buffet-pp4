@@ -29,11 +29,19 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-ALLOWED_HOSTS = ["graces-buffet.herokuapp.com", "localhost"]
+# ALLOWED_HOSTS = ["graces-buffet.herokuapp.com", "localhost"]
+
+development = os.environ.get('DEVELOPMENT', False)
+if development:
+    ALLOWED_HOSTS = ['localhost']
+    DEBUG = True
+else:
+    ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
+    DEBUG = False
 
 # Application definition
 
@@ -88,7 +96,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'graces_buffet.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
