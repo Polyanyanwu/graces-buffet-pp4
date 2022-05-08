@@ -26,12 +26,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
     <style>
         body {
-          background-image: url("{% static 'images/spiration-light.png' %}");
+            background-image: url("{% static 'images/spiration-light.png' %}");
         }
-        </style> 
+    </style>
 </head>
 
-<body class="d-flex flex-column h-100 main-bg">
+<body class="d-flex flex-column h-100 main-bg gx-4">
 
     <!-- Navigation -->
 
@@ -40,7 +40,8 @@
             <!-- <a class="navbar-brand" href="{% url 'home' %}"><span class="brand">c<span class="red-o">o</span>de<span
                         class="thin">|star</span></span></span></a> -->
             <a class="navbar-brand" href="{% url 'home' %}">
-                <h1 id="brand-logo"><i class="fas fa-utensils"></i></h1> <h1 id="brand-name">Graces Buffet</h1>
+                <h1 id="brand-logo"><i class="fas fa-utensils"></i></h1>
+                <h1 id="brand-name">Graces Buffet</h1>
                 <!-- <img src="{% static 'images/logo.webp' %}" alt="" width="120" height="100"> -->
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -51,7 +52,7 @@
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <span class="navbar-text text-muted">
-                            <span>Welcome {{ user.username}}</span>
+                        <span>Welcome {{ user.username}}</span>
                     </span>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -67,39 +68,42 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" title="Upcoming Bookings"><i class="fa-solid fa-calendar-days"></i></a>
+                        <a class="nav-link" href="#" title="Upcoming Bookings"><i
+                                class="fa-solid fa-calendar-days"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" title="Notifications"><i class="fa-solid fa-bell"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}" title="Find seats to book"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}"
+                            title="Find seats to book"><i class="fa-solid fa-magnifying-glass"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}" title="Logout"><i class="fa-solid fa-right-to-bracket"></i></a>
+                        <a class="nav-link" href="{% url 'account_logout' %}" title="Logout"><i
+                                class="fa-solid fa-right-to-bracket"></i></a>
                     </li>
                 </ul>
-                {% else %} 
+                {% else %}
                 <!-- only show sign up and login button if user is not already signed in -->
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
 
-                            <a class="nav-link" href="{% url 'account_signup' %}" title="Sign Up">
-                                <div class="text-center nav-icons-wrapper-lg">
-                                    <div><i class="fa-solid fa-person-praying"></i></div>
-                                    <p class="my-0 small">Sign Up</p>
-                                </div>
-                                </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'account_login' %}" title="Login">
-                                <div class="text-center nav-icons-wrapper-lg">
-                                    <div><i class="fa-solid fa-right-to-bracket"></i></div>
-                                    <p class="my-0 small">Login</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                        <a class="nav-link" href="{% url 'account_signup' %}" title="Sign Up">
+                            <div class="text-center nav-icons-wrapper-lg">
+                                <div><i class="fa-solid fa-person-praying"></i></div>
+                                <p class="my-0 small">Sign Up</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'account_login' %}" title="Login">
+                            <div class="text-center nav-icons-wrapper-lg">
+                                <div><i class="fa-solid fa-right-to-bracket"></i></div>
+                                <p class="my-0 small">Login</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
                 {% endif %}
             </div>
         </div>
@@ -111,7 +115,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3">
+    <footer class="footer mt-auto py-2">
         <p class="m-0 text-center text-white"><a href="">Terms of Use</a> <span>|</span>
             <a href="">Privacy Policy</a> <span>|</span>
             <a href="">Contact Us </a> <span>|</span>

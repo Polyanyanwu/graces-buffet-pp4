@@ -6,17 +6,16 @@
 {% block head_title %}{% trans "Welcome to Graces Buffet" %}{% endblock %}
 
 {% block content %}
-<div class="container-fluid ">
+<div class="container-fluid gx-4 ">
   <div class="row">
     <div class="col main-title text-center">
         <h4>Welcome to Graces Buffet</h4>
         <h5>{% trans "Please Sign In" %}</h5>
-
     </div>
   </div>
 </div>
 <div class="container-fluid">
-  <div class="row">
+  <div class="row gx-5">
     <div class="col-md-8 ms-auto">
 
       {% get_providers as socialaccount_providers %}
@@ -52,9 +51,6 @@
         <a class="button secondaryAction my-link" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
         <button class="primaryAction btn btn-primary btn-color" type="submit">{% trans "Sign In" %}</button>
       </form>
-
-
-
     </div>
   </div>
 </div>

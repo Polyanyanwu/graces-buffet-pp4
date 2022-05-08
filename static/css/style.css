@@ -48,6 +48,7 @@ form label{
 footer{
     background-color: #56351E;
     color: #EDF7F6;
+    margin: 0 0.75rem; 
 }
 footer a{
     color: #EDF7F6; 
