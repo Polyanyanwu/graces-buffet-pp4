@@ -48,7 +48,8 @@ form label{
 }
 
 footer{
-    background-color: #56351E;
+    /* background-color: #56351E; */
+    background: linear-gradient(0.25turn, var(--copper), var(--dark-brown), var(--lapis-blue));
     color: #EDF7F6;
     margin: 0 0.75rem; 
 }
