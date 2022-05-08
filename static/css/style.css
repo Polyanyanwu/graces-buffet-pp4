@@ -6,15 +6,37 @@ body{
 /* .nav-area{ */
     /* background-color: #56351E; */
 /* } */
-
+/* Color variables */
+:root {
+    --lapis-blue: #2660A4;
+    --azure-white: #EDF7F6;
+    --sandy-brown: #F19953;
+    --copper: #C47335;
+    --dark-brown: #56351E;
+  }
+#brand-logo{
+    color: #56351E;
+    display: inline-block;
+    font-size: 2rem;
+}
+#brand-name{
+    /* color: #F19953; */
+    display: inline-block;
+    color: #2660A4;
+    font-size: 2rem;
+    font-style: italic;
+}
 form label{
     display: block;
 }
 .main-title{
-    background-color: #F19953;
+    /* background-color: #F19953; */
+    background: linear-gradient(0.25turn, var(--lapis-blue), var(--dark-brown), var(--copper));
+    color:#EDF7F6;
+    font-size: 1rem;
 }
 .btn-color{
-    background-color: #56351E;
+    background-color: var(--lapis-blue);
 }
 .btn-color:hover, .my-link:hover{
     background-color: #F19953;

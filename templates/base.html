@@ -7,7 +7,7 @@
     <title>Graces Buffet {% block additional_title %}{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100;0,200;0,300;0,400;1,400&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100;0,200;0,300;0,400;1,400;1,500&display=swap"
         rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,7 +40,8 @@
             <!-- <a class="navbar-brand" href="{% url 'home' %}"><span class="brand">c<span class="red-o">o</span>de<span
                         class="thin">|star</span></span></span></a> -->
             <a class="navbar-brand" href="{% url 'home' %}">
-                <img src="{% static 'images/logo.webp' %}" alt="" width="120" height="100">
+                <h1 id="brand-logo"><i class="fas fa-utensils"></i></h1> <h1 id="brand-name">Graces Buffet</h1>
+                <!-- <img src="{% static 'images/logo.webp' %}" alt="" width="120" height="100"> -->
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
