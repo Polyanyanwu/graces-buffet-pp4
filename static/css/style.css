@@ -1,7 +1,7 @@
 
 body{
     font-family: 'Exo', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
 }
 /* .nav-area{ */
     /* background-color: #56351E; */
@@ -37,6 +37,7 @@ form label{
 }
 .btn-color{
     background-color: var(--lapis-blue);
+    color:var(--azure-white);
 }
 .btn-color:hover, .my-link:hover{
     background-color: #F19953;
@@ -45,6 +46,7 @@ form label{
     color: #56351E;
     font-weight: 400;
 }
+
 footer{
     background-color: #56351E;
     color: #EDF7F6;
