@@ -7,9 +7,14 @@ from django import forms
 class CustomSignupForm(SignupForm):
     """ Custom signup form """
     first_name = forms.CharField(max_length=30, label='First Name',
-                                 required=True)
+                                 required=True, widget=forms.TextInput(
+                                  attrs={'placeholder': 'First name'}))
+
     last_name = forms.CharField(max_length=30, label='Last Name',
-                                required=True)
+                                required=True, widget=forms.TextInput(
+                                 attrs={'placeholder': 'Last name'}))
+
+    field_order = ['username', 'first_name', 'last_name', 'email', 'password']
 
     def save(self, request):
         user = super(CustomSignupForm, self).save(request)
