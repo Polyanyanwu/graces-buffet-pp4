@@ -52,7 +52,7 @@
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <span class="navbar-text text-muted">
-                        <span>Welcome {{ user.username}}</span>
+                        <span>Welcome {{ user.first_name}}</span>
                     </span>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -60,7 +60,7 @@
                             <i class="fa-solid fa-user"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'update_profile' %}">My Profile</a></li>
                             <li><a class="dropdown-item" href="#">Dinning History</a></li>
                             <li><a class="dropdown-item" href="#">Cancel Booking</a></li>
                             <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a>

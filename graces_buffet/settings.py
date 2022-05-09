@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'crispy_forms',
     'home',
+    'user_account',
     'bookings',
     'fontawesomefree',
 ]
