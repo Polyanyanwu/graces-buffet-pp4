@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account socialaccount %}
+{% load crispy_forms_tags %}
 
 {% block head_title %}{% trans "Welcome to Graces Buffet" %}{% endblock %}
 
@@ -16,7 +17,7 @@
 </div>
 <div class="container-fluid">
   <div class="row gx-5">
-    <div class="col-md-8 ms-auto">
+    <div class="col-md-4 mx-auto">
 
       {% get_providers as socialaccount_providers %}
 
@@ -45,7 +46,7 @@
 
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
-        {{ form.as_p}}
+        {{ form|crispy }}
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
         {% endif %}

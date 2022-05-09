@@ -63,7 +63,8 @@
                             <li><a class="dropdown-item" href="#">My Profile</a></li>
                             <li><a class="dropdown-item" href="#">Dinning History</a></li>
                             <li><a class="dropdown-item" href="#">Cancel Booking</a></li>
-                            <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a>
+                            </li>
                             <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
                         </ul>
                     </li>
@@ -80,9 +81,16 @@
                             title="Find seats to book"><i class="fa-solid fa-magnifying-glass"></i></a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}" title="Home">
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_logout' %}" title="Logout"><i
                                 class="fa-solid fa-right-to-bracket"></i></a>
                     </li>
+
+
                 </ul>
                 {% else %}
                 <!-- only show sign up and login button if user is not already signed in -->
