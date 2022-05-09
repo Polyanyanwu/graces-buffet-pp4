@@ -39,7 +39,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 development = os.environ.get('DEVELOPMENT', False)
 if development:
-    ALLOWED_HOSTS = ['localhost']
+    ALLOWED_HOSTS = ['localhost', os.environ.get("HEROKU_HOSTNAME")]
     DEBUG = True
 else:
     ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
