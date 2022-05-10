@@ -1,7 +1,7 @@
 
 body{
     font-family: 'Exo', sans-serif;
-    font-weight: 400;
+    font-weight: 300;
 }
 /* .nav-area{ */
     /* background-color: #56351E; */
@@ -51,6 +51,10 @@ form label{
 
 .btn-cancel:hover{
     background-color: #F19953;
+}
+.my-nav:hover{
+    color: var(--lapis-blue);
+    font-weight: bolder; 
 }
 .my-link{
     color: #56351E;

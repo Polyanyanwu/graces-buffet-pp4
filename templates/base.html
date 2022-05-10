@@ -26,7 +26,8 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
     <style>
         body {
-            background-image: url("{% static 'images/spiration-light.png' %}");
+            /* background-image: url("{% static 'images/spiration-light.png' %}"); */
+            background-color: #e6e6e6;
         }
     </style>
 </head>
@@ -57,7 +58,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" title="User Account Dropdown">
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-user my-nav"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'update_profile' %}">My Profile</a></li>
@@ -98,16 +99,16 @@
                     <li class="nav-item">
 
                         <a class="nav-link" href="{% url 'account_signup' %}" title="Sign Up">
-                            <div class="text-center nav-icons-wrapper-lg">
-                                <div><i class="fa-solid fa-person-praying"></i></div>
+                            <div class="text-center nav-icons-wrapper-lg my-nav">
+                                <div><i class="fa-solid fa-person-praying "></i></div>
                                 <p class="my-0 small">Sign Up</p>
                             </div>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'account_login' %}" title="Login">
-                            <div class="text-center nav-icons-wrapper-lg">
-                                <div><i class="fa-solid fa-right-to-bracket"></i></div>
+                            <div class="text-center nav-icons-wrapper-lg my-nav">
+                                <div><i class="fa-solid fa-right-to-bracket "></i></div>
                                 <p class="my-0 small">Login</p>
                             </div>
                         </a>
