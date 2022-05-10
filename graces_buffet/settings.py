@@ -14,9 +14,9 @@ from pathlib import Path
 from django.contrib.messages import constants as messages
 
 import dj_database_url
-# import cloudinary
-# import cloudinary.uploader
-# import cloudinary.api
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 if os.path.isfile("env.py"):
    import env
@@ -33,7 +33,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+# DEBUG = False
 
 # ALLOWED_HOSTS = ["graces-buffet.herokuapp.com", "localhost"]
 
@@ -42,7 +42,7 @@ if development:
     ALLOWED_HOSTS = ['localhost', os.environ.get("HEROKU_HOSTNAME")]
     DEBUG = True
 else:
-    ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
+    ALLOWED_HOSTS = ['localhost', os.environ.get("HEROKU_HOSTNAME")]
     DEBUG = False
 
 # Application definition
@@ -54,22 +54,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
     'crispy_forms',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'fontawesomefree',
     'home',
     'user_account',
     'bookings',
-    'fontawesomefree',
 ]
 
 SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -181,23 +183,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
 
 CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
 
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": os.environ.get('CLOUD_NAME'),
     "API_KEY": os.environ.get('API_KEY'),
-    "API_SECRET": os.environ.get('API_SECRET')
+    "API_SECRET": os.environ.get('API_SECRET'),
 }
 
-
+STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
