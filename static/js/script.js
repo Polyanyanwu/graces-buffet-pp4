@@ -7,9 +7,12 @@ const init = function () {
 document.addEventListener("DOMContentLoaded", init);
 
 const messageTimeout = function(){
-    setTimeout(function () {
-        const messages = document.getElementById('messages');
-        const alert = new bootstrap.Alert(messages);
-        alert.close();
-    }, 10000); // 10 seconds
+    const messages = document.querySelectorAll('.messages');
+    for (let msg of messages) {
+        setTimeout(function () {
+            const alert = new bootstrap.Alert(msg);
+            alert.close();
+        }, 5000); // 5 seconds
+    }
+
 }
