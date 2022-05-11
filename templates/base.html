@@ -64,6 +64,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'update_profile' %}">My Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account_email' %}">Update Email</a></li>
                             <li><a class="dropdown-item" href="#">Dinning History</a></li>
                             <li><a class="dropdown-item" href="#">Cancel Booking</a></li>
                             <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a>
@@ -137,7 +138,8 @@
         <!-- Content Goes here -->
         {% endblock content %}
     </main>
-
+    {% block extra_body %}
+    {% endblock %}
     <!-- Footer -->
     <footer class="footer mt-auto py-2">
         <p class="m-0 text-center text-white"><a href="">Terms of Use</a> <span>|</span>
