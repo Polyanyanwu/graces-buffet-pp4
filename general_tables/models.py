@@ -29,3 +29,21 @@ class BuffetPeriod(models.Model):
 
     def __str__(self):
         return str(self.start_time)
+
+
+class SystemPreference(models.Model):
+    """ Variables for system to operate
+        Maintained by the Administrator"""
+    SYSTEM_OPTIONS = [
+            ('D', 'Duration of each Buffet Service'),
+            ('N', 'No Show Time Duration Minutes'),
+            ('C', 'Cancellation Notice Minutes'),
+            ('P', 'Buffet Price per Person')
+        ]
+
+    code = models.CharField(primary_key=True, choices=SYSTEM_OPTIONS,
+                            default='P', max_length=1)
+    data = models.PositiveIntegerField(blank=False)
+
+    def __str__(self):
+        return str(self.code)
