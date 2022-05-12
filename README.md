@@ -4,6 +4,8 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
 
 ## Live Site
 
+[Graces Buffet Live](https://graces-buffet.herokuapp.com)
+
 ## Repository
 
 [View Repository Here](https://github.com/Polyanyanwu/graces-buffet-pp4)
@@ -33,6 +35,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
     - [**Color Scheme**](#color-scheme)
     - [**Fonts**](#fonts)
   - [**Database Design**](#database-design)
+  - [Flowchart](#flowchart)
 
 ## **Objectives of the Site**
 
@@ -231,6 +234,11 @@ The database Entity Diagram is given below:
 
 ![Entity Diagram](/docs/wireframes/entity_diagram.png)
 
+## Flowchart
+
+The initial flowchart for the public interaction with the website has been produced to guide the application development. As the site unfolds, it may differ slightly as requirements may change slightly in the course of development.
+
+![Flowchart](/docs/wireframes/flowchart.png)
         Features
             Go through the Instructions
             Print existing result of enquiries
