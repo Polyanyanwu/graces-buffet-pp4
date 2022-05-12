@@ -13,7 +13,19 @@ class BookingStatus(models.Model):
 
     code = models.CharField(primary_key=True, choices=BOOKING_OPTIONS,
                             default='B', max_length=1)
-    status = models.CharField(max_length=20, unique=True, blank=False)
+    description = models.CharField(max_length=20, unique=True, blank=False)
 
     def __str__(self):
-        return self.status
+        return str(self.description)
+
+
+class BuffetPeriod(models.Model):
+    """ start time slots for buffet bookings maintained by admin/operator"""
+    start_time = models.TimeField(unique=True, blank=False)
+
+    class Meta:
+        " display times in ascending order"
+        ordering = ["start_time"]
+
+    def __str__(self):
+        return str(self.start_time)
