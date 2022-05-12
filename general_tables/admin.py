@@ -1,7 +1,7 @@
 """ admin config and registration for general tables """
 
 from django.contrib import admin
-from .models import BookingStatus, BuffetPeriod, SystemPreference
+from .models import BookingStatus, BuffetPeriod, SystemPreference, DiningTable
 
 
 class BookingStatusAdmin(admin.ModelAdmin):
@@ -10,6 +10,7 @@ class BookingStatusAdmin(admin.ModelAdmin):
     list_display = ('code', 'description', )
 
 
+@admin.register(BuffetPeriod)
 class BuffetPeriodsAdmin(admin.ModelAdmin):
     ''' Maintain booking status list '''
     model = BuffetPeriod
@@ -26,7 +27,14 @@ class SystemPreferenceAdmin(admin.ModelAdmin):
     list_display = ('code', 'data', )
 
 
+@admin.register(DiningTable)
+class DiningTableAdmin(admin.ModelAdmin):
+    ''' Maintain dining tables '''
+    model = DiningTable
+    list_display = ('location', 'description', 'total_seats', 'used_seats', )
+
+
 # Models registration with relevant classes
 admin.site.register(BookingStatus, BookingStatusAdmin)
-admin.site.register(BuffetPeriod, BuffetPeriodsAdmin)
+# admin.site.register(BuffetPeriod, BuffetPeriodsAdmin)
 admin.site.register(SystemPreference, SystemPreferenceAdmin)
