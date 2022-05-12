@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'home',
     'user_account',
     'general_tables',
+    'cuisine',
     'bookings',
 ]
 
