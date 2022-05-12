@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'fontawesomefree',
     'home',
     'user_account',
+    'general_tables',
     'bookings',
 ]
 
