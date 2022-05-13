@@ -15,6 +15,7 @@ class CustomSignupForm(SignupForm):
     last_name = forms.CharField(max_length=30, label='Last Name',
                                 required=True, widget=forms.TextInput(
                                  attrs={'placeholder': 'Last name'}))
+    email = forms.CharField(disabled=True)
 
     field_order = ['username', 'first_name', 'last_name', 'email', 'password']
 
@@ -27,13 +28,16 @@ class CustomSignupForm(SignupForm):
 
 
 class UserForm(forms.ModelForm):
+    """ Update User form data """
     class Meta:
+        """ Fields to update from User model """
         model = User
         fields = ('first_name', 'last_name', 'email')
-        readonly_fields = ('email',)
 
 
 class ProfileForm(forms.ModelForm):
+    """ Update profile data """
     class Meta:
+        """ Specify the profile fields to update """
         model = Profile
         fields = ('phone', 'special_request')
