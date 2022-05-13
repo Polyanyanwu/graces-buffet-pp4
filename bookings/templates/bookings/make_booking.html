@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container-fluid gx-4 ">
@@ -6,20 +7,45 @@
         <div class="col main-title text-center">
             <h4>Book your table for that exquisite dinner</h4>
             <p>Price per Person: <span><i class="fas fa-euro-sign"></i>{{buffet_price}}</span></p>
-
-            <span>{{booking.dinner_date}}</span>
+        </div>
+        <div class="row">
+            <p></p>
+            <div class="col-md-6 offset-md-3">
+                <form method="POST" action="{% url 'home' %}" class="booking_form">
+                    {% csrf_token %}
+                    <div class=row>
+                        <div class="col">
+                            <span>{{ form.dinner_date }}</span>
+                        </div>
+                        <div class="col">
+                            <span>{{ form.start_time }}</span>
+                        </div>
+                        <div class="col">
+                            <span><i class="fa-solid fa-user"></i>{{ form.seats }}</span>
+                        </div>
+                        <!-- {{ form|crispy }} -->
+                        <div class="col">
+                            <button class="btn btn-color" type="submit" name="action">make booking</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 <div class="container-fluid gx-4 ">
     <p></p>
-    <div class="row">
-        {% for cuisine in cuisines %}
-        <div class="col-sm-4 col-md-2 masthead-image">
-            <img src="{{cuisine.cuisine_image.url }}" width="100%">
-            <p>{{cuisine.description}}</p>
+    <div class="row align-items-center">
+        <div class="col-md-6 offset-md-3">
+            <div class="row">
+            {% for cuisine in cuisines %}
+            <div class="col">
+                <img src="{{cuisine.cuisine_image.url }}" class = "img-fluid">
+                <p>{{cuisine.description}}</p>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
