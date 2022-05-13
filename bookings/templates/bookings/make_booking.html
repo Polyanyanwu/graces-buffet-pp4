@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid gx-4 ">
+    <div class="row">
+        <div class="col main-title text-center">
+            <h4>Book your table for that exquisite dinner</h4>
+            <p>Price per Person: <span><i class="fas fa-euro-sign"></i>{{buffet_price}}</span></p>
+
+            <span>{{booking.dinner_date}}</span>
+        </div>
+    </div>
+</div>
+<div class="container-fluid gx-4 ">
+    <p></p>
+    <div class="row">
+        {% for cuisine in cuisines %}
+        <div class="col-sm-4 col-md-2 masthead-image">
+            <img src="{{cuisine.cuisine_image.url }}" width="100%">
+            <p>{{cuisine.description}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
