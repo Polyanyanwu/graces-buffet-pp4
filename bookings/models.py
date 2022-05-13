@@ -1,19 +1,31 @@
 """ Database tables for the booking functionality """
 
 from django.db import models
+import django.utils.timezone
 from django.contrib.auth.models import User
-from general_tables.models import BuffetPeriod, BookingStatus, DiningTable
+from general_tables.models import \
+    BuffetPeriod, BookingStatus, DiningTable, SystemPreference
+
+
+def get_total_people():
+    """ Retrieve the maximum persons for online booking
+        requires app restart when changed by the Admin"""
+    total_peoples = SystemPreference.objects.filter(code__exact='M').values()
+    return total_peoples[0]['data'] if total_peoples[0]['data'] > 0 else 10
 
 
 class Booking(models.Model):
     """ Main bookings table"""
 
     SEAT_OPTIONS = []
-    for i in range(1, 11):
+    tot_person = get_total_people()
+    for i in range(1, tot_person + 1):
         SEAT_OPTIONS.append((i, str(i) + ' people'))
 
     booked_for = models.ForeignKey(User, on_delete=models.CASCADE,
                                    related_name="booked_for")
+    dinner_date = models.DateTimeField(default=django.utils.timezone.now,
+                                       blank=False)
     start_time = models.ForeignKey(BuffetPeriod, on_delete=models.CASCADE)
     seats = models.PositiveSmallIntegerField(blank=False,
                                              default=1, choices=SEAT_OPTIONS)
