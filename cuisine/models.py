@@ -3,6 +3,7 @@
 
 from django.db import models
 from cloudinary.models import CloudinaryField
+from bookings.models import Booking
 
 
 class Cuisine(models.Model):
@@ -18,3 +19,12 @@ class Cuisine(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class CuisineChoice(models.Model):
+    """ cuisine choices made by user """
+    booking_id = models.ForeignKey(Booking, on_delete=models.CASCADE)
+    cuisine_id = models.ForeignKey(Cuisine, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.cuisine_id)
