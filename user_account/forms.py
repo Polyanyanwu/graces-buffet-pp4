@@ -15,7 +15,6 @@ class CustomSignupForm(SignupForm):
     last_name = forms.CharField(max_length=30, label='Last Name',
                                 required=True, widget=forms.TextInput(
                                  attrs={'placeholder': 'Last name'}))
-    email = forms.CharField(disabled=True)
 
     field_order = ['username', 'first_name', 'last_name', 'email', 'password']
 

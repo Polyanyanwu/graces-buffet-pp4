@@ -1,10 +1,10 @@
-
-const init = function () {
+const start_up = function () {
     messageTimeout();
+ 
 };
 
 //after document has loaded, call the init function
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", start_up);
 
 const messageTimeout = function(){
     const messages = document.querySelectorAll('.messages');

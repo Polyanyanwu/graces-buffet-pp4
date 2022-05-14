@@ -26,7 +26,7 @@ class Booking(models.Model):
                                    related_name="booked_for")
     dinner_date = models.DateTimeField(default=django.utils.timezone.now,
                                        blank=False)
-    start_time = models.ForeignKey(BuffetPeriod, on_delete=models.CASCADE)
+    start_time = models.ForeignKey(BuffetPeriod, on_delete=models.CASCADE, default=1)
     seats = models.PositiveSmallIntegerField(blank=False,
                                              default=1, choices=SEAT_OPTIONS)
     booked_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,

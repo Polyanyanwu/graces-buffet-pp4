@@ -61,6 +61,14 @@ form label{
     font-weight: 400;
 }
 
+.main-input #id_start_time, .main-input #id_seats, .main-input #id_dinner_date{
+    background-color: white !important;
+    border: none;
+}
+
+#profile-update-form #id_email{
+    disabled: true;
+}
 /* form input{
     width: 20rem;
 } */

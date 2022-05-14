@@ -14,18 +14,20 @@
                 <form method="POST" action="{% url 'home' %}" class="booking_form">
                     {% csrf_token %}
                     <div class=row>
-                        <div class="col">
+                        <div class="col bg-light border border-secondary main-input ">
+                            <span><i class="fas fa-calendar-alt"></i></span>
                             <span>{{ form.dinner_date }}</span>
                         </div>
-                        <div class="col">
+                        <div class="col bg-light border border-secondary main-input">
+                            <span><i class="fas fa-clock"></i></span>
                             <span>{{ form.start_time }}</span>
                         </div>
-                        <div class="col">
-                            <span><i class="fa-solid fa-user"></i>{{ form.seats }}</span>
+                        <div class="col bg-body border border-secondary main-input">
+                            <span class="bg-light"><i class="fa-solid fa-user"></i>{{ form.seats }}</span>
                         </div>
                         <!-- {{ form|crispy }} -->
                         <div class="col">
-                            <button class="btn btn-color" type="submit" name="action">make booking</button>
+                            <button class="btn btn-color" type="submit" name="action">Let's go</button>
                         </div>
                     </div>
                 </form>
@@ -36,15 +38,27 @@
 <div class="container-fluid gx-4 ">
     <p></p>
     <div class="row align-items-center">
-        <div class="col-md-6 offset-md-3">
-            <div class="row">
-            {% for cuisine in cuisines %}
-            <div class="col">
-                <img src="{{cuisine.cuisine_image.url }}" class = "img-fluid">
-                <p>{{cuisine.description}}</p>
+        <div class="col-sm-12 col-md-8 offset-md-2">
+            <div class="row  align-items-center">
+                <div class="col-md-10 offset-md-2 text-primary">
+                    I will like to eat from the following cuisine (click all that you want)
+                </div>
             </div>
-            {% endfor %}
-        </div>
+            <div class="row">
+                {% for cuisine in cuisines %}
+
+                <div class="col border border-secondary">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{cuisine.id}}" id="cuisine_option">
+                        <label class="form-check-label" for="cuisine_option">
+                            {{cuisine.name }}
+                        </label>
+                    </div>
+                    <img src="{{cuisine.cuisine_image.url }}" class="img-fluid rounded mx-auto d-block" alt="{{cuisine.name }}">
+                    <p>{{cuisine.description}}</p>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
