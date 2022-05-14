@@ -23,24 +23,27 @@ class Booking(models.Model):
         SEAT_OPTIONS.append((i, str(i) + ' people'))
 
     booked_for = models.ForeignKey(User, on_delete=models.CASCADE,
-                                   related_name="booked_for")
+                                   related_name="booked_for", blank=True,
+                                   null=True)
     dinner_date = models.DateTimeField(default=django.utils.timezone.now,
                                        blank=False)
-    start_time = models.ForeignKey(BuffetPeriod, on_delete=models.CASCADE, default=1)
+    start_time = models.ForeignKey(BuffetPeriod,
+                                   on_delete=models.CASCADE, default=1)
     seats = models.PositiveSmallIntegerField(blank=False,
                                              default=1, choices=SEAT_OPTIONS)
     booked_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,
                                   blank=True, related_name="booked_by")
-    booking_status = models.ForeignKey(BookingStatus, on_delete=models.CASCADE)
+    booking_status = models.ForeignKey(BookingStatus, on_delete=models.CASCADE,
+                                       blank=True, null=True)
     booking_date = models.DateTimeField(auto_now_add=True)
-    date_cancelled = models.DateTimeField(blank=True)
+    date_cancelled = models.DateTimeField(blank=True, null=True)
     cancelled_by = models.ForeignKey(User, on_delete=models.SET_NULL,
                                      null=True, blank=True,
                                      related_name="cancelled_by")
     fulfilled_by = models.ForeignKey(User, on_delete=models.SET_NULL,
                                      null=True, blank=True,
                                      related_name="fulfilled_by")
-    date_fulfilled = models.DateTimeField(blank=True)
+    date_fulfilled = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         " display times in ascending order"

@@ -66,12 +66,6 @@ form label{
     border: none;
 }
 
-#profile-update-form #id_email{
-    disabled: true;
-}
-/* form input{
-    width: 20rem;
-} */
 footer{
     /* background-color: #56351E; */
     background: linear-gradient(0.25turn, var(--copper), var(--dark-brown), var(--lapis-blue));
