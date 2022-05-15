@@ -79,6 +79,10 @@ class MakeBookings(View):
                                 table_id=table_item,
                                 time_booked=time_entered.start_time)
 
+                            # Update the Dining Tables
+                            table_item.used_seats += seat
+                            table_item.save()
+                            
                     # save the cuisine choices
                     cuisine_choices = request.POST.getlist('cuisine_option')
                     if len(cuisine_choices) > 0:
