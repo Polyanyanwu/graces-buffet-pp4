@@ -5,9 +5,11 @@ from django.db import transaction, IntegrityError
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from cuisine.models import Cuisine
-from .models import Booking, SystemPreference, BookingStatus # , DiningTable
-from cuisine.models import CuisineChoice 
+from django.db.models import Sum, F
+
+from cuisine.models import Cuisine, CuisineChoice
+from general_tables.models import DiningTable, BuffetPeriod
+from .models import Booking, SystemPreference, BookingStatus, TablesBooked
 from .forms import BookingForm
 
 
@@ -49,10 +51,34 @@ class MakeBookings(View):
             try:
                 with transaction.atomic():
                     booking.save(commit=False)
-                    booking.instance.booked_for = request.user
-                    booking.instance.booked_by = request.user
-                    booking.instance.booking_status = booking_status
-                    booking.save()
+
+                    time_entered_qs = BuffetPeriod.objects.filter(id=request.POST.get('start_time'))
+                    time_entered = get_object_or_404(time_entered_qs)
+                    # check seats availability
+                    tables = self.book_seats(int(request.POST.get('seats')),
+                                             request.POST.get('dinner_date'))
+                    print("tables returned==", tables, type(tables))
+                    if len(tables) == 0:
+                        # no seats found on selected date
+                        messages.add_message(request, messages.WARNING,
+                                             'So sorry, Graces Buffet is fully booked\
+                        on your chosen date and time. Try another date/time.')
+                        return HttpResponseRedirect("/")
+                    else:
+                        # save booking first
+                        booking.instance.booked_for = request.user
+                        booking.instance.booked_by = request.user
+                        booking.instance.booking_status = booking_status
+                        booking.save()
+                        # save tables booked
+                        for table_item, seat in tables.items():
+                            print("table item==", table_item, "seat==", seat)
+                            TablesBooked.objects.create(
+                                booking_id=booking.instance,
+                                seats_booked=seat,
+                                table_id=table_item,
+                                time_booked=time_entered.start_time)
+
                     # save the cuisine choices
                     cuisine_choices = request.POST.getlist('cuisine_option')
                     if len(cuisine_choices) > 0:
@@ -93,3 +119,58 @@ class MakeBookings(View):
                 "form": booking_form
             }
         )
+
+    def book_seats(self, seats, day_booked):
+        """ Check availability of seats and book if found
+            return a dictionary of the tables/seats booked
+        """
+        booked = {}
+        # fetch total seats in restaurant
+        total_seats_dict = DiningTable.objects.all().aggregate(
+                            Sum('total_seats'))
+        total_seats = total_seats_dict['total_seats__sum']
+        total_booked_on_day = TablesBooked.objects.filter(
+                               date_booked=day_booked).aggregate(
+                               Sum('seats_booked'))
+        seats_already_booked = total_booked_on_day['seats_booked__sum']\
+            if total_booked_on_day['seats_booked__sum'] else 0
+        available = total_seats - seats_already_booked
+        if seats > available:
+            return booked
+        print(total_seats, total_booked_on_day, available)
+        # find the tables to use for the booking
+
+        # din_tables_below = DiningTable.objects.annotate(
+        #     diff=F('total_seats')
+        #     - F('used_seats')).filter(diff__lte=seats).order_by('diff')
+
+        dining_tables = DiningTable.objects.annotate(
+            diff=F('total_seats')
+            - F('used_seats')).order_by('-diff')
+        print("Dining Tables", dining_tables)
+        for table_item in dining_tables:
+            # check to see if you get an exact table matching the seats needed
+            if table_item.seats_remaining() == seats:
+                booked.clear()
+                booked[table_item] = table_item.seats_remaining()
+                return booked
+            # check to see if you get a table having enough seats to match need
+            # used the minimum seats possible
+            elif table_item.seats_remaining() > seats:
+                booked.clear()
+                booked[table_item] = table_item.seats_remaining()
+
+        # if after checking we can't get a table with enough seats
+        # comnine tables with largest space until need is met
+        allocated = 0
+        if len(booked) == 0:
+            for table_item in dining_tables:
+                remaining = table_item.seats_remaining()
+                if seats - allocated <= remaining:
+                    remaining = seats - allocated
+                booked[table_item] = remaining
+                allocated += remaining
+                if allocated == seats:
+                    break
+        print(booked)
+        return booked
