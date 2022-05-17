@@ -171,13 +171,16 @@ class MakeBookings(View):
         for item in booked_tabs_qs:
             booked_tables[item['table_id']] = [item['table_capacity'],
                                                item['total_seat']]
+        print(booked_tables)
         tables = DiningTable.objects.all()
         tables_available = {}
         for table in tables:
             t_id = table.id
             if booked_tables.get(t_id):
+                print("booked tid==", t_id)
                 if booked_tables[t_id][0] - booked_tables[t_id][1] > 0:
-                    tables_available[table] = booked_tables[0] - booked_tables[1] 
+                    tables_available[table] =\
+                        booked_tables[t_id][0] - booked_tables[t_id][1]
             else:
                 tables_available[table] = table.total_seats
         sort_tables_available = dict(sorted(tables_available.items(),
