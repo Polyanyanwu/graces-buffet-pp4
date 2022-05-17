@@ -1,9 +1,9 @@
 """ Custom form for user creation """
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django import forms
 from allauth.account.forms import SignupForm
-from .models import Profile
+from .models import Profile, UserGroup
 
 
 class CustomSignupForm(SignupForm):
@@ -40,3 +40,11 @@ class ProfileForm(forms.ModelForm):
         """ Specify the profile fields to update """
         model = Profile
         fields = ('phone', 'special_request')
+
+
+class GroupForm(forms.ModelForm):
+    """ Update profile data """
+    class Meta:
+        """ Specify the profile fields to update """
+        model = UserGroup
+        fields = ('user', 'group_name')
