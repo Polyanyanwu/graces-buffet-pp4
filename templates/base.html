@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load user_belong_group %}
 <!DOCTYPE html>
 <html class="h-100">
 
@@ -67,6 +67,38 @@
                             <li><a class="dropdown-item" href="{% url 'account_email' %}">Update Email</a></li>
                             <li><a class="dropdown-item" href="#">Dinning History</a></li>
                             <li><a class="dropdown-item" href="#">Cancel Booking</a></li>
+                            <!-- Operator sub menu -->
+                            {% if request.user|has_group:"operator" %} 
+                            <li>
+                                <a class="dropdown-item" href="#" title="Operator">
+                                    Operator &raquo;
+                                </a>
+                                <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">Update Booking Status</a></li>
+                                    <li><a class="dropdown-item" href="#">Book for Customer</a></li>
+                                    <li><a class="dropdown-item" href="#">Cancel Booking for Customer</a></li>
+                                    <li><a class="dropdown-item" href="#"><hr></a></li>
+                                    <li><a class="dropdown-item" href="#">Past Due guests List</a></li>
+                                    <li><a class="dropdown-item" href="#">Booking Details List</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                            <!-- Administrator Role Options -->
+                            {% if request.user|has_group:"administrator" %} 
+                            <li>
+                                <a class="dropdown-item" href="#" title="Operator">
+                                    Administrator &raquo;
+                                </a>
+                                <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">Assign User Roles</a></li>
+                                    <li><a class="dropdown-item" href="#">Buffet Cuisines</a></li>
+                                    <li><a class="dropdown-item" href="#">Maintain Tables</a></li>
+                                    <li><a class="dropdown-item" href="#">System Preferences</a></li>
+                                    <li><a class="dropdown-item" href="#">Reasons for Cancellation</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+
                             <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a>
                             </li>
                             <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>

@@ -1,10 +1,10 @@
-
-body{
+body {
     font-family: 'Exo', sans-serif;
     font-weight: 300;
 }
+
 /* .nav-area{ */
-    /* background-color: #56351E; */
+/* background-color: #56351E; */
 /* } */
 /* Color variables */
 :root {
@@ -13,75 +13,112 @@ body{
     --sandy-brown: #F19953;
     --copper: #C47335;
     --dark-brown: #56351E;
-  }
-#brand-logo{
+}
+
+#brand-logo {
     color: #56351E;
     display: inline-block;
     font-size: 2rem;
 }
-#brand-name{
+
+#brand-name {
     /* color: #F19953; */
     display: inline-block;
     color: #2660A4;
     font-size: 2rem;
     font-style: italic;
 }
-form label{
+
+form label {
     /* display: block; */
     font-weight: bold;
 }
-.main-title{
+
+.main-title {
     /* background-color: #F19953; */
     background: linear-gradient(0.25turn, var(--lapis-blue), var(--dark-brown), var(--copper));
-    color:#EDF7F6;
+    color: #EDF7F6;
     font-size: 1rem;
 }
-.btn-color{
+
+.btn-color {
     background-color: var(--lapis-blue);
-    color:var(--azure-white);
+    color: var(--azure-white);
 }
 
-.btn-color:hover, .my-link:hover{
+.btn-color:hover,
+.my-link:hover {
     background-color: #F19953;
 }
-.btn-cancel{
+
+.btn-cancel {
     background-color: var(--dark-brown);
-    color:var(--azure-white);
+    color: var(--azure-white);
 }
 
-.btn-cancel:hover{
+.btn-cancel:hover {
     background-color: #F19953;
 }
-.my-nav:hover{
+
+.my-nav:hover {
     color: var(--lapis-blue);
-    font-weight: bolder; 
+    font-weight: bolder;
 }
-.my-link{
+
+.my-link {
     color: #56351E;
     font-weight: 400;
 }
 
-.main-input #id_start_time, .main-input #id_seats, .main-input #id_dinner_date{
+/* Sub menu dropdown 
+https://mdbootstrap.com/docs/standard/extended/dropdown-multilevel/*/
+.dropdown-menu li {
+    position: relative;
+}
+
+.dropdown-menu .dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -7px;
+}
+
+.dropdown-menu .dropdown-submenu-left {
+    right: 100%;
+    left: auto;
+}
+
+.dropdown-menu>li:hover>.dropdown-submenu {
+    display: block;
+}
+
+.main-input #id_start_time,
+.main-input #id_seats,
+.main-input #id_dinner_date {
     background-color: white !important;
     border: none;
 }
 
-footer{
+footer {
     /* background-color: #56351E; */
     background: linear-gradient(0.25turn, var(--copper), var(--dark-brown), var(--lapis-blue));
     color: #EDF7F6;
-    margin: 0 0.75rem; 
+    margin: 0 0.75rem;
 }
-footer a{
-    color: #EDF7F6; 
+
+footer a {
+    color: #EDF7F6;
 }
-footer a:hover{
-    background-color:  #F19953;
+
+footer a:hover {
+    background-color: #F19953;
     color: #56351E;
 }
-footer span{
+
+footer span {
     margin: 2px 0;
 }
+
 footer i {
     color: whitesmoke;
 }
