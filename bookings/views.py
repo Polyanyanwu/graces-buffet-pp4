@@ -7,10 +7,9 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Sum
-
 from cuisine.models import Cuisine, CuisineChoice
-from general_tables.models import DiningTable, BuffetPeriod
-from .models import Booking, SystemPreference, BookingStatus, TablesBooked
+from general_tables.models import DiningTable, BuffetPeriod, SystemPreference, BookingStatus
+from .models import Booking, TablesBooked
 from .forms import BookingForm
 
 
@@ -171,13 +170,12 @@ class MakeBookings(View):
         for item in booked_tabs_qs:
             booked_tables[item['table_id']] = [item['table_capacity'],
                                                item['total_seat']]
-        print(booked_tables)
+
         tables = DiningTable.objects.all()
         tables_available = {}
         for table in tables:
             t_id = table.id
             if booked_tables.get(t_id):
-                print("booked tid==", t_id)
                 if booked_tables[t_id][0] - booked_tables[t_id][1] > 0:
                     tables_available[table] =\
                         booked_tables[t_id][0] - booked_tables[t_id][1]

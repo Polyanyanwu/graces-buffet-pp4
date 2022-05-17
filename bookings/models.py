@@ -4,23 +4,11 @@ from django.db import models
 import django.utils.timezone
 from django.contrib.auth.models import User
 from general_tables.models import \
-    BuffetPeriod, BookingStatus, DiningTable, SystemPreference
-
-
-def get_total_people():
-    """ Retrieve the maximum persons for online booking
-        requires app restart when changed by the Admin"""
-    total_peoples = SystemPreference.objects.filter(code__exact='M').values()
-    return total_peoples[0]['data'] if total_peoples[0]['data'] > 0 else 10
+    BuffetPeriod, BookingStatus, DiningTable
 
 
 class Booking(models.Model):
     """ Main bookings table"""
-
-    SEAT_OPTIONS = []
-    tot_person = get_total_people()
-    for i in range(1, tot_person + 1):
-        SEAT_OPTIONS.append((i, str(i) + ' people'))
 
     booked_for = models.ForeignKey(User, on_delete=models.CASCADE,
                                    related_name="booked_for", blank=True,
@@ -29,8 +17,7 @@ class Booking(models.Model):
                                        blank=False)
     start_time = models.ForeignKey(BuffetPeriod,
                                    on_delete=models.CASCADE, default=1)
-    seats = models.PositiveSmallIntegerField(blank=False,
-                                             default=1, choices=SEAT_OPTIONS)
+    seats = models.PositiveSmallIntegerField(blank=False, default=1)
     booked_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,
                                   blank=True, related_name="booked_by")
     booking_status = models.ForeignKey(BookingStatus, on_delete=models.CASCADE,
@@ -62,7 +49,6 @@ class TablesBooked(models.Model):
     seats_booked = models.PositiveSmallIntegerField(default=0)
     date_booked = models.DateField(auto_now=True)
     time_booked = models.TimeField(null=True)
-
 
     def __str__(self):
         return f"{self.table_id}"
