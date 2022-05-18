@@ -3,8 +3,11 @@
 from django.db import models
 import django.utils.timezone
 from django.contrib.auth.models import User
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from general_tables.models import \
-    BuffetPeriod, BookingStatus, DiningTable
+    BuffetPeriod, BookingStatus, DiningTable, SystemPreference
 
 
 class Booking(models.Model):
@@ -23,6 +26,7 @@ class Booking(models.Model):
     booking_status = models.ForeignKey(BookingStatus, on_delete=models.CASCADE,
                                        blank=True, null=True)
     booking_date = models.DateTimeField(auto_now_add=True)
+    cuisines = models.CharField(max_length=150, unique=False, blank=True)
     date_cancelled = models.DateTimeField(blank=True, null=True)
     cancelled_by = models.ForeignKey(User, on_delete=models.SET_NULL,
                                      null=True, blank=True,
@@ -38,6 +42,35 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.booked_for} {self.booking_date} {self.start_time}"
+
+    def confirm_booking_send_email(self):
+        """ Send email confirmation when a booking is created """
+
+        user_profile = User.objects.get(username=self.booked_for)
+        customer_email = user_profile.email
+   
+        #  Get no show time from general tables settings
+        try:
+            duration_qs = SystemPreference.objects.get(code="N")
+            duration = duration_qs.data
+        except Exception():
+            duration = 60
+
+        subject = 'Booking Confirmation'
+        body = render_to_string(
+                'bookings/confirmation/confirmation_email.txt',
+                {'dinner_date': self.dinner_date,
+                 'contact_email': settings.DEFAULT_FROM_EMAIL,
+                 'start_time': self.start_time,
+                 'seats': self.seats,
+                 'username': user_profile.get_full_name(),
+                 'show_up_time': duration})
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [customer_email]
+        )
 
 
 class TablesBooked(models.Model):

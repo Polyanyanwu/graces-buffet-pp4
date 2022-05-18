@@ -49,6 +49,10 @@ class SystemPreference(models.Model):
     def __str__(self):
         return str(self.code)
 
+    def get_preference_name(self):
+        """ return the data """
+        return self.data
+
 
 class DiningTable(models.Model):
     """ Dining tables maintenance """

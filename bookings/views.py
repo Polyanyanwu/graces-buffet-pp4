@@ -43,7 +43,7 @@ class MakeBookings(View):
                                   or login\
                                   if you already have an account ')
             return HttpResponseRedirect("/")
-        user_profile = User.objects.get(username=request.user)
+
         booking_status_qs = BookingStatus.objects.filter(code="B")
         booking_status = get_object_or_404(booking_status_qs)
         booking = BookingForm(data=request.POST)
@@ -90,17 +90,22 @@ class MakeBookings(View):
                                 table_capacity=table_item.total_seats)
 
                     # save the cuisine choices
+                    cuisines = ""
                     if len(cuisine_choices) > 0:
                         for choice in cuisine_choices:
                             cuisine_qs = Cuisine.objects.filter(id=choice)
                             cuisine_rec = get_object_or_404(cuisine_qs)
+                            cuisines += cuisine_rec.name + ", "
                             CuisineChoice.objects.create(
                                 booking_id=booking.instance,
                                 cuisine_id=cuisine_rec)
+                            booking.instance.cuisines = cuisines[:-2]
+                            booking.save()
                     messages.add_message(request, messages.INFO,
                                          'Thank you: Your booking has\
                                           been confirmed.')
-                    return HttpResponseRedirect(reverse('booking_confirm', args=[booking.instance.id]))
+                    return HttpResponseRedirect(reverse('booking_confirm',
+                                                args=[booking.instance.id]))
             except IntegrityError:
                 messages.add_message(request, messages.WARNING,
                                      'Your booking could not be completed now\
@@ -208,7 +213,7 @@ class MakeBookings(View):
                 booked[table_a] = seats_a
 
         # if after checking we can't get a table with enough seats
-        # comnine tables with largest space until need is met
+        # combine tables with largest space until need is met
         allocated = 0
         if len(booked) == 0:
             for table_a, seats_a in sort_tables_available.items():
