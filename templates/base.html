@@ -25,7 +25,6 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
-    {% block other_java_script %}{% endblock %}
     <style>
         body {
             /* background-image: url("{% static 'images/spiration-light.png' %}"); */
@@ -183,6 +182,7 @@
         </p>
     </footer>
     <script src="{% static 'js/script.js' %}"></script>
+    {% block other_java_script %}{% endblock %}
 </body>
 
 </html>

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid gx-4 ">
+    <div class="row">
+        <div class="col main-title text-center">
+            <h4>Booking Confirmation for: {{username}}</h4>
+        </div>
+
+    </div>
+    <div class=row>
+        <div class="col text-center mt-1 ">
+            <span><i class="fas fa-calendar-alt"></i></span>
+            <span>Date: </span>
+            <span>{{ booking.dinner_date|date:'d-M-Y' }}</span> 
+        </div>
+        <div class="row">
+            <div class="col text-center mt-1">
+                <span><i class="fas fa-clock"></i></span>
+                <span>Dinner Time: </span>
+                <span>{{ booking.start_time}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center mt-1">
+                <span><i class="fa-solid fa-user"></i></span>
+                <span>Persons: </span>
+                <span>{{ booking.seats }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center mt-3 text-primary">
+                <span>Below are your cuisine choices</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row align-items-center">
+        {% for cuisine in cuisines %}
+        <div class="col-sm-4 col-lg-3 border border-secondary mx-auto">
+            <div class="form-check">
+                <span>{{cuisine.name }}</span>
+            </div>
+            <img src="{{cuisine.cuisine_image.url }}" class="img-fluid rounded mx-auto d-block" alt="{{cuisine.name }}">
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}

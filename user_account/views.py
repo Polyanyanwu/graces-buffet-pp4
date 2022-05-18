@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
 from .forms import ProfileForm, UserForm, GroupForm
+from django.contrib.auth.models import User
 # from .models import Profile
 
 
@@ -52,9 +53,11 @@ def update_group(request):
         # else:
         messages.error(request, ('Testing correct the error below.'))
     else:
-        user_form = UserForm(instance=request.user)
-        group_form = GroupForm(instance=request.user.profile)
+        users = User.objects.all().values('username', 'groups')
+        user_form = UserForm()
+        group_form = GroupForm()
     return render(request, 'profiles/user_group.html', {
         'user_form': user_form,
-        'group_form': group_form
+        'group_form': group_form,
+        'users': users
     })

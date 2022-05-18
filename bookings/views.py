@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime, date
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import View
 from django.db import transaction, IntegrityError
 
@@ -8,7 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Sum
 from cuisine.models import Cuisine, CuisineChoice
-from general_tables.models import DiningTable, BuffetPeriod, SystemPreference, BookingStatus
+from general_tables.models import\
+    (DiningTable, BuffetPeriod, SystemPreference, BookingStatus)
 from .models import Booking, TablesBooked
 from .forms import BookingForm
 
@@ -66,7 +67,6 @@ class MakeBookings(View):
                     tables = self.book_seats(int(request.POST.get('seats')),
                                              request.POST.get('dinner_date'),
                                              time_entered)
-                    print("tables returned==", tables, type(tables))
                     if len(tables) == 0:
                         # no seats found on selected date
                         messages.add_message(request, messages.WARNING,
@@ -100,6 +100,7 @@ class MakeBookings(View):
                     messages.add_message(request, messages.INFO,
                                          'Thank you: Your booking has\
                                           been confirmed.')
+                    return HttpResponseRedirect(reverse('booking_confirm', args=[booking.instance.id]))
             except IntegrityError:
                 messages.add_message(request, messages.WARNING,
                                      'Your booking could not be completed now\
@@ -220,3 +221,31 @@ class MakeBookings(View):
                     if allocated == seats:
                         break
         return booked
+
+
+class DisplayBookingConfirm(View):
+    """ Display confirmation of booking to user """
+    def get(self, request, booking_id, *args, **kwargs):
+        booking_qs = Booking.objects.select_related(
+            'booked_for').filter(id=booking_id)
+        booking = get_object_or_404(booking_qs)
+        username_qs = User.objects.get(username=booking.booked_for)
+        username = username_qs.get_full_name()
+        cuisines_qs = CuisineChoice.objects.filter(booking_id=booking_id)
+        cuisines = []
+        for cus in cuisines_qs:
+            cuisine_rec = Cuisine.objects.get(name=cus.cuisine_id)
+            ci_map = {}
+            ci_map["cuisine_image"] = cuisine_rec.cuisine_image
+            ci_map["name"] = cuisine_rec.name
+            cuisines.append(ci_map)
+
+        return render(
+            request,
+            "bookings/display_booking_confirm.html",
+            {
+                "booking": booking,
+                "username": username,
+                "cuisines": cuisines
+            }
+        )

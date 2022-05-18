@@ -37,3 +37,6 @@ class BookingForm(forms.ModelForm):
         widgets = {
             'dinner_date': DatePickerInput(),
         }
+
+# class DisplayBookingConfirmForm(forms.ModelForm):
+#     """ display confirmation to user after booking success """
