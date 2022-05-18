@@ -47,12 +47,20 @@ class MakeBookings(View):
         booking_status = get_object_or_404(booking_status_qs)
         booking = BookingForm(data=request.POST)
 
+        cuisine_choices = request.POST.getlist('cuisine_option')
+        if len(cuisine_choices) == 0:
+            messages.add_message(request, messages.WARNING,
+                                 'Please select one or more cuisine\
+                                      choices before proceeding')
+            return HttpResponseRedirect("/")
+
         if booking.is_valid():
             try:
                 with transaction.atomic():
                     booking.save(commit=False)
 
-                    time_entered_qs = BuffetPeriod.objects.filter(id=request.POST.get('start_time'))
+                    time_entered_qs = BuffetPeriod.objects.filter(
+                        id=request.POST.get('start_time'))
                     time_entered = get_object_or_404(time_entered_qs)
                     # check seats availability
                     tables = self.book_seats(int(request.POST.get('seats')),
@@ -82,7 +90,6 @@ class MakeBookings(View):
                                 table_capacity=table_item.total_seats)
 
                     # save the cuisine choices
-                    cuisine_choices = request.POST.getlist('cuisine_option')
                     if len(cuisine_choices) > 0:
                         for choice in cuisine_choices:
                             cuisine_qs = Cuisine.objects.filter(id=choice)
