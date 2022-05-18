@@ -81,7 +81,6 @@ class MakeBookings(View):
                         booking.save()
                         # save tables booked
                         for table_item, seat in tables.items():
-                            print("table item==", table_item, "seat==", seat)
                             TablesBooked.objects.create(
                                 booking_id=booking.instance,
                                 seats_booked=seat,

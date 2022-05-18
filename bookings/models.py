@@ -48,7 +48,7 @@ class Booking(models.Model):
 
         user_profile = User.objects.get(username=self.booked_for)
         customer_email = user_profile.email
-   
+
         #  Get no show time from general tables settings
         try:
             duration_qs = SystemPreference.objects.get(code="N")
@@ -72,6 +72,12 @@ class Booking(models.Model):
             [customer_email]
         )
 
+    # Write notification record
+        Notification.objects.create(
+            subject=subject + ": " + user_profile.get_full_name(),
+            message=body,
+            user=user_profile)
+
 
 class TablesBooked(models.Model):
     """ tables used in making the booking """
@@ -85,3 +91,15 @@ class TablesBooked(models.Model):
 
     def __str__(self):
         return f"{self.table_id}"
+
+
+class Notification(models.Model):
+    """ tables notifications """
+    notice_date = models.DateTimeField(auto_now_add=True)
+    subject = models.CharField(max_length=200, blank=False)
+    message = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name="notice_for")
+
+    def __str__(self):
+        return str(self.subject)
