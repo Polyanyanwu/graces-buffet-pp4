@@ -24,7 +24,7 @@
             <th scope="row">1</th>
             <td>{{ notice.notice_date|date:'d-M-Y H:i' }}</td>
             <td>{{ notice.subject }}</td>
-            <td><a class="btn btn-color btn-sm" aria-current="page" href="{% url 'home' %}"
+            <td><a class="btn btn-color btn-sm" aria-current="page" href="{% url 'notification_detail' notice.pk %}"
             title="Click to View Details"><i class="fas fa-search"></i></a></td>
           </tr>
           {% endfor %}

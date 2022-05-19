@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid gx-4 ">
+    <div class="row">
+        <div class="col main-title text-center">
+            <h4>Notification Detail</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10 md-8 mx-auto">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{ notice.notice_date|date:'d-M-Y H:i' }}</td>
+                        <td>{{ notice.subject }}</td>
+                        <td>{{ notice.message }}</td>
+                        <td><a class="btn btn-danger btn-sm" aria-current="page" href="#"
+                                title="Click to Delete Notification">Delete
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 mx-auto">
+           <span> <a class="btn btn-color" href="{% url 'get_notification' %}" title="Return to Notifications">Return to Notifications</a> </span>
+        </div>
+    </div>
+</div>
+{% endblock %}

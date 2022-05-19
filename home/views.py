@@ -34,8 +34,9 @@ class ViewNotification(View):
             return HttpResponseRedirect("/")
         user = request.user
         notice_qs = Notification.objects.filter(
-            user=user).order_by('-notice_date')
-        print("notice==", notice_qs)
+            user=user).order_by('-notice_date').values('pk','subject','notice_date','message')
+        # ids = notice_qs.values_list('pk')
+        # print("notice ID==", notice_qs)
         if len(notice_qs) == 0:
             messages.add_message(request, messages.ERROR,
                                  'No notifications for you yet. \
@@ -47,5 +48,24 @@ class ViewNotification(View):
             "home/get_notification.html",
             {
                 "notifications": notice_qs
+            }
+        )
+
+
+class NotificationDetail(View):
+    """ view notifications """
+
+    def get(self, request, notice_id, *args, **kwargs):
+
+        """ View notification details selected """
+        print("notice id==", notice_id)
+        notice = Notification.objects.get(id=notice_id)
+        # notice = get_object_or_404(notice_qs)
+        print("notice==", notice)
+        return render(
+            request,
+            "home/notification_detail.html",
+            {
+                "notice": notice
             }
         )
