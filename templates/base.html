@@ -65,7 +65,7 @@
                             <li><a class="dropdown-item" href="{% url 'update_profile' %}">My Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'account_email' %}">Update Email</a></li>
                             <li><a class="dropdown-item" href="{% url 'booking_detail' %}">Dinning History</a></li>
-                            <li><a class="dropdown-item" href="#">Cancel Booking</a></li>
+                            <li><a class="dropdown-item" href="{% url 'cancel_my_booking' %}">Cancel Booking</a></li>
                             <!-- Operator sub menu -->
                             {% if request.user|has_group:"operator" %} 
                             <li>
@@ -93,7 +93,6 @@
                                     <li><a class="dropdown-item" href="#">Buffet Cuisines</a></li>
                                     <li><a class="dropdown-item" href="#">Maintain Tables</a></li>
                                     <li><a class="dropdown-item" href="#">System Preferences</a></li>
-                                    <li><a class="dropdown-item" href="#">Reasons for Cancellation</a></li>
                                 </ul>
                             </li>
                             {% endif %}

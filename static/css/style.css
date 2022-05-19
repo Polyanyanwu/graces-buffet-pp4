@@ -60,6 +60,9 @@ form label {
     background-color: #F19953;
 }
 
+.hidden {
+    display: none;
+}
 .my-nav:hover {
     color: var(--lapis-blue);
     font-weight: bolder;

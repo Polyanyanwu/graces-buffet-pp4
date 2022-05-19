@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'general_tables',
     'cuisine',
     'bookings',
+    'cancel_booking',
 ]
 
 SITE_ID = 2

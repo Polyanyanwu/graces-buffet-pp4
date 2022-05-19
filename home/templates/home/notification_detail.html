@@ -26,7 +26,8 @@
                         <td>{{ notice.subject }}</td>
                         <td>{{ notice.message }}</td>
                         <td><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#confirmModal" id="confirm_delete_notification">Delete
+                                data-bs-target="#confirmModal" id="confirm_delete_notification"
+                                data-message="Please confirm deletion of this Notification?">Delete
                             </button>
                         </td>
                         <form method="POST" action="{% url 'notification_detail' notice.pk%}" class="booking_form">

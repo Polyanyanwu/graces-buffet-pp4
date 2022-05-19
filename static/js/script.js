@@ -34,7 +34,8 @@ const Confirmation = function (message, yesFunction, noFunction) {
 
 if(document.getElementById('confirm_delete_notification')){
     document.getElementById('confirm_delete_notification').addEventListener('click', function () {
-        Confirmation("Please confirm deletion of this Notification",
+        msg = document.getElementById('confirm_delete_notification').dataset.message
+        Confirmation(msg,
             function yes() {
                 document.getElementById('delete-notification-btn').click();
             },
@@ -43,3 +44,25 @@ if(document.getElementById('confirm_delete_notification')){
             });
     });
 }
+
+
+// Confirmation of cancellation of booking by Customer 
+
+if(document.querySelectorAll('.confirmation-btn')){
+    rec_btn = document.querySelectorAll('.confirmation-btn');
+    rec_btn.forEach(btn => btn.addEventListener('click', function(e){
+        msg = e.target.dataset.message;
+        console.log("target" + e.target)
+        Confirmation(msg,
+            function yes() {
+                booking_id = msg = e.target.dataset.bookingId;
+                console.log("booking_id" + booking_id)
+                document.getElementById("cancel_booking_id").value = booking_id;
+                document.getElementById('cancel-booking-btn').click();
+            },
+            function no() {
+                return;
+            });
+    }));
+}
+

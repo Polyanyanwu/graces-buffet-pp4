@@ -1,6 +1,7 @@
 from datetime import timedelta, datetime, date
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import View
+from django.utils import timezone
 from django.db import transaction, IntegrityError
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
@@ -254,6 +255,7 @@ class DisplayBookingConfirm(View):
             }
         )
 
+
 class BookingDetail(View):
     """ view booking details """
 
@@ -280,26 +282,3 @@ class BookingDetail(View):
                 "bookings": page_obj
             }
         )
-
-    # def post(self, request, notice_id, *args, **kwargs):
-    #     """ Delete notification details selected """
-    #     try:
-    #         notice = Notification.objects.get(id=notice_id)
-    #         notice.delete()
-    #         notice_qs = Notification.objects.filter(
-    #             user=request.user).order_by('-notice_date').values(
-    #             'pk', 'subject', 'notice_date', 'message')
-    #         messages.add_message(request, messages.INFO,
-    #                              'Notification deleted successfully')
-    #     except Exception:
-    #         messages.add_message(request, messages.INFO,
-    #                              'Deleted failed, try later')
-    #         HttpResponseRedirect('home/notification_detail.html')
-
-    #     return render(
-    #         request,
-    #         "home/get_notification.html",
-    #         {
-    #             "notifications": notice_qs
-    #         }
-    #     )
