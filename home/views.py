@@ -1,10 +1,9 @@
 """ home view for the home page, contact us, terms of use and privacy policy"""
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views import View
-# from django.contrib.auth.models import User
-from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from bookings.models import Notification
 
 
@@ -34,15 +33,14 @@ class ViewNotification(View):
             return HttpResponseRedirect("/")
         user = request.user
         notice_qs = Notification.objects.filter(
-            user=user).order_by('-notice_date').values('pk','subject','notice_date','message')
-        # ids = notice_qs.values_list('pk')
-        # print("notice ID==", notice_qs)
+            user=user).order_by('-notice_date').values(
+            'pk', 'subject', 'notice_date', 'message')
+
         if len(notice_qs) == 0:
             messages.add_message(request, messages.ERROR,
                                  'No notifications for you yet. \
                                   Make a booking first before you receive \
                                   notifications.')
-
         return render(
             request,
             "home/get_notification.html",
@@ -58,14 +56,40 @@ class NotificationDetail(View):
     def get(self, request, notice_id, *args, **kwargs):
 
         """ View notification details selected """
-        print("notice id==", notice_id)
-        notice = Notification.objects.get(id=notice_id)
-        # notice = get_object_or_404(notice_qs)
-        print("notice==", notice)
+        try:
+            notice = Notification.objects.get(id=notice_id)
+        except Exception:
+            messages.add_message(request, messages.INFO,
+                                 'Detailed display failed, try later')
+            HttpResponseRedirect('home/notification_detail.html')
+
         return render(
             request,
             "home/notification_detail.html",
             {
                 "notice": notice
+            }
+        )
+
+    def post(self, request, notice_id, *args, **kwargs):
+        """ Delete notification details selected """
+        try:
+            notice = Notification.objects.get(id=notice_id)
+            notice.delete()
+            notice_qs = Notification.objects.filter(
+                user=request.user).order_by('-notice_date').values(
+                'pk', 'subject', 'notice_date', 'message')
+            messages.add_message(request, messages.INFO,
+                                 'Notification deleted successfully')
+        except Exception:
+            messages.add_message(request, messages.INFO,
+                                 'Deleted failed, try later')
+            HttpResponseRedirect('home/notification_detail.html')
+
+        return render(
+            request,
+            "home/get_notification.html",
+            {
+                "notifications": notice_qs
             }
         )

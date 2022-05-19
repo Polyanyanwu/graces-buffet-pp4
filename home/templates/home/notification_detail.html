@@ -25,9 +25,18 @@
                         <td>{{ notice.notice_date|date:'d-M-Y H:i' }}</td>
                         <td>{{ notice.subject }}</td>
                         <td>{{ notice.message }}</td>
-                        <td><a class="btn btn-danger btn-sm" aria-current="page" href="#"
-                                title="Click to Delete Notification">Delete
+                        <td><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#confirmModal" id="confirm_delete_notification">Delete
+                            </button>
                         </td>
+                        <form method="POST" action="{% url 'notification_detail' notice.pk%}" class="booking_form">
+                            {% csrf_token %}
+                            <div class="col">
+                                <button class="btn hidden" id="delete-notification-btn" type="submit" name="action">delete actual</button>
+                            </div>
+                        </form>
+
+
                     </tr>
 
                 </tbody>
@@ -36,7 +45,8 @@
     </div>
     <div class="row">
         <div class="col-sm-2 mx-auto">
-           <span> <a class="btn btn-color" href="{% url 'get_notification' %}" title="Return to Notifications">Return to Notifications</a> </span>
+            <span> <a class="btn btn-color" href="{% url 'get_notification' %}" title="Return to Notifications">Return
+                    to Notifications</a> </span>
         </div>
     </div>
 </div>
