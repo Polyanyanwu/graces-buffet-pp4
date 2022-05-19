@@ -4,7 +4,6 @@ from django.urls import path
 from . import views
 
 
-# urlpatterns = [
-#     # root url
-#     path('', views.index, name='home'),
-# ]
+urlpatterns = [
+    path('notice/', views.ViewNotification.as_view(), name='get_notification'),
+]
