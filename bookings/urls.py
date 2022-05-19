@@ -9,4 +9,7 @@ urlpatterns = [
     path('bookings/<booking_id>',
          views.DisplayBookingConfirm.as_view(),
          name='booking_confirm'),
+    path('bookings/',
+         views.BookingDetail.as_view(),
+         name='booking_detail'),
 ]

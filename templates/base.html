@@ -64,7 +64,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'update_profile' %}">My Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'account_email' %}">Update Email</a></li>
-                            <li><a class="dropdown-item" href="#">Dinning History</a></li>
+                            <li><a class="dropdown-item" href="{% url 'booking_detail' %}">Dinning History</a></li>
                             <li><a class="dropdown-item" href="#">Cancel Booking</a></li>
                             <!-- Operator sub menu -->
                             {% if request.user|has_group:"operator" %} 

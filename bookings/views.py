@@ -2,7 +2,7 @@ from datetime import timedelta, datetime, date
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import View
 from django.db import transaction, IntegrityError
-
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -253,3 +253,53 @@ class DisplayBookingConfirm(View):
                 "cuisines": cuisines
             }
         )
+
+class BookingDetail(View):
+    """ view booking details """
+
+    def get(self, request, *args, **kwargs):
+
+        """ View booking details selected """
+        print("at booking detail view")
+        try:
+            bookings = Booking.objects.filter(
+                booked_for=request.user).order_by('-booking_date')
+            paginator = Paginator(bookings, 15)  # Show 15 bookings per page.
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+        except Exception:
+            messages.add_message(request, messages.INFO,
+                                 'Detailed display of bookings\
+                                  failed, try later')
+            HttpResponseRedirect('bookings/booking_detail.html')
+
+        return render(
+            request,
+            "bookings/booking_detail.html",
+            {
+                "bookings": page_obj
+            }
+        )
+
+    # def post(self, request, notice_id, *args, **kwargs):
+    #     """ Delete notification details selected """
+    #     try:
+    #         notice = Notification.objects.get(id=notice_id)
+    #         notice.delete()
+    #         notice_qs = Notification.objects.filter(
+    #             user=request.user).order_by('-notice_date').values(
+    #             'pk', 'subject', 'notice_date', 'message')
+    #         messages.add_message(request, messages.INFO,
+    #                              'Notification deleted successfully')
+    #     except Exception:
+    #         messages.add_message(request, messages.INFO,
+    #                              'Deleted failed, try later')
+    #         HttpResponseRedirect('home/notification_detail.html')
+
+    #     return render(
+    #         request,
+    #         "home/get_notification.html",
+    #         {
+    #             "notifications": notice_qs
+    #         }
+    #     )
