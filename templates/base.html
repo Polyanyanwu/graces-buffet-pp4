@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
     <style>
         body {
-            /* background-image: url("{% static 'images/spiration-light.png' %}"); */
             background-color: #e6e6e6;
         }
     </style>
@@ -91,6 +90,7 @@
                                     <li><a class="dropdown-item" href="#">Buffet Cuisines</a></li>
                                     <li><a class="dropdown-item" href="#">Maintain Tables</a></li>
                                     <li><a class="dropdown-item" href="#">System Preferences</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'cancel_other_booking' %}">Cancel Booking for Customer</a></li>
                                 </ul>
                             </li>
                             {% endif %}

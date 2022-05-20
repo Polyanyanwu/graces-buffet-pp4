@@ -16,18 +16,19 @@ from .forms import BookingForm
 
 class MakeBookings(View):
 
-    def get(self, request, username=None, *args, **kwargs):
+    def get(self, request, username="None", *args, **kwargs):
         price_queryset = SystemPreference.objects.filter(code="P").values()
         buffet_price = price_queryset[0]['data']
         booking = Booking.objects.filter(id=None)
         cuisine_queryset = Cuisine.objects.all()
         form = BookingForm()
         # check that django is not returning favicon when there is no parameter
+        print("username===", username)
         if username == "favicon.ico":
-            username = ""
-        if (not username and request.user.is_authenticated):
+            username = "None"
+        if username == "None" and request.user.is_authenticated:
             username = request.user.username
-        else:
+        elif len(username) > 0 and request.user.is_authenticated:
             user_to_book = User.objects.get(username=username)
             username = user_to_book.username
 

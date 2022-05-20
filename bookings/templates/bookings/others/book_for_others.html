@@ -45,7 +45,7 @@
                 <td>{{ each_user.first_name }}</td>
                 <td>{{ each_user.last_name }}</td>
                 <td>{{ each_user.email }}</td>
-                <td> <a href="{% url 'other_home' each_user.username %}" class="btn btn-sm btn-color">Select</a>
+                <td> <a href="{% url 'home' each_user.username %}" class="btn btn-sm btn-color">Select</a>
                 </td>
             </tr>
             {% endfor %}

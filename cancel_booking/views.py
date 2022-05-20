@@ -25,7 +25,7 @@ class CancelMyBooking(View):
             user_to_cancel = User.objects.get(username=username)
             bookings = Booking.objects.filter(
                 booked_for=user_to_cancel, booking_status='B',
-                dinner_date__gte=datetime.now()).order_by('-booking_date')
+                dinner_date__gte=datetime.now().date()).order_by('-booking_date')
             paginator = Paginator(bookings, 15)  # B is currently booked
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
@@ -59,7 +59,7 @@ class CancelMyBooking(View):
             booking.save()
             bookings = Booking.objects.filter(
                 booked_for=request.user, booking_status='B',
-                dinner_date__gte=datetime.now()).order_by('-booking_date')
+                dinner_date__gte=datetime.now().date()).order_by('-booking_date')
             paginator = Paginator(bookings, 15)  # B is currently booked
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
