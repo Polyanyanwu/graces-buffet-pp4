@@ -11,7 +11,7 @@ from cuisine.models import Cuisine, CuisineChoice
 from general_tables.models import\
     (DiningTable, BuffetPeriod, SystemPreference, BookingStatus)
 from .models import Booking, TablesBooked
-from .forms import BookingForm
+from .forms import BookingForm, UpdateBookingForm
 
 
 class MakeBookings(View):
@@ -389,3 +389,65 @@ class BookForOthers(View):
                 "users": page_obj,
             }
         )
+
+class UpdateBookingStatus(View):
+    """ Update the status after customer has been served """
+
+    def get(self, request, *args, **kwargs):
+
+        """ View booking details """
+        try:
+            booking = Booking.objects.filter(booking_status='B')
+            # only current bookings
+            paginator = Paginator(booking, 10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+
+        except Exception:
+            messages.add_message(request, messages.INFO,
+                                 'Detailed display of bookings\
+                                  failed, try later')
+            HttpResponseRedirect('bookings/update/update_booking.html')
+
+        return render(
+            request,
+            "bookings/update/update_booking.html",
+            {
+                "bookings": page_obj
+            }
+        )
+
+    # def post(self, request, *args, **kwargs):
+    #     try:
+    #         if request.POST.get('user_name'):
+    #             user_name = request.POST.get('user_name').strip()
+    #             users = User.objects.all().values(
+    #                     'username', 'first_name', 'last_name',
+    #                     'email').filter(username__icontains=user_name)
+    #         elif request.POST.get('email'):
+    #             email = request.POST.get('email').strip()
+    #             users = User.objects.all().values(
+    #                     'username', 'first_name', 'last_name',
+    #                     'email').filter(email__icontains=email)
+    #         else:
+    #             users = User.objects.all().values(
+    #                     'username', 'first_name', 'last_name',
+    #                     'email').order_by('first_name')
+
+    #         paginator = Paginator(users, 10)  # B is currently booked
+    #         page_number = request.GET.get('page')
+    #         page_obj = paginator.get_page(page_number)
+
+    #     except Exception:
+    #         messages.add_message(request, messages.INFO,
+    #                              'Detailed display of users\
+    #                               failed, try later')
+    #         HttpResponseRedirect('cancel_booking/cancel_other_booking.html')
+
+    #     return render(
+    #         request,
+    #         "bookings/others/book_for_others.html",
+    #         {
+    #             "users": page_obj,
+    #         }
+    #     )

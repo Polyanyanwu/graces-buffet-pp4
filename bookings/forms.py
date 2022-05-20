@@ -38,5 +38,17 @@ class BookingForm(forms.ModelForm):
             'dinner_date': DatePickerInput(),
         }
 
+
+class UpdateBookingForm(forms.ModelForm):
+    """ Booking form to update after service
+    """
+    class Meta:
+        """ Specify the model to use and HTML5 date picker """
+        model = Booking
+        fields = ['booking_status']
+        # widgets = {
+        #     'dinner_date': DatePickerInput(),
+        # }
+
 # class DisplayBookingConfirmForm(forms.ModelForm):
 #     """ display confirmation to user after booking success """
