@@ -98,6 +98,11 @@ class Booking(models.Model):
             settings.DEFAULT_FROM_EMAIL,
             [customer_email]
         )
+    # Write notification record
+        Notification.objects.create(
+            subject=subject + ": " + user_profile.get_full_name(),
+            message=body,
+            user=user_profile)
 
 
 class TablesBooked(models.Model):
