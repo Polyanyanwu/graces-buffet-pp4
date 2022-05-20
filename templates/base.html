@@ -65,7 +65,7 @@
                             <li><a class="dropdown-item" href="{% url 'update_profile' %}">My Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'account_email' %}">Update Email</a></li>
                             <li><a class="dropdown-item" href="{% url 'booking_detail' %}">Dinning History</a></li>
-                            <li><a class="dropdown-item" href="{% url 'cancel_my_booking' %}">Cancel Booking</a></li>
+                            <li><a class="dropdown-item" href="{% url 'cancel_my_booking' user.username %}">Cancel Booking</a></li>
                             <!-- Operator sub menu -->
                             {% if request.user|has_group:"operator" %} 
                             <li>
@@ -75,7 +75,7 @@
                                 <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="#">Update Booking Status</a></li>
                                     <li><a class="dropdown-item" href="#">Book for Customer</a></li>
-                                    <li><a class="dropdown-item" href="#">Cancel Booking for Customer</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'cancel_other_booking' %}">Cancel Booking for Customer</a></li>
                                     <li><a class="dropdown-item" href="#"><hr></a></li>
                                     <li><a class="dropdown-item" href="#">Past Due guests List</a></li>
                                     <li><a class="dropdown-item" href="#">Booking Details List</a></li>

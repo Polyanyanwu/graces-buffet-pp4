@@ -12,7 +12,7 @@ const messageTimeout = function () {
         setTimeout(function () {
             const alert = new bootstrap.Alert(msg);
             alert.close();
-        }, 15000); // 15 seconds
+        }, 10000); // 10 seconds
     }
 
 }

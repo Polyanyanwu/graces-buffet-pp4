@@ -4,7 +4,7 @@
 <div class="container-fluid gx-4 ">
     <div class="row">
         <div class="col main-title text-center">
-            <h4>Cancel Booking: {{user.first_name}} &nbsp;{{user.last_name}}</h4>
+            <h4>Cancel Booking: {{ user_to_cancel }}</h4>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
                 </td>
             </tr>
             {% endfor %}
-                <form method="POST" action="{% url 'cancel_my_booking'%}">
+                <form method="POST" action="{% url 'cancel_my_booking' user.username%}">
                     {% csrf_token %}
                     <div class="col">
                         <input type="number" value ="" name="booking_id" class="hidden" id="cancel_booking_id">

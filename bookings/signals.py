@@ -10,6 +10,12 @@ from .models import Booking
 @receiver(post_save, sender=Booking)
 def send_email_confirmation_of_booking(sender, instance, created, **kwargs):
     """ Send email confirmation when user booked successfully"""
-    print("created===", created)
     if created:
         instance.confirm_booking_send_email()
+
+
+@receiver(post_save, sender=Booking)
+def send_email_for_cancelled_booking(sender, instance, created, **kwargs):
+    """ Send email confirmation when booking is cancelled successfully"""
+    if not created and instance.booking_status.code == 'C':
+        instance.cancel_booking_send_email()
