@@ -11,4 +11,8 @@ urlpatterns = [
          name='booking_confirm'),
     path('bookings/', views.BookingDetail.as_view(),
          name='booking_detail'),
+    path('bookings/up/', views.UpcomingBookingDetail.as_view(),
+         name='upcoming_booking_detail'),
+    path('cancel_booking/', views.BookForOthers.as_view(),
+         name='book_for_others'),
 ]

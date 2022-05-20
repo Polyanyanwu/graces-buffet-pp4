@@ -281,3 +281,99 @@ class BookingDetail(View):
                 "bookings": page_obj
             }
         )
+
+
+class UpcomingBookingDetail(View):
+    """ view upcoming booking details """
+
+    def get(self, request, *args, **kwargs):
+
+        """ View booking details selected """
+        try:
+            bookings = Booking.objects.filter(
+                booked_for=request.user, booking_status='B',
+                dinner_date__gte=datetime.now().date()).order_by('dinner_date')
+            paginator = Paginator(bookings, 15)  # Show 15 bookings per page.
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+        except Exception:
+            messages.add_message(request, messages.INFO,
+                                 'Detailed display of bookings\
+                                  failed, try later')
+            HttpResponseRedirect('bookings/up/upcoming_booking_detail.html')
+
+        return render(
+            request,
+            "bookings/up/upcoming_booking_detail.html",
+            {
+                "bookings": page_obj
+            }
+        )
+
+class BookForOthers(View):
+    """ Make booking for another person """
+
+    def get(self, request, *args, **kwargs):
+
+        """ View user details """
+        try:
+
+            users = User.objects.all().values(
+                     'username', 'first_name', 'last_name',
+                     'email').order_by('first_name')
+            paginator = Paginator(users, 10)  # B is currently booked
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+
+        except Exception:
+            messages.add_message(request, messages.INFO,
+                                 'Detailed display of users\
+                                  failed, try later')
+            HttpResponseRedirect('cancel_booking/cancel_other_booking.html')
+
+        return render(
+            request,
+            "cancel_booking/cancel_other_booking.html",
+            {
+                "users": page_obj,
+                "return_url": "home",
+                "form_title": "Make Booking for Others - Select Customer"
+            }
+        )
+
+    def post(self, request, *args, **kwargs):
+        try:
+            if request.POST.get('user_name'):
+                user_name = request.POST.get('user_name').strip()
+                users = User.objects.all().values(
+                        'username', 'first_name', 'last_name',
+                        'email').filter(username__icontains=user_name)
+            elif request.POST.get('email'):
+                email = request.POST.get('email').strip()
+                users = User.objects.all().values(
+                        'username', 'first_name', 'last_name',
+                        'email').filter(email__icontains=email)
+            else:
+                users = User.objects.all().values(
+                        'username', 'first_name', 'last_name',
+                        'email').order_by('first_name')
+
+            paginator = Paginator(users, 10)  # B is currently booked
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+
+        except Exception:
+            messages.add_message(request, messages.INFO,
+                                 'Detailed display of users\
+                                  failed, try later')
+            HttpResponseRedirect('cancel_booking/cancel_other_booking.html')
+
+        return render(
+            request,
+            "cancel_booking/cancel_other_booking.html",
+            {
+                "users": page_obj,
+                "return_url": "home",
+                "form_title": "Make Booking For Others"
+            }
+        )
