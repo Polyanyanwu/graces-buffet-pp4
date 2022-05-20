@@ -78,6 +78,27 @@ class Booking(models.Model):
             message=body,
             user=user_profile)
 
+    def cancel_booking_send_email(self):
+        """ Send email confirmation when a booking is cancelled """
+
+        user_profile = User.objects.get(username=self.booked_for)
+        customer_email = user_profile.email
+
+        subject = 'Cancellation of Booking'
+        body = render_to_string(
+                'bookings/confirmation/cancellation_email.txt',
+                {'dinner_date': self.dinner_date,
+                 'contact_email': settings.DEFAULT_FROM_EMAIL,
+                 'start_time': self.start_time,
+                 'seats': self.seats,
+                 'username': user_profile.get_full_name()})
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [customer_email]
+        )
+
 
 class TablesBooked(models.Model):
     """ tables used in making the booking """

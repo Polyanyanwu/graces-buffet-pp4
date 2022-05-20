@@ -1,0 +1,13 @@
+Dear {{username}}
+
+This is to confirm cancellation of your booking for a dinner at Graces Buffet at your request.
+
+Date: {{ dinner_date }}
+Dinner time: {{ start_time }}
+No of Persons: {{seats}}
+
+We hope to serve you in future.
+
+Thank you!
+
+Graces Buffet
