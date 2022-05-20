@@ -55,11 +55,11 @@ class Booking(models.Model):
             duration = duration_qs.data
         except Exception():
             duration = 60
-
+        dinner_date = django.utils.timezone.localtime(self.dinner_date)
         subject = 'Booking Confirmation'
         body = render_to_string(
                 'bookings/confirmation/confirmation_email.txt',
-                {'dinner_date': self.dinner_date,
+                {'dinner_date': dinner_date.strftime("%d %b, %Y"),
                  'contact_email': settings.DEFAULT_FROM_EMAIL,
                  'start_time': self.start_time,
                  'seats': self.seats,
@@ -83,11 +83,11 @@ class Booking(models.Model):
 
         user_profile = User.objects.get(username=self.booked_for)
         customer_email = user_profile.email
-
+        dinner_date = django.utils.timezone.localtime(self.dinner_date)
         subject = 'Cancellation of Booking'
         body = render_to_string(
                 'bookings/confirmation/cancellation_email.txt',
-                {'dinner_date': self.dinner_date,
+                {'dinner_date': dinner_date.strftime("%d %b, %Y"),
                  'contact_email': settings.DEFAULT_FROM_EMAIL,
                  'start_time': self.start_time,
                  'seats': self.seats,

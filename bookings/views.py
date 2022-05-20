@@ -22,9 +22,12 @@ class MakeBookings(View):
         booking = Booking.objects.filter(id=None)
         cuisine_queryset = Cuisine.objects.all()
         form = BookingForm()
-        if not username and request.user.is_authenticated:
+        # check that django is not returning favicon when there is no parameter
+        if username == "favicon.ico":
+            username = ""
+        if (not username and request.user.is_authenticated):
             username = request.user.username
-        if username:
+        else:
             user_to_book = User.objects.get(username=username)
             username = user_to_book.username
 
