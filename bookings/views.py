@@ -16,12 +16,18 @@ from .forms import BookingForm
 
 class MakeBookings(View):
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, username=None, *args, **kwargs):
         price_queryset = SystemPreference.objects.filter(code="P").values()
         buffet_price = price_queryset[0]['data']
         booking = Booking.objects.filter(id=None)
         cuisine_queryset = Cuisine.objects.all()
         form = BookingForm()
+        if not username and request.user.is_authenticated:
+            username = request.user.username
+        if username:
+            user_to_book = User.objects.get(username=username)
+            username = user_to_book.username
+
         return render(
             request,
             "bookings/make_booking.html",
@@ -29,11 +35,12 @@ class MakeBookings(View):
                 "buffet_price": buffet_price,
                 "booking": booking,
                 "cuisines": cuisine_queryset,
-                "form": form
+                "form": form,
+                "username": username
             }
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, username, *args, **kwargs):
         # check if user is logged in
         if not request.user.is_authenticated:
             messages.add_message(request,
@@ -57,6 +64,10 @@ class MakeBookings(View):
 
         if booking.is_valid():
             try:
+                if username:
+                    user_to_book = User.objects.get(username=username)
+                else:
+                    user_to_book = request.user
                 with transaction.atomic():
                     booking.save(commit=False)
 
@@ -75,7 +86,7 @@ class MakeBookings(View):
                         return HttpResponseRedirect("/")
                     else:
                         # save booking first
-                        booking.instance.booked_for = request.user
+                        booking.instance.booked_for = user_to_book
                         booking.instance.booked_by = request.user
                         booking.instance.booking_status = booking_status
                         booking.save()
@@ -310,6 +321,7 @@ class UpcomingBookingDetail(View):
             }
         )
 
+
 class BookForOthers(View):
     """ Make booking for another person """
 
@@ -333,11 +345,9 @@ class BookForOthers(View):
 
         return render(
             request,
-            "cancel_booking/cancel_other_booking.html",
+            "bookings/others/book_for_others.html",
             {
-                "users": page_obj,
-                "return_url": "home",
-                "form_title": "Make Booking for Others - Select Customer"
+                "users": page_obj
             }
         )
 
@@ -370,10 +380,8 @@ class BookForOthers(View):
 
         return render(
             request,
-            "cancel_booking/cancel_other_booking.html",
+            "bookings/others/book_for_others.html",
             {
                 "users": page_obj,
-                "return_url": "home",
-                "form_title": "Make Booking For Others"
             }
         )

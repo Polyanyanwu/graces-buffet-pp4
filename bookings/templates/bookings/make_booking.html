@@ -7,13 +7,16 @@
         <div class="col main-title text-center">
             <h4>Book your table for that exquisite dinner</h4>
             <p>Price per Person: <span><i class="fas fa-euro-sign"></i>{{buffet_price}}</span></p>
+            {% if username != user.username %}
+                <p>Booking for: {{username}}</p>
+            {% endif %}
         </div>
 
     </div>
     <div class="row">
 
         <div class="col col-md-11 col-lg-9 mt-1 mx-auto">
-            <form method="POST" action="{% url 'home' %}" class="booking_form">
+            <form method="POST" action="{% url 'other_home' username %}" class="booking_form">
                 {% csrf_token %}
                 <div class=row>
                     <div class="col bg-body border border-secondary main-input ">
@@ -32,7 +35,6 @@
                         <button class="btn btn-color" type="submit" name="action">Let's go</button>
                     </div>
                 </div>
-
         </div>
     </div>
 </div>
@@ -47,15 +49,6 @@
             </div>
             <div class="row">
                 {% for cuisine in cuisines %}
-
-                <!-- <div class="card col">
-                    <img src="{{cuisine.cuisine_image.url }}" class="img-fluid card-img-top rounded mx-auto d-block" alt="{{cuisine.name }}">
-                    <div class="card-body">
-                      <h5 class="card-title">{{cuisine.name }}</h5>
-                      <p class="card-text">{{cuisine.description}}</p>
-                    </div>
-                  </div> -->
-
                 <div class="col-sm-6 col-lg-3 border border-secondary">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="{{cuisine.id}}" id="cuisine_option" name="cuisine_option">
