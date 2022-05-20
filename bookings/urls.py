@@ -18,4 +18,6 @@ urlpatterns = [
          name='book_for_others'),
     path('bookings/update/', views.UpdateBookingStatus.as_view(),
          name='update_booking'),
+    path('bookings/update/<booking_id>', views.BookingUpdateAction.as_view(),
+         name='update_booking_action'),
 ]

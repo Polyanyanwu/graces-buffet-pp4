@@ -22,8 +22,8 @@ class MakeBookings(View):
         booking = Booking.objects.filter(id=None)
         cuisine_queryset = Cuisine.objects.all()
         form = BookingForm()
+
         # check that django is not returning favicon when there is no parameter
-        print("username===", username)
         if username == "favicon.ico":
             username = "None"
         if username == "None" and request.user.is_authenticated:
@@ -212,7 +212,6 @@ class MakeBookings(View):
                                             key=lambda x: x[1], reverse=True))
         if seats > available:
             return booked
-        print(total_seats, total_booked_on_day, available)
 
         for table_a, seats_a in sort_tables_available.items():
             # check to see if you get an exact table matching the seats needed
@@ -276,7 +275,6 @@ class BookingDetail(View):
     def get(self, request, *args, **kwargs):
 
         """ View booking details selected """
-        print("at booking detail view")
         try:
             bookings = Booking.objects.filter(
                 booked_for=request.user).order_by('-booking_date')
@@ -417,37 +415,112 @@ class UpdateBookingStatus(View):
             }
         )
 
-    # def post(self, request, *args, **kwargs):
-    #     try:
-    #         if request.POST.get('user_name'):
-    #             user_name = request.POST.get('user_name').strip()
-    #             users = User.objects.all().values(
-    #                     'username', 'first_name', 'last_name',
-    #                     'email').filter(username__icontains=user_name)
-    #         elif request.POST.get('email'):
-    #             email = request.POST.get('email').strip()
-    #             users = User.objects.all().values(
-    #                     'username', 'first_name', 'last_name',
-    #                     'email').filter(email__icontains=email)
-    #         else:
-    #             users = User.objects.all().values(
-    #                     'username', 'first_name', 'last_name',
-    #                     'email').order_by('first_name')
+    def post(self, request, *args, **kwargs):
+        # try:
+        book_status = BookingStatus.objects.get(code='B')
+        print("booking status==", book_status)
+        print("start-date==", request.POST.get('dinner_date_start'))
+        sdate = request.POST.get('dinner_date_start') if request.POST.get('dinner_date_start') else None
+        start_date = datetime.strptime(sdate, "%Y-%m-%d").date() if sdate else None
+        print("start_date_c ", start_date, type(start_date))
+        edate = request.POST.get('dinner_date_end') if request.POST.get('dinner_date_end') else None
+        end_date = datetime.strptime(edate, "%Y-%m-%d").date() if edate else None
 
-    #         paginator = Paginator(users, 10)  # B is currently booked
-    #         page_number = request.GET.get('page')
-    #         page_obj = paginator.get_page(page_number)
+        username = request.POST.get('user_name') if request.POST.get('user_name') else None
+        print("start date==", start_date, "end date==", end_date, "user name==", username)
+        if sdate and edate:
+            print("calling edate and sdate")
+            booking = Booking.objects.filter(
+                booking_status=book_status, dinner_date__gte=start_date,
+                dinner_date__lte=end_date)
+        elif start_date:
+            print("calling sdate")
+            booking = Booking.objects.filter(
+                booking_status=book_status, dinner_date=start_date)
+        elif end_date:
+            print("calling edate")
+            booking = Booking.objects.filter(
+                booking_status=book_status, dinner_date=end_date)
+        elif username:
+            print("calling username")
+            user_obj = User.objects.get(username=username)
+            booking = Booking.objects.filter(
+                booking_status=book_status, booked_for=user_obj)
+        else:
+            booking = Booking.objects.filter(booking_status=booking_status)
+            print("call all of them")
+        paginator = Paginator(booking, 10)  # B is currently booked
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
-    #     except Exception:
-    #         messages.add_message(request, messages.INFO,
-    #                              'Detailed display of users\
-    #                               failed, try later')
-    #         HttpResponseRedirect('cancel_booking/cancel_other_booking.html')
+        # except Exception:
+        #     messages.add_message(request, messages.INFO,
+        #                          'Detailed display of users\
+        #                           failed, try later')
+        #     HttpResponseRedirect("bookings/make_booking.html")
 
-    #     return render(
-    #         request,
-    #         "bookings/others/book_for_others.html",
-    #         {
-    #             "users": page_obj,
-    #         }
-    #     )
+        return render(
+            request,
+            "bookings/update/update_booking.html",
+            {
+                "bookings": page_obj,
+            }
+        )
+
+class BookingUpdateAction(View):
+    """ booking update action """
+
+    def get(self, request, booking_id, *args, **kwargs):
+        """ Find the booking that was selected """
+        booking = Booking.objects.get(id=booking_id)
+        form = UpdateBookingForm
+        return render(
+            request,
+            "bookings/update/update_booking_action.html",
+            {
+                "booking": booking,
+                "form": form
+            }
+        )
+
+    def post(self, request, booking_id, *args, **kwargs):
+        """ Update booking status details selected """
+        # try:
+        booking = Booking.objects.get(id=booking_id)
+        status = request.POST.get('booking_status')
+        if status:
+            status = BookingStatus.objects.get(code=status)
+        print("status =", status, "booking status=", booking.booking_status)
+        if booking.booking_status == status:
+            messages.add_message(request, messages.ERROR,
+                                 'Please select a different status')
+            form = UpdateBookingForm
+            return render(
+                request,
+                "bookings/update/update_booking_action.html",
+                {
+                    "booking": booking,
+                    "form": form
+                }
+            )
+
+        booking.booking_status = status
+        booking.save()
+        messages.add_message(request, messages.INFO,
+                             'Booking updated successfully')
+        bookings = Booking.objects.filter(booking_status='B')
+        paginator = Paginator(bookings, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        # except Exception:
+        #     messages.add_message(request, messages.INFO,
+        #                          'Update failed, try later')
+        #     HttpResponseRedirect('booking/update/update_booking.html')
+
+        return render(
+            request,
+            "bookings/update/update_booking.html",
+            {
+                "bookings": page_obj
+            }
+        )

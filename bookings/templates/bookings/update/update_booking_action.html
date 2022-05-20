@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid gx-4 ">
+    <div class="row">
+        <div class="col main-title text-center">
+            <h4>Booking Detail Update Action</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 md-6 mx-auto">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Field</th>
+                        <th scope="col">Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Booked for</td>
+                        <td>{{ booking.booked_for.first_name }} {{ booking.booked_for.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dinner Date</td>
+                        <td>{{ booking.dinner_date|date:'d-M-Y' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Persons</td>
+                        <td>{{ booking.seats}}</td>
+                    </tr>
+                    <tr>
+                        <td>Cuisines</td>
+                        <td>{{ booking.cuisines}}</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>{{ booking.booking_status}}</td>
+                    </tr>
+                    <tr>
+
+                        <form method="POST" action="{% url 'update_booking_action' booking.id %}" class="booking_form">
+                            {% csrf_token %}
+                            <div class="col">
+                                <button class="btn hidden" id="delete-notification-btn" type="submit"
+                                    name="action">update actual</button>
+                                <td>Select New Status</td>
+                                <td>{{form.booking_status}}</td>
+                            </div>
+                        </form>
+
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#confirmModal" id="confirm_delete_notification"
+                                data-message="Please confirm updating the Booking?">Update
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 md-3 mx-auto">
+            <span> <a class="btn btn-color" href="{% url 'update_booking' %}" title="Return to Select Booking">Return
+                    to Select Booking</a> </span>
+        </div>
+    </div>
+</div>
+{% endblock %}

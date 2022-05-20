@@ -50,7 +50,7 @@
                 <td>{{ booking.booked_for.first_name }} {{ booking.booked_for.last_name }}</td>
                 <td>{{ booking.seats }}</td>
                 <td>{{ booking.booking_status }}</td>
-                <td> <a href="#" class="btn btn-sm btn-color">Select</a>
+                <td> <a href="{% url 'update_booking_action' booking.id %}" class="btn btn-sm btn-color">Select</a>
                 </td>
             </tr>
             {% endfor %}
@@ -61,10 +61,13 @@
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if bookings.has_previous %}
-            <li><a href="?page={{ bookings.previous_page_number }}" class="btn btn-color">&laquo; PREV</a></li>
+            <li><a href="?page={{ bookings.previous_page_number }}" class="btn btn-color">&laquo; PREV </a>
+                <span class ="ms-5">Page {{ bookings.number }} of {{ bookings.paginator.num_pages }}</span>
+            </li>
             {% endif %}
             {% if bookings.has_next %}
-            <li><a href="?page={{ bookings.next_page_number }}" class="btn btn-color"> NEXT &raquo;</a></li>
+            <li><a href="?page={{ bookings.next_page_number }}" class="btn btn-color ms-2"> NEXT &raquo;</a>
+            </li>
             {% endif %}
         </ul>
     </nav>
