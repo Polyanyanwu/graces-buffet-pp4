@@ -48,3 +48,4 @@ class GroupForm(forms.ModelForm):
         """ Specify the profile fields to update """
         model = UserGroup
         fields = ('user', 'group_name')
+

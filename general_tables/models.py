@@ -53,6 +53,8 @@ class SystemPreference(models.Model):
         """ return the data """
         return self.data
 
+    def pref_verbose(self):
+        return dict(SystemPreference.SYSTEM_OPTIONS)[self.code]
 
 class DiningTable(models.Model):
     """ Dining tables maintenance """

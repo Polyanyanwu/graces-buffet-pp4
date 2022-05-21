@@ -3,6 +3,8 @@ const start_up = function () {
 
 };
 
+last_update_call = "";
+
 //after document has loaded, call the init function
 document.addEventListener("DOMContentLoaded", start_up);
 
