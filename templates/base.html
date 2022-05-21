@@ -39,7 +39,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container-fluid nav-area">
             <a class="navbar-brand" href="{% url 'home' %}">
-                <h1 id="brand-logo"><i class="fas fa-utensils"></i></h1>
+                <h1 id="brand-logo"><i class="fas fa-utensils my-nav"></i></h1>
                 <h1 id="brand-name">Graces Buffet</h1>
                 <!-- <img src="{% static 'images/logo.webp' %}" alt="" width="120" height="100"> -->
             </a>
@@ -53,70 +53,85 @@
                     <span class="navbar-text text-muted">
                         <span>Welcome {{ user.first_name}}</span>
                     </span>
+                    <!-- Operator sub menu -->
+                    {% if request.user|has_group:"operator" %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" title="Operator Menu Dropdown">
+                            <i class="fas fa-user-plus menu-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-submenu-left" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'update_booking' %}">Update Booking Status</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'book_for_others' %}">Book for Customer</a></li>
+                            <li><a class="dropdown-item" href="{% url 'cancel_other_booking' %}">Cancel Booking for
+                                    Customer</a></li>
+                            <li><a class="dropdown-item" href="#">
+                                    <hr></a></li>
+                            <li><a class="dropdown-item" href="#">Past Due guests List</a></li>
+                            <li><a class="dropdown-item" href="{% url 'booking_details_list' %}">Booking Details
+                                    List</a></li>
+                        </ul>
+                        {% endif %}
+
+
+
+
+
+
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" title="User Account Dropdown">
-                            <i class="fa-solid fa-user my-nav"></i>
+                            <i class="fa-solid fa-user menu-icon"></i>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <ul class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'update_profile' %}">My Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'account_email' %}">Update Email</a></li>
                             <li><a class="dropdown-item" href="{% url 'booking_detail' %}">Dinning History</a></li>
-                            <li><a class="dropdown-item" href="{% url 'cancel_my_booking' user.username %}">Cancel Booking</a></li>
-                            <!-- Operator sub menu -->
-                            {% if request.user|has_group:"operator" %} 
-                            <li>
-                                <a class="dropdown-item" href="#" title="Operator">
-                                    Operator &raquo;
-                                </a>
-                                <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="{% url 'update_booking' %}">Update Booking Status</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'book_for_others' %}">Book for Customer</a></li> 
-                                    <li><a class="dropdown-item" href="{% url 'cancel_other_booking' %}">Cancel Booking for Customer</a></li>
-                                    <li><a class="dropdown-item" href="#"><hr></a></li>
-                                    <li><a class="dropdown-item" href="#">Past Due guests List</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'booking_details_list' %}">Booking Details List</a></li>
-                                </ul>
-                            </li>
-                            {% endif %}
-                            <!-- Administrator Role Options -->
-                            {% if request.user|has_group:"administrator" %} 
-                            <li>
-                                <a class="dropdown-item" href="#" title="Operator">
-                                    Administrator &raquo;
-                                </a>
-                                <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="{% url 'update_group' %}">Assign User Roles</a></li>
-                                    <li><a class="dropdown-item" href="#">Buffet Cuisines</a></li>
-                                    <li><a class="dropdown-item" href="#">Maintain Tables</a></li>
-                                    <li><a class="dropdown-item" href="#">System Preferences</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'cancel_other_booking' %}">Cancel Booking for Customer</a></li>
-                                </ul>
-                            </li>
-                            {% endif %}
+                            <li><a class="dropdown-item" href="{% url 'cancel_my_booking' user.username %}">Cancel
+                                    Booking</a></li>
+
+
 
                             <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a>
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
                         </ul>
                     </li>
 
-                    <li class="nav-item"> 
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'upcoming_booking_detail' %}" title="Upcoming Bookings"><i
-                                class="fa-solid fa-calendar-days"></i></a>
+                                class="fa-solid fa-calendar-days menu-icon"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'get_notification' %}" title="Notifications"><i class="fa-solid fa-bell"></i></a>
+                        <a class="nav-link" href="{% url 'get_notification' %}" title="Notifications"><i
+                                class="fa-solid fa-bell menu-icon"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'home' %}"
-                            title="Find seats to book"><i class="fa-solid fa-magnifying-glass"></i></a>
+                            title="Find seats to book"><i class="fa-solid fa-magnifying-glass menu-icon"></i></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}" title="Home">
-                            <i class="fas fa-home"></i>
+
+                    <!-- Administrator Role Options -->
+                    {% if request.user|has_group:"administrator" %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" title="Administrator">
+                            <i class="fas fa-user-cog menu-icon"></i>
                         </a>
+                        <ul class="dropdown-menu dropdown-submenu-left" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'update_group' %}">Assign User Roles</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Buffet Cuisines</a></li>
+                            <li><a class="dropdown-item" href="#">Maintain Tables</a></li>
+                            <li><a class="dropdown-item" href="#">System Preferences</a></li>
+                            <li><a class="dropdown-item" href="{% url 'cancel_other_booking' %}">Cancel Booking
+                                    for Customer</a></li>
+                        </ul>
                     </li>
+                    {% endif %}
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_logout' %}" title="Logout"><i
                                 class="fa-solid fa-right-to-bracket"></i></a>
@@ -131,7 +146,7 @@
 
                         <a class="nav-link" href="{% url 'account_signup' %}" title="Sign Up">
                             <div class="text-center nav-icons-wrapper-lg my-nav">
-                                <div><i class="fa-solid fa-person-praying "></i></div>
+                                <div><i class="fa-solid fa-person-praying menu-icon"></i></div>
                                 <p class="my-0 small">Sign Up</p>
                             </div>
                         </a>
@@ -167,23 +182,23 @@
         {% endblock content %}
     </main>
     <!-- Modal dialogue for confirmations -->
-    <div class="modal" tabindex="-1" id="confirmModal" >
+    <div class="modal" tabindex="-1" id="confirmModal">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header main-title ">
-              <h5 class="modal-title">Confirmation</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
+            <div class="modal-content">
+                <div class="modal-header main-title ">
+                    <h5 class="modal-title">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
+                </div>
+                <div class="modal-body" id="confirm-message">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary confirm-no" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-color confirm-yes">Okay</button>
+                </div>
             </div>
-            <div class="modal-body" id="confirm-message">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary confirm-no" data-bs-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary btn-color confirm-yes">Okay</button>
-            </div>
-          </div>
         </div>
-      </div>
-      
+    </div>
+
     {% block extra_body %}
     {% endblock %}
     <!-- Footer -->

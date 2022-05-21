@@ -1,11 +1,8 @@
 body {
     font-family: 'Exo', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
 }
 
-/* .nav-area{ */
-/* background-color: #56351E; */
-/* } */
 /* Color variables */
 :root {
     --lapis-blue: #2660A4;
@@ -34,6 +31,13 @@ body {
     font-size: 2rem;
 }
 
+.menu-icon{
+   color: var(--sandy-brown); 
+}
+
+.priv-icon:hover{
+    color:var(--dark-brown)
+}
 #brand-name {
     /* color: #F19953; */
     display: inline-block;
@@ -87,8 +91,13 @@ form label {
     font-weight: 400;
 }
 
-/* Sub menu dropdown 
-https://mdbootstrap.com/docs/standard/extended/dropdown-multilevel/*/
+.dropdown-menu[data-bs-popper]{
+    right: 10%;
+    left: auto;
+}
+
+ /* Sub menu dropdown 
+https://mdbootstrap.com/docs/standard/extended/dropdown-multilevel/
 .dropdown-menu li {
     position: relative;
 }
@@ -107,7 +116,7 @@ https://mdbootstrap.com/docs/standard/extended/dropdown-multilevel/*/
 
 .dropdown-menu>li:hover>.dropdown-submenu {
     display: block;
-}
+} */
 
 .main-input #id_start_time,
 .main-input #id_seats,
