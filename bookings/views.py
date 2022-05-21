@@ -489,7 +489,7 @@ class BookingUpdateAction(View):
         status = request.POST.get('booking_status')
         if status:
             status = BookingStatus.objects.get(code=status)
-       
+
         if booking.booking_status == status:
             messages.add_message(request, messages.ERROR,
                                  'Please select a different status')
@@ -582,7 +582,7 @@ class BookingDetailsList(View):
         elif username:
             booking = Booking.objects.filter(
                 Q(booked_for__first_name__icontains=username)
-                |  Q(booked_for__last_name__icontains=username))
+                | Q(booked_for__last_name__icontains=username))
         elif bstatus:
             booking = Booking.objects.filter(booking_status=book_status)
         else:
@@ -597,5 +597,35 @@ class BookingDetailsList(View):
             "bookings/blist/booking_list.html",
             {
                 "bookings": page_obj,
+            }
+        )
+
+
+class PastDueList(View):
+    """ Past due booking details list """
+
+    def get(self, request, *args, **kwargs):
+
+        """ View past due booking details """
+
+        no_show_min = SystemPreference.objects.get(code="N")
+        no_show = no_show_min.data
+
+        today = datetime.now().date()
+        booking = Booking.objects.filter(
+            (Q(dinner_date__lt=today) |
+              (Q(dinner_date=today) &
+                Q(start_time__start_time__lte=(datetime.now()
+                  - timedelta(minutes=no_show)))))
+            & Q(booking_status="B")).order_by('dinner_date')
+        paginator = Paginator(booking, 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        return render(
+            request,
+            "bookings/pastdue/past_due_list.html",
+            {
+                "bookings": page_obj
             }
         )

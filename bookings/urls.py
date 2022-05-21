@@ -22,5 +22,7 @@ urlpatterns = [
           name='update_booking_action'),
      path('bookings/blist/', views.BookingDetailsList.as_view(),
           name='booking_details_list'),
+     path('bookings/pastdue/', views.PastDueList.as_view(),
+          name='past_due_list'),
 
 ]

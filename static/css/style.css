@@ -31,13 +31,14 @@ body {
     font-size: 2rem;
 }
 
-.menu-icon{
-   color: var(--sandy-brown); 
+.menu-icon {
+    color: var(--dark-brown);
 }
 
-.priv-icon:hover{
-    color:var(--dark-brown)
+.menu-icon:hover {
+    color: var(--sandy-brown)
 }
+
 #brand-name {
     /* color: #F19953; */
     display: inline-block;
@@ -47,7 +48,6 @@ body {
 }
 
 form label {
-    /* display: block; */
     font-weight: bold;
 }
 
@@ -56,6 +56,10 @@ form label {
     background: linear-gradient(0.25turn, var(--lapis-blue), var(--dark-brown), var(--copper));
     color: #EDF7F6;
     font-size: 1rem;
+}
+
+h3 {
+    color: var(--dark-brown);
 }
 
 .btn-color {
@@ -91,12 +95,12 @@ form label {
     font-weight: 400;
 }
 
-.dropdown-menu[data-bs-popper]{
+.dropdown-menu[data-bs-popper] {
     right: 10%;
     left: auto;
 }
 
- /* Sub menu dropdown 
+/* Sub menu dropdown 
 https://mdbootstrap.com/docs/standard/extended/dropdown-multilevel/
 .dropdown-menu li {
     position: relative;
