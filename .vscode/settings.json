@@ -35,6 +35,7 @@
       "edate",
       "forloop",
       "pastdue",
-      "sdate"
+      "sdate",
+      "syspref"
    ]
 }
