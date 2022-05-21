@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from cuisine.models import Cuisine, CuisineChoice
 from general_tables.models import\
     (DiningTable, BuffetPeriod, SystemPreference, BookingStatus)
@@ -580,9 +580,9 @@ class BookingDetailsList(View):
         elif end_date:
             booking = Booking.objects.filter(dinner_date=end_date)
         elif username:
-            # user_obj = User.objects.get(username=username)
             booking = Booking.objects.filter(
-                booked_for__first_name__icontains=username)
+                Q(booked_for__first_name__icontains=username)
+                |  Q(booked_for__last_name__icontains=username))
         elif bstatus:
             booking = Booking.objects.filter(booking_status=book_status)
         else:
