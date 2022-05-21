@@ -335,7 +335,7 @@ class BookForOthers(View):
             users = User.objects.all().values(
                      'username', 'first_name', 'last_name',
                      'email').order_by('first_name')
-            paginator = Paginator(users, 10)  # B is currently booked
+            paginator = Paginator(users, 15)  # B is currently booked
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
 
@@ -370,7 +370,7 @@ class BookForOthers(View):
                         'username', 'first_name', 'last_name',
                         'email').order_by('first_name')
 
-            paginator = Paginator(users, 10)  # B is currently booked
+            paginator = Paginator(users, 15)  # B is currently booked
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
 
@@ -398,7 +398,7 @@ class UpdateBookingStatus(View):
         try:
             booking = Booking.objects.filter(booking_status='B')
             # only current bookings
-            paginator = Paginator(booking, 10)
+            paginator = Paginator(booking, 15)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
 
@@ -453,7 +453,7 @@ class UpdateBookingStatus(View):
         else:
             booking = Booking.objects.filter(booking_status=book_status)
 
-        paginator = Paginator(booking, 10)
+        paginator = Paginator(booking, 15)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
@@ -508,7 +508,7 @@ class BookingUpdateAction(View):
         messages.add_message(request, messages.INFO,
                              'Booking updated successfully')
         bookings = Booking.objects.filter(booking_status='B')
-        paginator = Paginator(bookings, 10)
+        paginator = Paginator(bookings, 15)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
