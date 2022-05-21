@@ -388,6 +388,7 @@ class BookForOthers(View):
             }
         )
 
+
 class UpdateBookingStatus(View):
     """ Update the status after customer has been served """
 
@@ -416,18 +417,21 @@ class UpdateBookingStatus(View):
         )
 
     def post(self, request, *args, **kwargs):
-        # try:
+     
         book_status = BookingStatus.objects.get(code='B')
-        print("booking status==", book_status)
-        print("start-date==", request.POST.get('dinner_date_start'))
-        sdate = request.POST.get('dinner_date_start') if request.POST.get('dinner_date_start') else None
-        start_date = datetime.strptime(sdate, "%Y-%m-%d").date() if sdate else None
-        print("start_date_c ", start_date, type(start_date))
-        edate = request.POST.get('dinner_date_end') if request.POST.get('dinner_date_end') else None
-        end_date = datetime.strptime(edate, "%Y-%m-%d").date() if edate else None
 
-        username = request.POST.get('user_name') if request.POST.get('user_name') else None
-        print("start date==", start_date, "end date==", end_date, "user name==", username)
+        sdate = request.POST.get('dinner_date_start') if request.POST.get(
+            'dinner_date_start') else None
+        start_date = datetime.strptime(
+            sdate, "%Y-%m-%d").date() if sdate else None
+        edate = request.POST.get('dinner_date_end') if request.POST.get(
+            'dinner_date_end') else None
+        end_date = datetime.strptime(
+            edate, "%Y-%m-%d").date() if edate else None
+
+        username = request.POST.get(
+            'user_name') if request.POST.get('user_name') else None
+
         if sdate and edate:
             print("calling edate and sdate")
             booking = Booking.objects.filter(
@@ -447,17 +451,11 @@ class UpdateBookingStatus(View):
             booking = Booking.objects.filter(
                 booking_status=book_status, booked_for=user_obj)
         else:
-            booking = Booking.objects.filter(booking_status=booking_status)
-            print("call all of them")
-        paginator = Paginator(booking, 10)  # B is currently booked
+            booking = Booking.objects.filter(booking_status=book_status)
+
+        paginator = Paginator(booking, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-
-        # except Exception:
-        #     messages.add_message(request, messages.INFO,
-        #                          'Detailed display of users\
-        #                           failed, try later')
-        #     HttpResponseRedirect("bookings/make_booking.html")
 
         return render(
             request,
@@ -466,6 +464,7 @@ class UpdateBookingStatus(View):
                 "bookings": page_obj,
             }
         )
+
 
 class BookingUpdateAction(View):
     """ booking update action """
@@ -485,12 +484,12 @@ class BookingUpdateAction(View):
 
     def post(self, request, booking_id, *args, **kwargs):
         """ Update booking status details selected """
-        # try:
+
         booking = Booking.objects.get(id=booking_id)
         status = request.POST.get('booking_status')
         if status:
             status = BookingStatus.objects.get(code=status)
-        print("status =", status, "booking status=", booking.booking_status)
+       
         if booking.booking_status == status:
             messages.add_message(request, messages.ERROR,
                                  'Please select a different status')
@@ -512,15 +511,91 @@ class BookingUpdateAction(View):
         paginator = Paginator(bookings, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-        # except Exception:
-        #     messages.add_message(request, messages.INFO,
-        #                          'Update failed, try later')
-        #     HttpResponseRedirect('booking/update/update_booking.html')
 
         return render(
             request,
             "bookings/update/update_booking.html",
             {
                 "bookings": page_obj
+            }
+        )
+
+
+class BookingDetailsList(View):
+    """ Query booking details list """
+
+    def get(self, request, *args, **kwargs):
+
+        """ View booking details """
+        booking = Booking.objects.all().order_by('-booking_date')
+        paginator = Paginator(booking, 20)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        return render(
+            request,
+            "bookings/blist/booking_list.html",
+            {
+                "bookings": page_obj
+            }
+        )
+
+    def post(self, request, *args, **kwargs):
+        """ Search the booking table based on user selected criteria
+        First check dates and booking status together,
+        then dates together
+        followed by dates separately
+        followed by username
+        and finally booking status
+        """
+        bstatus = request.POST.get('booking_status') if request.POST.get(
+            'booking_status') else None
+        if bstatus:
+            book_status = BookingStatus.objects.get(code=bstatus)
+
+        sdate = request.POST.get('dinner_date_start') if request.POST.get(
+            'dinner_date_start') else None
+        start_date = datetime.strptime(
+            sdate, "%Y-%m-%d").date() if sdate else None
+
+        edate = request.POST.get('dinner_date_end') if request.POST.get(
+            'dinner_date_end') else None
+        end_date = datetime.strptime(
+            edate, "%Y-%m-%d").date() if edate else None
+
+        username = request.POST.get('user_name') if request.POST.get(
+            'user_name') else None
+
+        if sdate and edate and bstatus:
+            booking = Booking.objects.filter(
+                dinner_date__gte=start_date,
+                booking_status=bstatus,
+                dinner_date__lte=end_date)
+        elif sdate and edate:
+            booking = Booking.objects.filter(
+                dinner_date__gte=start_date,
+                dinner_date__lte=end_date)
+        elif start_date:
+            booking = Booking.objects.filter(dinner_date=start_date)
+        elif end_date:
+            booking = Booking.objects.filter(dinner_date=end_date)
+        elif username:
+            # user_obj = User.objects.get(username=username)
+            booking = Booking.objects.filter(
+                booked_for__first_name__icontains=username)
+        elif bstatus:
+            booking = Booking.objects.filter(booking_status=book_status)
+        else:
+            booking = Booking.objects.all().order_by('-dinner_date')
+
+        paginator = Paginator(booking, 20)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        return render(
+            request,
+            "bookings/blist/booking_list.html",
+            {
+                "bookings": page_obj,
             }
         )
