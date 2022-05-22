@@ -691,18 +691,16 @@ class DeleteBooking(View):
                 booking_status=book_status, dinner_date__gte=start_date,
                 dinner_date__lte=end_date)
         elif start_date:
-            print("calling sdate")
             booking = Booking.objects.filter(
                 booking_status=book_status, dinner_date=start_date)
         elif end_date:
-            print("calling edate")
             booking = Booking.objects.filter(
                 booking_status=book_status, dinner_date=end_date)
         elif username:
-            print("calling username")
-            user_obj = User.objects.get(username=username)
             booking = Booking.objects.filter(
-                booking_status=book_status, booked_for=user_obj)
+                (Q(booked_for__first_name__icontains=username)
+                 | Q(booked_for__last_name__icontains=username))
+                & Q(booking_status='F'))
         else:
             booking = Booking.objects.filter(booking_status=book_status)
 
@@ -712,7 +710,7 @@ class DeleteBooking(View):
 
         return render(
             request,
-            "bookings/update/update_booking.html",
+            "bookings/del/delete_booking.html",
             {
                 "bookings": page_obj,
             }
@@ -738,7 +736,7 @@ class DeleteUpdateAction(View):
     def post(self, request, booking_id, *args, **kwargs):
         """ Delete booking status details selected """
 
-        booking = get_object_or_404(Booking.objects.get, id=booking_id)
+        booking = get_object_or_404(Booking, id=booking_id)
         booking.delete()
         messages.add_message(request, messages.INFO,
                              'Booking deleted successfully')
