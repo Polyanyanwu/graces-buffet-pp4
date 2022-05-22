@@ -1,7 +1,9 @@
 """ admin config and registration for general tables """
 
 from django.contrib import admin
-from .models import BookingStatus, BuffetPeriod, SystemPreference, DiningTable
+from django_summernote.admin import SummernoteModelAdmin
+from .models import (
+    BookingStatus, BuffetPeriod, SystemPreference, DiningTable, HomeMessage)
 
 
 @admin.register(BookingStatus)
@@ -34,3 +36,10 @@ class DiningTableAdmin(admin.ModelAdmin):
     ''' Maintain dining tables '''
     model = DiningTable
     list_display = ('location', 'description', 'total_seats', 'used_seats', )
+
+
+@admin.register(HomeMessage)
+class HomeMessageAdmin(SummernoteModelAdmin):
+    """ Maintain Text for Privacy policy & Terms of Use"""
+    list_display = ('code', 'description', )
+    summernote_fields = ('description')

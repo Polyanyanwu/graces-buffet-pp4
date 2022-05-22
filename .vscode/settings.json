@@ -36,6 +36,7 @@
       "forloop",
       "pastdue",
       "sdate",
+      "summernote",
       "syspref"
    ]
 }
