@@ -2,6 +2,9 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 class Contact(models.Model):
@@ -25,3 +28,20 @@ class Contact(models.Model):
 
     def __str__(self):
         return str(self.sender)
+
+    def send_email_message(self):
+        """
+        Send confirmation email when a contact completes a contact form """
+
+        sender = self.sender
+        subject = 'Message well received'
+        body = render_to_string(
+            'home/confirmation/contact_confirmation.txt',
+            {'details': self})
+
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [sender]
+        )
