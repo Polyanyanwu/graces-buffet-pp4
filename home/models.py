@@ -29,7 +29,7 @@ class Contact(models.Model):
     def __str__(self):
         return str(self.sender)
 
-    def send_email_message(self):
+    def send_email_contact_message(self):
         """
         Send confirmation email when a contact completes a contact form """
 
