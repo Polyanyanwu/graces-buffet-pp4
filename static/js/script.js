@@ -67,3 +67,19 @@ if(document.querySelectorAll('.confirmation-btn')){
     }));
 }
 
+
+// Confirm removal of user group
+if(document.querySelectorAll('.confirm_remove_notification')){
+    rec_btn = document.querySelectorAll('.confirm_remove_notification');
+    rec_btn.forEach(btn => btn.addEventListener('click', function(e){
+        msg = e.target.dataset.message;
+        Confirmation(msg,
+            function yes() {
+                document.getElementById("user_group_name").value = e.target.dataset.group
+                document.getElementById('action_button').click();
+            },
+            function no() {
+                return;
+            });
+    }));
+}

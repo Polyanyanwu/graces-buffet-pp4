@@ -1,10 +1,10 @@
 """ Profile update view """
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from .forms import ProfileForm, UserForm, GroupForm
 from .user_auth import check_access
 
@@ -48,15 +48,23 @@ def update_group(request):
         messages.error(request, (rights))
         return redirect('/')
     if request.method == 'POST':
-
-        pass
+        if 'user_change' in request.POST:
+            user_sent = request.POST.get('user')
+            user = get_object_or_404(User, id=user_sent)
+            group_form = GroupForm(instance=user)
+        elif 'remove_group' in request.POST:
+            my_group = Group.objects.get(
+                name=request.POST.get('user_group_selected'))
+            user_sent = request.POST.get('user')
+            user = get_object_or_404(User, id=user_sent)
+            my_group.user_set.remove(user)
+            group_form = GroupForm(instance=user)
     else:
-        # users = User.objects.filter(username='grace')
-        user_form = UserForm()
+        user = request.user
         group_form = GroupForm()
+
     return render(request, 'profiles/user_group.html',
                   {
-                        'user_form': user_form,
                         'group_form': group_form,
-                        'users': request.user
+                        'users': user
                   })
