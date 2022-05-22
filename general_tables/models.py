@@ -56,23 +56,6 @@ class SystemPreference(models.Model):
     def pref_verbose(self):
         return dict(SystemPreference.SYSTEM_OPTIONS)[self.code]
 
-class DiningTable(models.Model):
-    """ Dining tables maintenance """
-    location = models.CharField(max_length=50, blank=False)
-    description = models.CharField(max_length=50, blank=False)
-    total_seats = models.PositiveIntegerField(blank=False,)
-    used_seats = models.PositiveIntegerField(blank=False, default=0)
-
-    class Meta:
-        " display times in ascending order"
-        ordering = ["total_seats"]
-
-    def seats_remaining(self):
-        """ Compute and return total seats remaining """
-        return self.total_seats - self.used_seats
-
-    def __str__(self):
-        return str(self.description)
 
 class DiningTable(models.Model):
     """ Dining tables maintenance """

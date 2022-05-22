@@ -1,5 +1,6 @@
 from django import forms
-from .models import SystemPreference
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+from .models import SystemPreference, HomeMessage
 
 
 class SystemPreferenceForm(forms.ModelForm):
@@ -9,3 +10,8 @@ class SystemPreferenceForm(forms.ModelForm):
         model = SystemPreference
         fields = ('code', 'data')
         readonly_fields = ('code',)
+
+
+class HomeMessageForm(forms.Form):
+    model = HomeMessage
+    description = forms.CharField(widget=SummernoteWidget())

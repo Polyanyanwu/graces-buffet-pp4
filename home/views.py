@@ -6,7 +6,10 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from bookings.models import Notification
+from general_tables.models import HomeMessage
+from general_tables.forms import HomeMessageForm
 from .forms import ContactForm
+
 
 
 def index(request):
@@ -144,3 +147,18 @@ class ContactUs(View):
                         "email": email
                     }
                 )
+
+
+class TermsOfUse(View):
+    """ View terms of use message """
+    def get(self, request, *args, **kwargs):
+        """ display form for user """
+        terms = get_object_or_404(HomeMessage, code='T')
+        # terms = HomeMessageForm()
+        return render(
+            request,
+            "home/terms/terms_of_use.html",
+            {
+                "terms": terms,
+            }
+        )

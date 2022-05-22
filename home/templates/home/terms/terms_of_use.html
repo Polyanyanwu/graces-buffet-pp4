@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block additional_title %}- Terms of use {% endblock %}
+{{ form.media }}
+{% block content %}
+<div class="container-fluid gx-4">
+    <div class="row">
+        <div class="col main-title text-center">
+            <h4>Terms of Use</h4>
+        </div>
+    </div>
+</div>
+<div class="container-fluid gx-4" style="background: white;">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10">
+            {{terms | safe }}
+        </div>
+    </div>
+</div>
+{% endblock %}
