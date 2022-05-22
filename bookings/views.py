@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime, date
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import View
 from django.db import transaction, IntegrityError
 from django.core.paginator import Paginator
@@ -10,6 +10,7 @@ from django.db.models import Sum, Q
 from cuisine.models import Cuisine, CuisineChoice
 from general_tables.models import\
     (DiningTable, BuffetPeriod, SystemPreference, BookingStatus)
+from user_account.user_auth import check_access
 from .models import Booking, TablesBooked
 from .forms import BookingForm, UpdateBookingForm
 
@@ -625,6 +626,130 @@ class PastDueList(View):
         return render(
             request,
             "bookings/pastdue/past_due_list.html",
+            {
+                "bookings": page_obj
+            }
+        )
+
+
+class DeleteBooking(View):
+    """ Delete booking """
+
+    def get(self, request, *args, **kwargs):
+
+        """ View booking details """
+
+        rights = check_access(request.user, "administrator")
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
+        try:
+            booking = Booking.objects.filter(booking_status='F')
+            # only fulfilled bookings
+            paginator = Paginator(booking, 15)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+
+        except Exception:
+            messages.add_message(request, messages.INFO,
+                                 'Detailed display of bookings\
+                                  failed, try later')
+            HttpResponseRedirect('bookings/del/delete_booking.html')
+
+        return render(
+            request,
+            "bookings/del/delete_booking.html",
+            {
+                "bookings": page_obj
+            }
+        )
+
+    def post(self, request, *args, **kwargs):
+        rights = check_access(request.user, "administrator")
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
+        book_status = BookingStatus.objects.get(code='F')
+
+        sdate = request.POST.get('dinner_date_start') if request.POST.get(
+            'dinner_date_start') else None
+        start_date = datetime.strptime(
+            sdate, "%Y-%m-%d").date() if sdate else None
+        edate = request.POST.get('dinner_date_end') if request.POST.get(
+            'dinner_date_end') else None
+        end_date = datetime.strptime(
+            edate, "%Y-%m-%d").date() if edate else None
+
+        username = request.POST.get(
+            'user_name') if request.POST.get('user_name') else None
+
+        if sdate and edate:
+            print("calling edate and sdate")
+            booking = Booking.objects.filter(
+                booking_status=book_status, dinner_date__gte=start_date,
+                dinner_date__lte=end_date)
+        elif start_date:
+            print("calling sdate")
+            booking = Booking.objects.filter(
+                booking_status=book_status, dinner_date=start_date)
+        elif end_date:
+            print("calling edate")
+            booking = Booking.objects.filter(
+                booking_status=book_status, dinner_date=end_date)
+        elif username:
+            print("calling username")
+            user_obj = User.objects.get(username=username)
+            booking = Booking.objects.filter(
+                booking_status=book_status, booked_for=user_obj)
+        else:
+            booking = Booking.objects.filter(booking_status=book_status)
+
+        paginator = Paginator(booking, 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        return render(
+            request,
+            "bookings/update/update_booking.html",
+            {
+                "bookings": page_obj,
+            }
+        )
+
+
+class DeleteUpdateAction(View):
+    """ booking update action """
+
+    def get(self, request, booking_id, *args, **kwargs):
+        """ Find the booking that was selected """
+        booking = Booking.objects.get(id=booking_id)
+        form = UpdateBookingForm
+        return render(
+            request,
+            "bookings/del/delete_booking_action.html",
+            {
+                "booking": booking,
+                "form": form
+            }
+        )
+
+    def post(self, request, booking_id, *args, **kwargs):
+        """ Delete booking status details selected """
+
+        booking = get_object_or_404(Booking.objects.get, id=booking_id)
+        booking.delete()
+        messages.add_message(request, messages.INFO,
+                             'Booking deleted successfully')
+        bookings = Booking.objects.filter(booking_status='F')
+        paginator = Paginator(bookings, 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        return render(
+            request,
+            "bookings/del/delete_booking.html",
             {
                 "bookings": page_obj
             }
