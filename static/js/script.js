@@ -83,3 +83,12 @@ if(document.querySelectorAll('.confirm_remove_notification')){
             });
     }));
 }
+
+// If user has email pick it from the template and 
+// assign to the email address field 
+
+if(document.querySelector('#contact_us')){
+    if(document.querySelector('#user_email')){
+        document.querySelector('#id_sender').value = document.querySelector('#user_email').value
+    }
+}

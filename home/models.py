@@ -36,7 +36,7 @@ class Contact(models.Model):
         sender = self.sender
         subject = 'Message well received'
         body = render_to_string(
-            'home/confirmation/contact_confirmation.txt',
+            'home/contact/contact_confirmation.txt',
             {'details': self})
 
         send_mail(
