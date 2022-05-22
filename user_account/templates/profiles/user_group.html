@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block additional_title %}- Profile details{% endblock %}
+{% block additional_title %}- Groups {% endblock %}
 {% block other_java_script %}
 <script src="{% static 'js/profile.js' %}"></script>
 {% endblock %}
@@ -21,7 +21,7 @@
                 {% csrf_token %}
                 {{ group_form|crispy }}
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-color">Add</button>
+                    <button type="submit" class="btn btn-primary btn-color" name ="add_user_group">Add</button>
                 </div>
                 <button type="submit" class="hidden" name="user_change" id="user-change-button"></button>
                 <input type="text" value={{users.id}} name="user_id" id="user_id" class="hidden">
@@ -54,9 +54,7 @@
                         <input type="text" value="" name="user_group_selected" id="user_group_name" class="hidden">
                     </tbody>
                 </table>
-
             </form>
-   
         </div>
     </div>
 </div>
