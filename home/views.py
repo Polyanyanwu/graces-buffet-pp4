@@ -152,13 +152,26 @@ class ContactUs(View):
 class TermsOfUse(View):
     """ View terms of use message """
     def get(self, request, *args, **kwargs):
-        """ display form for user """
+        """ display message for user """
         terms = get_object_or_404(HomeMessage, code='T')
-        # terms = HomeMessageForm()
         return render(
             request,
             "home/terms/terms_of_use.html",
             {
                 "terms": terms,
+            }
+        )
+
+
+class PrivacyPolicy(View):
+    """ View privacy message """
+    def get(self, request, *args, **kwargs):
+        """ display message for user """
+        policy = get_object_or_404(HomeMessage, code='P')
+        return render(
+            request,
+            "home/privacy/privacy_policy.html",
+            {
+                "policy": policy,
             }
         )

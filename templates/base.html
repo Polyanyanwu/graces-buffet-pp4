@@ -124,7 +124,8 @@
                             </li>
                             <li><a class="dropdown-item" href="#">Buffet Cuisines</a></li>
                             <li><a class="dropdown-item" href="#">Maintain Tables</a></li>
-                            <li><a class="dropdown-item" href="{% url 'system_preference' %}">System Preferences</a></li>
+                            <li><a class="dropdown-item" href="{% url 'system_preference' %}">System Preferences</a>
+                            </li>
                             <li><a class="dropdown-item" href="{% url 'cancel_other_booking' %}">Cancel Booking
                                     for Customer</a></li>
                             <li><a class="dropdown-item" href="{% url 'update_booking' %}">Update Booking Status</a>
@@ -205,12 +206,19 @@
     {% endblock %}
     <!-- Footer -->
     <footer class="footer mt-auto py-2">
-        <p class="m-0 text-center text-white"><a href="{% url 'terms_of_use' %}">Terms of Use</a> <span>|</span>
-            <a href="">Privacy Policy</a> <span>|</span>
-            <a href="{% url 'contact_us' %}">Contact Us </a> <span>|</span>
-            <span><a href="" title="LinkedIn"><i class="fab fa-linkedin"></i></a></span>
+        <p class="m-0 text-center text-white"><a href="{% url 'terms_of_use' %}">Terms of Use</a>
             <span>|</span>
-            <a href="" title="Github"><i class="fab fa-github"></i></a>
+            <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+            <span>|</span>
+            <a href="{% url 'contact_us' %}">Contact Us </a>
+            <span>|</span>
+            <span><a href="http://www.linkedin.com/in/Polycarp-Anyanwu-PMP" target="_blank" rel="noopener"
+                    title="LinkedIn" aria-label="Check us out on LinkedIn"></a><i
+                    class="fab fa-linkedin"></i></a></span>
+            <span>|</span>
+            <a href="https://github.com/Polyanyanwu" target="_blank" rel="noopener"
+                aria-label="Check us out on Github"><i class="fab fa-github"></i></a>
+
         </p>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" rel="preconnect"></script>
