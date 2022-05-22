@@ -19,13 +19,38 @@
             <p></p>
             <form action="{% url 'update_profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
-                <!-- {{ user_form|crispy }} -->
                 {{ group_form|crispy }}
+
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-color">Save</button>
-                    <a class="btn btn-primary btn-outline-warning btn-cancel" href="{% url 'home' %}">Cancel</a>
+                    <button type="submit" class="btn btn-primary btn-color">Add</button>
                 </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Group</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for group in users.groups.all %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{users.first_name}} {{users.last_name}}</td>
+                            <td>{{ group.name }}</td>
+                            <td> <a href="#" class="btn btn-sm btn-danger">Remove</a>
+                            </td>
+                            </td>
+                        </tr>
+                        {% endfor %}
+            
+                    </tbody>
+                </table>
+
             </form>
+   
         </div>
     </div>
 </div>

@@ -1,16 +1,26 @@
 """ System Admin Tables Maintenance View """
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.contrib import messages
+from user_account.user_auth import check_access
 from .forms import SystemPreferenceForm
 from .models import SystemPreference
 
 
 class SystemPreferenceView(View):
+    """ Maintain system preference records,
+        requires administrator group membership"""
 
     def get(self, request, *args, **kwargs):
         """Display all system preference records and an update form"""
+
+        # ensure user is in the administrator group
+        rights = check_access(request.user, "administrator")
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
         syspref = SystemPreference.objects.all()
         selected_item = syspref[0].code
         form = SystemPreferenceForm(instance=syspref[0])
@@ -26,6 +36,13 @@ class SystemPreferenceView(View):
 
     def post(self, request, *args, **kwargs):
         """ Update selected system preference record """
+
+        # ensure user is in the administrator group
+        rights = check_access(request.user, "administrator")
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
         if 'save_system_preference' in request.POST:
             selected_item = request.POST.get('pref_code')
             pref_form = get_object_or_404(SystemPreference, code=selected_item)

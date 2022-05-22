@@ -20,27 +20,6 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <form method="POST" action="{% url 'past_due_list' %}">
-                {% csrf_token %}
-                <tr>
-                    <th scope="row"></th>
-                    <td><input type="date" value="" name="dinner_date_start" placeholder="Start Dinner Date">
-                        <span>To</span>
-                        <input type="date" value="" name="dinner_date_end" placeholder="End Dinner Date">
-                        <button type="submit" name="dinner_date" title="Click to search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </td>
-                    <td></td>
-                    <td><input type="text" value="" name="user_name" placeholder="User name">
-                        <button type="submit" name="find-username" title="Click to search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </form> -->
             {% for booking in bookings %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
@@ -62,7 +41,7 @@
         <ul class="pagination justify-content-center">
             {% if bookings.has_previous %}
             <li><a href="?page={{ bookings.previous_page_number }}" class="btn btn-color">&laquo; PREV </a>
-                <span class ="ms-5">Page {{ bookings.number }} of {{ bookings.paginator.num_pages }}</span>
+                <span class="ms-5">Page {{ bookings.number }} of {{ bookings.paginator.num_pages }}</span>
             </li>
             {% endif %}
             {% if bookings.has_next %}
