@@ -775,3 +775,103 @@ class EditBooking(View):
                 "cuisine_choice": booking.cuisines
             }
         )
+
+    def post(self, request, booking_id, *args, **kwargs):
+        # check if user is logged in
+        if not request.user.is_authenticated:
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 'Please login first before you can complete a\
+                                  booking. Click the Signup button above\
+                                  or login\
+                                  if you already have an account ')
+            return HttpResponseRedirect("/")
+
+        booking_status_qs = BookingStatus.objects.filter(code="B")
+        booking_status = get_object_or_404(booking_status_qs)
+        booking_qs = BookingForm(data=request.POST)
+        cuisine_choices = request.POST.getlist('cuisine_option')
+        if len(cuisine_choices) == 0:
+            messages.add_message(request, messages.WARNING,
+                                 'Please select one or more cuisine\
+                                      choices before proceeding')
+            return redirect("edit_booking", booking_id)
+        print(request.POST)
+        if booking_qs.is_valid():
+            try:
+                # fetch existing booking
+                booking = get_object_or_404(Booking, id=booking_id)
+                user_to_book = request.user
+                with transaction.atomic():
+                    # booking.save(commit=False)
+
+                    time_entered_qs = BuffetPeriod.objects.filter(
+                        id=request.POST.get('start_time'))
+                    time_entered = get_object_or_404(time_entered_qs)
+                    # check seats availability
+                    tables = book_seats(int(request.POST.get('seats')),
+                                        request.POST.get('dinner_date'),
+                                        time_entered)
+                    if len(tables) == 0:
+                        # no seats found on selected date
+                        messages.add_message(request, messages.WARNING,
+                                             'So sorry, Graces Buffet is fully booked\
+                        on your chosen date and time. Try another date/time.')
+                        return redirect("edit_booking", booking.id)
+                    else:
+                        # save booking first
+                        booking.booked_for = user_to_book
+                        booking.booked_by = request.user
+                        booking.booking_status = booking_status
+                        booking.seats = request.POST.get('seats')
+                        booking.dinner_date = request.POST.get('dinner_date')
+                        booking.start_time = BuffetPeriod.objects.get(
+                            id=request.POST.get('start_time'))
+                        booking.save()
+                        # delete existing tables
+                        existing_booked_table = TablesBooked.objects.filter(
+                            booking_id=booking_id)
+                        for tab in existing_booked_table:
+                            tab.delete()
+                        # save tables booked
+                        for table_item, seat in tables.items():
+                            TablesBooked.objects.create(
+                                booking_id=booking,
+                                seats_booked=seat,
+                                table_id=table_item,
+                                time_booked=time_entered.start_time,
+                                table_capacity=table_item.total_seats)
+
+                    # delete existing cuisine choices
+                    existing_cuisines = CuisineChoice.objects.filter(
+                        booking_id=booking_id)
+                    for tab in existing_cuisines:
+                        tab.delete()
+
+                    # save the cuisine choices
+                    cuisines = ""
+                    if len(cuisine_choices) > 0:
+                        for choice in cuisine_choices:
+                            cuisine_qs = Cuisine.objects.filter(id=choice)
+                            cuisine_rec = get_object_or_404(cuisine_qs)
+                            cuisines += cuisine_rec.name + ", "
+                            CuisineChoice.objects.create(
+                                booking_id=booking,
+                                cuisine_id=cuisine_rec)
+                            booking.cuisines = cuisines[:-2]
+                            booking.save()
+                    messages.add_message(request, messages.INFO,
+                                         'Thank you: Your booking has\
+                                          been confirmed.')
+                    return HttpResponseRedirect(reverse('booking_confirm',
+                                                args=[booking.id]))
+            except IntegrityError:
+                messages.add_message(request, messages.WARNING,
+                                     'Your booking could not be completed now\
+                                     check your entry and try again.')
+                return redirect("edit_booking", booking_id)
+        else:
+            messages.add_message(request, messages.WARNING,
+                                 'Your booking could not be completed now\
+                                  check your entry and try again.')
+            return redirect("edit_booking", booking_id)
