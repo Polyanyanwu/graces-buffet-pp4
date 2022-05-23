@@ -752,3 +752,25 @@ class DeleteUpdateAction(View):
                 "bookings": page_obj
             }
         )
+
+
+class EditBooking(View):
+
+    def get(self, request, booking_id, *args, **kwargs):
+        price_queryset = SystemPreference.objects.filter(code="P").values()
+        buffet_price = price_queryset[0]['data']
+        booking = Booking.objects.get(id=booking_id)
+        cuisine_queryset = Cuisine.objects.all()
+        form = BookingForm(instance=booking)
+
+        return render(
+            request,
+            "bookings/edit/edit_booking.html",
+            {
+                "buffet_price": buffet_price,
+                "form": form,
+                "cuisines": cuisine_queryset,
+                "booking_id": booking_id,
+                "cuisine_choice": booking.cuisines
+            }
+        )

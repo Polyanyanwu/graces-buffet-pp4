@@ -28,4 +28,6 @@ urlpatterns = [
           name='delete_booking'),
      path('bookings/del/<booking_id>', views.DeleteUpdateAction.as_view(),
           name='delete_booking_action'),
+     path('bookings/edit/<booking_id>', views.EditBooking.as_view(),
+          name='edit_booking'),
 ]

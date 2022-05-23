@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid gx-4 ">
+    <div class="row">
+        <div class="col main-title text-center">
+            <h4>Edit my Booking</h4>
+            <p>Price per Person: <span><i class="fas fa-euro-sign"></i>{{buffet_price}}</span></p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col col-md-11 col-lg-9 mt-1 mx-auto">
+            <form method="POST" action="{% url 'edit_booking' booking_id %}" class="booking_form">
+                {% csrf_token %}
+                <div class=row>
+                    <div class="col bg-body border border-secondary main-input ">
+                        <span><i class="fas fa-calendar-alt"></i></span>
+                        <span>{{ form.dinner_date }}</span>
+                    </div>
+                    <div class="col bg-body border border-secondary main-input">
+                        <span><i class="fas fa-clock"></i></span>
+                        <span>{{ form.start_time }}</span>
+                    </div>
+                    <div class="col bg-body border border-secondary main-input">
+                        <span class="bg-light"><i class="fa-solid fa-user"></i>{{ form.seats }}</span>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-color" type="submit" name="action">Let's go</button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid gx-4 ">
+    <p></p>
+    <div class="row align-items-center">
+        <div class="col col-md-11 col-lg-9 mt-1 mx-auto">
+            <div class="row  align-items-center">
+                <div class="col mx-auto text-primary">
+                    <h3>I will like to eat from the following cuisine (click all that you want)</h3>
+                    <span id="edit_cuisine_choices">{{cuisine_choice}}</span>
+                </div>
+            </div>
+            <div class="row" id="cuisine-row">
+                {% for cuisine in cuisines %}
+                <div class="col-sm-6 col-lg-3 border border-secondary">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{cuisine.id}}" name="cuisine_option">
+                        <label class="form-check-label" for={{cuisine.name }}>
+                            {{cuisine.name }}
+                            <img src="{{cuisine.cuisine_image.url }}" class="img-fluid rounded mx-auto d-block"
+                                alt="{{cuisine.name }}">
+                            <p>{{cuisine.description}}</p>
+                        </label>
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

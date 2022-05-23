@@ -92,3 +92,21 @@ if(document.querySelector('#contact_us')){
         document.querySelector('#id_sender').value = document.querySelector('#user_email').value
     }
 }
+
+
+// Mark existing cuisine choices as checked
+// used for Edit booking
+if(document.querySelector('#cuisine-row')){
+
+    cuisine_el = document.getElementById('edit_cuisine_choices')
+    selected = cuisine_el.innerText.split(',');
+    cuisine_options = document.querySelectorAll('.form-check-label');
+    for (cuisine of selected){  
+        for (item of cuisine_options){
+            if(item.innerText.includes(cuisine.trim())){
+                close_el = item.previousElementSibling
+                close_el.setAttribute('checked', '');
+            }
+        }
+    }
+}
