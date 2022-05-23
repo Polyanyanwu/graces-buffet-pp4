@@ -1,0 +1,16 @@
+Dear {{username}}
+
+This is to confirm your edited booking for a dinner at Graces Buffet
+
+Date edited: {{edited_date}}
+Dinner date: {{ dinner_date }}
+Dinner time: {{ start_time }}
+No of Persons: {{seats}}
+
+Please note that your booking will be cancelled if you do not show up after {{show_up_time}} minutes of the booked time.
+If you have any clarifications, feel free to contact us at {{ contact_email }} or use 
+our contact us form on the website.
+
+Thank you!
+
+Graces Buffet

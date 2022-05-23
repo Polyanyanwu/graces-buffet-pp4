@@ -435,7 +435,6 @@ class UpdateBookingStatus(View):
             'user_name') if request.POST.get('user_name') else None
 
         if sdate and edate:
-            print("calling edate and sdate")
             booking = Booking.objects.filter(
                 booking_status=book_status, dinner_date__gte=start_date,
                 dinner_date__lte=end_date)
@@ -687,7 +686,6 @@ class DeleteBooking(View):
             'user_name') if request.POST.get('user_name') else None
 
         if sdate and edate:
-            print("calling edate and sdate")
             booking = Booking.objects.filter(
                 booking_status=book_status, dinner_date__gte=start_date,
                 dinner_date__lte=end_date)
@@ -796,15 +794,13 @@ class EditBooking(View):
                                  'Please select one or more cuisine\
                                       choices before proceeding')
             return redirect("edit_booking", booking_id)
-        print(request.POST)
+
         if booking_qs.is_valid():
             try:
                 # fetch existing booking
                 booking = get_object_or_404(Booking, id=booking_id)
                 user_to_book = request.user
                 with transaction.atomic():
-                    # booking.save(commit=False)
-
                     time_entered_qs = BuffetPeriod.objects.filter(
                         id=request.POST.get('start_time'))
                     time_entered = get_object_or_404(time_entered_qs)
@@ -819,15 +815,13 @@ class EditBooking(View):
                         on your chosen date and time. Try another date/time.')
                         return redirect("edit_booking", booking.id)
                     else:
-                        # save booking first
+
                         booking.booked_for = user_to_book
                         booking.booked_by = request.user
                         booking.booking_status = booking_status
                         booking.seats = request.POST.get('seats')
                         booking.dinner_date = request.POST.get('dinner_date')
-                        booking.start_time = BuffetPeriod.objects.get(
-                            id=request.POST.get('start_time'))
-                        booking.save()
+                        booking.start_time = time_entered
                         # delete existing tables
                         existing_booked_table = TablesBooked.objects.filter(
                             booking_id=booking_id)
@@ -859,7 +853,7 @@ class EditBooking(View):
                                 booking_id=booking,
                                 cuisine_id=cuisine_rec)
                             booking.cuisines = cuisines[:-2]
-                            booking.save()
+                    booking.save()
                     messages.add_message(request, messages.INFO,
                                          'Thank you: Your booking has\
                                           been confirmed.')

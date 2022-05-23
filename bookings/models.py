@@ -2,6 +2,7 @@
 
 from django.db import models
 import django.utils.timezone
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
@@ -98,6 +99,42 @@ class Booking(models.Model):
             settings.DEFAULT_FROM_EMAIL,
             [customer_email]
         )
+    # Write notification record
+        Notification.objects.create(
+            subject=subject + ": " + user_profile.get_full_name(),
+            message=body,
+            user=user_profile)
+
+    def modify_booking_send_email(self):
+        user_profile = User.objects.get(username=self.booked_for)
+        customer_email = user_profile.email
+
+        #  Get no show time from general tables settings
+        try:
+            duration_qs = SystemPreference.objects.get(code="N")
+            duration = duration_qs.data
+        except Exception:
+            duration = 60
+        edited_date = datetime.utcnow()
+        dinner_date = datetime.strptime(self.dinner_date, "%Y-%m-%d").date()
+        # dinner_date = django.utils.timezone.localtime(self.dinner_date)
+        subject = 'Edited Booking Confirmation'
+        body = render_to_string(
+                'bookings/confirmation/edit_booking_email.txt',
+                {'dinner_date': dinner_date.strftime("%d %b, %Y"),
+                 'contact_email': settings.DEFAULT_FROM_EMAIL,
+                 'start_time': self.start_time,
+                 'seats': self.seats,
+                 'username': user_profile.get_full_name(),
+                 'edited_date': edited_date.strftime("%d %b, %Y"),
+                 'show_up_time': duration})
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [customer_email]
+        )
+
     # Write notification record
         Notification.objects.create(
             subject=subject + ": " + user_profile.get_full_name(),
