@@ -1,7 +1,7 @@
 """ Cancel bookings module """
 
 from datetime import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # from django.shortcuts import get_object_or_404
 from django.views import View
@@ -70,6 +70,9 @@ class CancelMyBooking(View):
             print(excpt_m)
             messages.add_message(request, messages.INFO,
                                  'Cancellation failed, try later')
+        if 'up_coming_booking' in request.POST:
+            return redirect('upcoming_booking_detail')
+        else:
             HttpResponseRedirect('cancel_booking/notification_detail.html')
 
         return render(
