@@ -1,4 +1,4 @@
-""" Booking form for the home page """
+""" Booking form for the booking / home page """
 from django import forms
 from django.shortcuts import get_object_or_404
 from general_tables.models import SystemPreference
@@ -8,11 +8,9 @@ from .widget import DatePickerInput
 
 def get_seat_options():
     """ Retrieve the maximum persons for online booking
-        as provided in System preferences, default to
-        8 if not set"""
-    tot_person = 8
-    total_people_qs = SystemPreference.objects.filter(code='M')
-    total_people = get_object_or_404(total_people_qs)
+        as provided in System preferences
+    """
+    total_people = get_object_or_404(SystemPreference, code='M')
     tot_person = total_people.data
     seat_options = []
     for i in range(1, tot_person + 1):
@@ -46,9 +44,3 @@ class UpdateBookingForm(forms.ModelForm):
         """ Specify the model to use and HTML5 date picker """
         model = Booking
         fields = ['booking_status']
-        # widgets = {
-        #     'dinner_date': DatePickerInput(),
-        # }
-
-# class DisplayBookingConfirmForm(forms.ModelForm):
-#     """ display confirmation to user after booking success """

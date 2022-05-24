@@ -8,10 +8,9 @@
             <h4>Book your table for that exquisite dinner</h4>
             <p>Price per Person: <span><i class="fas fa-euro-sign"></i>{{buffet_price}}</span></p>
             {% if username != user.username and username != 'None' %}
-                <p>Booking for: {{username}}</p>
+            <p>Booking for: {{username}}</p>
             {% endif %}
         </div>
-
     </div>
     <div class="row">
 
@@ -43,23 +42,23 @@
     <div class="row align-items-center">
         <div class="col col-md-11 col-lg-9 mt-1 mx-auto">
             <div class="row  align-items-center">
-                <div class="col mx-auto text-primary">
-                    <h3>I will like to eat from the following cuisine (click all that you want)</h3>
+                <div class="col col-md-8 mx-auto text-primary">
+                    <h4>I will like to eat from the following cuisine (click all that you want)</h4>
                 </div>
             </div>
             <div class="row">
                 {% for cuisine in cuisines %}
                 <div class="col-sm-6 col-lg-3 border border-secondary">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{cuisine.id}}" id={{cuisine.name }} name="cuisine_option">
+                        <input class="form-check-input" type="checkbox" value="{{cuisine.id}}" id={{cuisine.name }}
+                            name="cuisine_option">
                         <label class="form-check-label" for={{cuisine.name }}>
                             {{cuisine.name }}
                             <img src="{{cuisine.cuisine_image.url }}" class="img-fluid rounded mx-auto d-block"
-                            alt="{{cuisine.name }}">
-                        <p>{{cuisine.description}}</p>
+                                alt="{{cuisine.name }}">
+                            <p>{{cuisine.description}}</p>
                         </label>
                     </div>
-
                 </div>
                 {% endfor %}
             </div>

@@ -32,6 +32,8 @@
         <td>{{ booking.cuisines }}</td>
         <td>{{ booking.booking_status }}</td>
         <td> <a href="{% url 'edit_booking' booking.id %}" class="btn btn-sm btn-color">Edit</a>
+
+          <!-- Button used to call the modal form. It has the message to display via the data-message attribute -->
           <button type="button" class="btn btn-danger btn-sm confirmation-btn" data-bs-toggle="modal"
             data-bs-target="#confirmModal" id="confirmation-btn"
             data-message="Please confirm cancellation of this booking?" data-booking-id={{ booking.id }}>Cancel
@@ -44,11 +46,11 @@
   <form method="POST" action="{% url 'cancel_my_booking' user.username%}">
     {% csrf_token %}
     <div class="col">
-        <input type="number" value ="" name="booking_id" class="hidden" id="cancel_booking_id">
-        <button class="hidden" id="cancel-booking-btn" type="submit" name="up_coming_booking">cancel
-            actual</button>
+      <input type="number" value="" name="booking_id" class="hidden" id="cancel_booking_id">
+      <button class="hidden" id="cancel-booking-btn" type="submit" name="up_coming_booking">cancel
+        actual</button>
     </div>
-</form>
+  </form>
   <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
       {% if bookings.has_previous %}

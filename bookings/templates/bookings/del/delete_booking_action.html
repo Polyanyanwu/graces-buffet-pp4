@@ -38,7 +38,6 @@
                         <td>{{ booking.booking_status}}</td>
                     </tr>
                     <tr>
-
                         <form method="POST" action="{% url 'delete_booking_action' booking.id %}" class="booking_form">
                             {% csrf_token %}
                             <div class="col">
@@ -46,8 +45,6 @@
                                     name="action">update actual</button>
                             </div>
                         </form>
-
-
                     </tr>
                     <tr>
                         <td></td>
@@ -58,9 +55,7 @@
                         </td>
                     </tr>
                     <tr>
-
                     </tr>
-
                 </tbody>
             </table>
         </div>

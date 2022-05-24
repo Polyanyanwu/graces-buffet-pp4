@@ -1,8 +1,9 @@
 """ Database tables for the booking functionality """
 
+from datetime import datetime
 from django.db import models
 import django.utils.timezone
-from datetime import datetime
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
@@ -52,11 +53,7 @@ class Booking(models.Model):
         customer_email = user_profile.email
 
         #  Get no show time from general tables settings
-        try:
-            duration_qs = SystemPreference.objects.get(code="N")
-            duration = duration_qs.data
-        except Exception():
-            duration = 60
+        duration = get_no_show_time()
         dinner_date = django.utils.timezone.localtime(self.dinner_date)
         subject = 'Booking Confirmation'
         body = render_to_string(
@@ -107,20 +104,14 @@ class Booking(models.Model):
             user=user_profile)
 
     def modify_booking_send_email(self):
+        """
+            Send email  confirmation when a booking is edited by customer
+        """
         user_profile = User.objects.get(username=self.booked_for)
         customer_email = user_profile.email
-
-        #  Get no show time from general tables settings
-        try:
-            duration_qs = SystemPreference.objects.get(code="N")
-            duration = duration_qs.data
-        except Exception:
-            duration = 60
+        duration = get_no_show_time()
         edited_date = datetime.now()
-        print("dinner date==", self.dinner_date, type(self.dinner_date))
         dinner_date = datetime.strptime(self.dinner_date, "%Y-%m-%d").date()
-        # dinner_date = self.dinner_date.date()
-        # dinner_date = django.utils.timezone.localdate(self.dinner_date)
         subject = 'Edited Booking Confirmation'
         body = render_to_string(
                 'bookings/confirmation/edit_booking_email.txt',
@@ -160,7 +151,7 @@ class TablesBooked(models.Model):
 
 
 class Notification(models.Model):
-    """ tables notifications """
+    """ Notifications detail records """
     notice_date = models.DateTimeField(auto_now_add=True)
     subject = models.CharField(max_length=200, blank=False)
     message = models.TextField()
@@ -169,3 +160,12 @@ class Notification(models.Model):
 
     def __str__(self):
         return str(self.subject)
+
+
+def get_no_show_time():
+    """ Retrieve the No show time duration from System Preferences """
+    try:
+        duration_qs = SystemPreference.objects.get(code="N")
+        return duration_qs.data
+    except ObjectDoesNotExist:
+        return 60

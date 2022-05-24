@@ -45,8 +45,8 @@
                             <option value="B">Booked</option>
                             <option value="F">Fulfilled</option>
                             <option value="C">Cancelled</option>
-                          </select>
-                          <button type="submit" name="booking-status" title="Click to search">
+                        </select>
+                        <button type="submit" name="booking-status" title="Click to search">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </td>
@@ -73,7 +73,7 @@
         <ul class="pagination justify-content-center">
             {% if bookings.has_previous %}
             <li><a href="?page={{ bookings.previous_page_number }}" class="btn btn-color">&laquo; PREV </a>
-                <span class ="ms-5">Page {{ bookings.number }} of {{ bookings.paginator.num_pages }}</span>
+                <span class="ms-5">Page {{ bookings.number }} of {{ bookings.paginator.num_pages }}</span>
             </li>
             {% endif %}
             {% if bookings.has_next %}

@@ -1,13 +1,16 @@
-from django.contrib import admin
+""" Module for Admin to have access to some tables
+    in the booking application
+"""
 
-# Register your models here.
+from django.contrib import admin
 from .models import Booking, TablesBooked, Notification
 
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    ''' Maintain booking status list '''
+    ''' Maintain booking list '''
     model = Booking
+    list_filter = ('dinner_date', 'cuisines', 'booked_for')
 
 
 @admin.register(TablesBooked)
@@ -21,3 +24,4 @@ class NotificationAdmin(admin.ModelAdmin):
     ''' Maintain Notifications list '''
     model = Notification
     list_display = ('subject', 'notice_date', 'user', )
+    search_fields = ['subject', 'message']
