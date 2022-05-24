@@ -1,4 +1,4 @@
-""" Database tables for maintaining cuisines and
+""" Database tables for maintaining cuisine types and
     cuisines selected by customers """
 
 from django.db import models
