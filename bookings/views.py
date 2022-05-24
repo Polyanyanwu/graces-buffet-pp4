@@ -1,6 +1,8 @@
 from datetime import timedelta, datetime, date
+from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import View
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction, IntegrityError
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
@@ -67,6 +69,23 @@ class MakeBookings(View):
                                       choices before proceeding')
             return HttpResponseRedirect("/")
 
+        # check that dinner date is in future or today
+        dinner_date_str = request.POST.get('dinner_date')
+        dinner_date = datetime.strptime(dinner_date_str, "%Y-%m-%d").date()
+        now = datetime.now()
+        time_entered_qs = BuffetPeriod.objects.filter(
+            id=request.POST.get('start_time'))
+        time_entered = get_object_or_404(time_entered_qs)
+        if dinner_date < now.date():
+            messages.add_message(request, messages.WARNING,
+                                 'Dinner date cannot be earlier than today')
+            return HttpResponseRedirect("/")
+        elif dinner_date == now.date() and time_entered.start_time <= datetime.now().time():
+            messages.add_message(request, messages.WARNING,
+                                 'Dinner time cannot be earlier than now for today')
+            return HttpResponseRedirect("/")
+
+
         if booking.is_valid():
             try:
                 if username:
@@ -76,9 +95,6 @@ class MakeBookings(View):
                 with transaction.atomic():
                     booking.save(commit=False)
 
-                    time_entered_qs = BuffetPeriod.objects.filter(
-                        id=request.POST.get('start_time'))
-                    time_entered = get_object_or_404(time_entered_qs)
                     # check seats availability
                     tables = book_seats(int(request.POST.get('seats')),
                                              request.POST.get('dinner_date'),
@@ -756,6 +772,12 @@ class DeleteUpdateAction(View):
 class EditBooking(View):
 
     def get(self, request, booking_id, *args, **kwargs):
+
+        rights = check_access(request.user)
+        if check_access(request.user) != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+            
         price_queryset = SystemPreference.objects.filter(code="P").values()
         buffet_price = price_queryset[0]['data']
         booking = Booking.objects.get(id=booking_id)
@@ -822,6 +844,7 @@ class EditBooking(View):
                         booking.seats = request.POST.get('seats')
                         booking.dinner_date = request.POST.get('dinner_date')
                         booking.start_time = time_entered
+                        booking.edited = True
                         # delete existing tables
                         existing_booked_table = TablesBooked.objects.filter(
                             booking_id=booking_id)

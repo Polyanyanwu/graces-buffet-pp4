@@ -36,6 +36,7 @@ class Booking(models.Model):
                                      null=True, blank=True,
                                      related_name="fulfilled_by")
     date_fulfilled = models.DateTimeField(blank=True, null=True)
+    edited = models.BooleanField(default=False)
 
     class Meta:
         " display times in ascending order"
@@ -115,9 +116,11 @@ class Booking(models.Model):
             duration = duration_qs.data
         except Exception:
             duration = 60
-        edited_date = datetime.utcnow()
+        edited_date = datetime.now()
+        print("dinner date==", self.dinner_date, type(self.dinner_date))
         dinner_date = datetime.strptime(self.dinner_date, "%Y-%m-%d").date()
-        # dinner_date = django.utils.timezone.localtime(self.dinner_date)
+        # dinner_date = self.dinner_date.date()
+        # dinner_date = django.utils.timezone.localdate(self.dinner_date)
         subject = 'Edited Booking Confirmation'
         body = render_to_string(
                 'bookings/confirmation/edit_booking_email.txt',
@@ -126,7 +129,7 @@ class Booking(models.Model):
                  'start_time': self.start_time,
                  'seats': self.seats,
                  'username': user_profile.get_full_name(),
-                 'edited_date': edited_date.strftime("%d %b, %Y"),
+                 'edited_date': edited_date.strftime("%d %b, %Y %H:%M"),
                  'show_up_time': duration})
         send_mail(
             subject,

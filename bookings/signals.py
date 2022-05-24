@@ -25,5 +25,5 @@ def send_email_for_cancelled_booking(sender, instance, created, **kwargs):
 def send_email_for_edited_booking(sender, instance, created, **kwargs):
     """ Send email confirmation when booking is edited successfully"""
     if not created and instance.booking_status.code != 'C' and (
-            instance.booking_status.code == 'B'):
+            instance.booking_status.code == 'B' and instance.edited):
         instance.modify_booking_send_email()
