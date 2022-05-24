@@ -1,3 +1,4 @@
+<!-- Display details of a particular notification and a button to delete same if needed -->
 {% extends "base.html" %}
 
 {% block content %}
@@ -33,13 +34,11 @@
                         <form method="POST" action="{% url 'notification_detail' notice.pk%}" class="booking_form">
                             {% csrf_token %}
                             <div class="col">
-                                <button class="btn hidden" id="delete-notification-btn" type="submit" name="action">delete actual</button>
+                                <button class="btn hidden" id="delete-notification-btn" type="submit"
+                                    name="action">delete actual</button>
                             </div>
                         </form>
-
-
                     </tr>
-
                 </tbody>
             </table>
         </div>

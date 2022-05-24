@@ -7,19 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from bookings.models import Notification
 from general_tables.models import HomeMessage
-from general_tables.forms import HomeMessageForm
+from user_account.user_auth import check_access
 from .forms import ContactForm
-
-
-
-def index(request):
-    """ A view to return the main index page """
-
-    template = 'home/index.html'
-    context = {
-        'home_page': True,
-    }
-    return render(request, template, context)
 
 
 class ViewNotification(View):
@@ -59,14 +48,15 @@ class NotificationDetail(View):
     """ view notifications """
 
     def get(self, request, notice_id, *args, **kwargs):
+        """ View notification details selected
+            requires logged in user
+        """
+        rights = check_access(request.user)
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
 
-        """ View notification details selected """
-        try:
-            notice = Notification.objects.get(id=notice_id)
-        except Exception:
-            messages.add_message(request, messages.INFO,
-                                 'Detailed display failed, try later')
-            HttpResponseRedirect('home/notification_detail.html')
+        notice = get_object_or_404(Notification, id=notice_id)
 
         return render(
             request,
@@ -77,7 +67,12 @@ class NotificationDetail(View):
         )
 
     def post(self, request, notice_id, *args, **kwargs):
-        """ Delete notification details selected """
+        """ Delete notification details selected
+            requires logged in user """
+        rights = check_access(request.user)
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
         try:
             notice = Notification.objects.get(id=notice_id)
             notice.delete()
@@ -107,7 +102,6 @@ class ContactUs(View):
         """ display form for user """
         form = ContactForm()
         if request.user.is_authenticated:
-            # user = User.objects.filter(username=request.user)
             user_me = get_object_or_404(User, username=request.user)
             email = user_me.email
         else:

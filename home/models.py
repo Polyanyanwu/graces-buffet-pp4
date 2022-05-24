@@ -31,7 +31,8 @@ class Contact(models.Model):
 
     def send_email_contact_message(self):
         """
-        Send confirmation email when a contact completes a contact form """
+        Send confirmation email when a contact completes a contact form
+        """
 
         sender = self.sender
         subject = 'Message well received'
