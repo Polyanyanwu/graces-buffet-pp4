@@ -3,6 +3,10 @@ body {
     font-weight: 400;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Color variables */
 :root {
     --lapis-blue: #2660A4;
@@ -21,14 +25,23 @@ body {
     margin-bottom: 0;
 }
 
+/* Reduce the default padding of 0.5 rem from Bootstrap */
 .table> :not(caption)>*>* {
     padding: 0.1rem 0.1rem;
 }
 
+/* Brand amd menu icons */
 #brand-logo {
     color: #56351E;
     display: inline-block;
     font-size: 2rem;
+}
+
+#brand-name {
+    display: inline-block;
+    color: #2660A4;
+    font-size: 2rem;
+    font-style: italic;
 }
 
 .menu-icon {
@@ -39,20 +52,8 @@ body {
     color: var(--sandy-brown)
 }
 
-#brand-name {
-    /* color: #F19953; */
-    display: inline-block;
-    color: #2660A4;
-    font-size: 2rem;
-    font-style: italic;
-}
-
-form label {
-    font-weight: bold;
-}
-
+/* Titles */
 .main-title {
-    /* background-color: #F19953; */
     background: linear-gradient(0.25turn, var(--lapis-blue), var(--dark-brown), var(--copper));
     color: #EDF7F6;
     font-size: 1rem;
@@ -81,10 +82,6 @@ h3, h4 {
     background-color: #F19953;
 }
 
-.hidden {
-    display: none;
-}
-
 .my-nav:hover {
     color: var(--lapis-blue);
     font-weight: bolder;
@@ -100,27 +97,7 @@ h3, h4 {
     left: auto;
 }
 
-/* Sub menu dropdown 
-https://mdbootstrap.com/docs/standard/extended/dropdown-multilevel/
-.dropdown-menu li {
-    position: relative;
-}
-
-.dropdown-menu .dropdown-submenu {
-    display: none;
-    position: absolute;
-    left: 100%;
-    top: -7px;
-}
-
-.dropdown-menu .dropdown-submenu-left {
-    right: 100%;
-    left: auto;
-}
-
-.dropdown-menu>li:hover>.dropdown-submenu {
-    display: block;
-} */
+/* Input forms */
 
 .main-input #id_start_time,
 .main-input #id_seats,
@@ -129,8 +106,11 @@ https://mdbootstrap.com/docs/standard/extended/dropdown-multilevel/
     border: none;
 }
 
+form label {
+    font-weight: bold;
+}
+/* Footer area */
 footer {
-    /* background-color: #56351E; */
     background: linear-gradient(0.25turn, var(--copper), var(--dark-brown), var(--lapis-blue));
     color: #EDF7F6;
     margin: 0 0.75rem;
