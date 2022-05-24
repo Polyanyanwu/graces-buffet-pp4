@@ -7,7 +7,6 @@
             <h4>Cancel Booking: {{ user_to_cancel }}</h4>
         </div>
     </div>
-
     <table class="table table-striped">
         <thead>
             <tr>
@@ -29,6 +28,7 @@
                 <td>{{ booking.start_time }}</td>
                 <td>{{ booking.seats }}</td>
                 <td>{{ booking.cuisines }}</td>
+                <!-- Button to confirm the action and pass the message to Javascript to display to user -->
                 <td><button type="button" class="btn btn-danger btn-sm confirmation-btn" data-bs-toggle="modal"
                         data-bs-target="#confirmModal" id="confirmation-btn"
                         data-message="Please confirm cancellation of this booking?"
@@ -37,16 +37,14 @@
                 </td>
             </tr>
             {% endfor %}
-                <form method="POST" action="{% url 'cancel_my_booking' user.username%}">
-                    {% csrf_token %}
-                    <div class="col">
-                        <input type="number" value ="" name="booking_id" class="hidden" id="cancel_booking_id">
-                        <button class="hidden" id="cancel-booking-btn" type="submit" name="action">cancel
-                            actual</button>
-                    </div>
-                </form>
-
-
+            <form method="POST" action="{% url 'cancel_my_booking' user.username%}">
+                {% csrf_token %}
+                <div class="col">
+                    <input type="number" value="" name="booking_id" class="hidden" id="cancel_booking_id">
+                    <button class="hidden" id="cancel-booking-btn" type="submit" name="action">cancel
+                        actual</button>
+                </div>
+            </form>
         </tbody>
     </table>
 
