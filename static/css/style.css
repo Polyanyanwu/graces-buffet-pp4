@@ -53,13 +53,14 @@ body {
 }
 
 /* Titles */
+
 .main-title {
     background: linear-gradient(0.25turn, var(--lapis-blue), var(--dark-brown), var(--copper));
     color: #EDF7F6;
     font-size: 1rem;
 }
 
-h3, h4 {
+h3, .my-color-title {
     color: var(--dark-brown);
 }
 

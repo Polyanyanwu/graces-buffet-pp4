@@ -1,13 +1,14 @@
+"use strict";
 const start_up = function () {
     messageTimeout();
 
 };
 
-last_update_call = "";
-
 //after document has loaded, call the init function
 document.addEventListener("DOMContentLoaded", start_up);
 
+// Timeout function to delay when a message is displayed 
+// to user before removing it from the screen
 const messageTimeout = function () {
     const messages = document.querySelectorAll('.messages');
     for (let msg of messages) {
@@ -19,8 +20,9 @@ const messageTimeout = function () {
 
 }
 
+// Function to run the confirmation modal window
 const Confirmation = function (message, yesFunction, noFunction) {
-    let confirmBox = $("#confirmModal");
+    const confirmBox = $("#confirmModal");
     confirmBox.find("#confirm-message").text(message);
     confirmBox
         .find(".confirm-yes,.confirm-no")
@@ -36,7 +38,7 @@ const Confirmation = function (message, yesFunction, noFunction) {
 // confirmation for single row of data
 if(document.getElementById('confirm_delete_notification')){
     document.getElementById('confirm_delete_notification').addEventListener('click', function () {
-        msg = document.getElementById('confirm_delete_notification').dataset.message
+        const msg = document.getElementById('confirm_delete_notification').dataset.message
         Confirmation(msg,
             function yes() {
                 document.getElementById('delete-notification-btn').click();
@@ -50,11 +52,10 @@ if(document.getElementById('confirm_delete_notification')){
 
 // Confirmation of cancellation of booking by Customer 
 // for multiple rows
-
 if(document.querySelectorAll('.confirmation-btn')){
-    rec_btn = document.querySelectorAll('.confirmation-btn');
+    const rec_btn = document.querySelectorAll('.confirmation-btn');
     rec_btn.forEach(btn => btn.addEventListener('click', function(e){
-        msg = e.target.dataset.message;
+        const msg = e.target.dataset.message;
         Confirmation(msg,
             function yes() {
                 booking_id = msg = e.target.dataset.bookingId;
@@ -70,9 +71,9 @@ if(document.querySelectorAll('.confirmation-btn')){
 
 // Confirm removal of user group
 if(document.querySelectorAll('.confirm_remove_notification')){
-    rec_btn = document.querySelectorAll('.confirm_remove_notification');
+    const rec_btn = document.querySelectorAll('.confirm_remove_notification');
     rec_btn.forEach(btn => btn.addEventListener('click', function(e){
-        msg = e.target.dataset.message;
+        const msg = e.target.dataset.message;
         Confirmation(msg,
             function yes() {
                 document.getElementById("user_group_name").value = e.target.dataset.group
@@ -84,27 +85,25 @@ if(document.querySelectorAll('.confirm_remove_notification')){
     }));
 }
 
+// For Contact Us form
 // If user has email pick it from the template and 
 // assign to the email address field 
-
 if(document.querySelector('#contact_us')){
     if(document.querySelector('#user_email')){
         document.querySelector('#id_sender').value = document.querySelector('#user_email').value
     }
 }
 
-
 // Mark existing cuisine choices as checked
 // used for Edit booking
 if(document.querySelector('#cuisine-row')){
-
-    cuisine_el = document.getElementById('edit_cuisine_choices')
-    selected = cuisine_el.innerText.split(',');
-    cuisine_options = document.querySelectorAll('.form-check-label');
-    for (cuisine of selected){  
-        for (item of cuisine_options){
+    const cuisine_el = document.getElementById('edit_cuisine_choices')
+    const selected = cuisine_el.innerText.split(',');
+    const cuisine_options = document.querySelectorAll('.form-check-label');
+    for (let cuisine of selected){  
+        for (let item of cuisine_options){
             if(item.innerText.includes(cuisine.trim())){
-                close_el = item.previousElementSibling
+                const close_el = item.previousElementSibling
                 close_el.setAttribute('checked', '');
             }
         }
