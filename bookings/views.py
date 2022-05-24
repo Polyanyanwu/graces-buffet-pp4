@@ -1,8 +1,9 @@
+""" Module for the make, delete, edit, update, and queries on bookings """
+
 from datetime import timedelta, datetime, date
-from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import View
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import EmptyResultSet
 from django.db import transaction, IntegrityError
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
@@ -20,13 +21,14 @@ from .forms import BookingForm, UpdateBookingForm
 class MakeBookings(View):
 
     def get(self, request, username="None", *args, **kwargs):
-        price_queryset = SystemPreference.objects.filter(code="P").values()
-        buffet_price = price_queryset[0]['data']
-        booking = Booking.objects.filter(id=None)
+        price_queryset = get_object_or_404(SystemPreference, code="P")
+        buffet_price = price_queryset.data
+        booking = Booking.objects.filter(id=None) # empty form
         cuisine_queryset = Cuisine.objects.all()
         form = BookingForm()
 
         # check that django is not returning favicon when there is no parameter
+        # needed to enable reuse of this method for operator to book for another
         if username == "favicon.ico":
             username = "None"
         if username == "None" and request.user.is_authenticated:
@@ -69,25 +71,28 @@ class MakeBookings(View):
                                       choices before proceeding')
             return HttpResponseRedirect("/")
 
-        # check that dinner date is in future or today
-        dinner_date_str = request.POST.get('dinner_date')
-        dinner_date = datetime.strptime(dinner_date_str, "%Y-%m-%d").date()
-        now = datetime.now()
-        time_entered_qs = BuffetPeriod.objects.filter(
-            id=request.POST.get('start_time'))
-        time_entered = get_object_or_404(time_entered_qs)
-        if dinner_date < now.date():
-            messages.add_message(request, messages.WARNING,
-                                 'Dinner date cannot be earlier than today')
-            return HttpResponseRedirect("/")
-        elif dinner_date == now.date() and time_entered.start_time <= datetime.now().time():
-            messages.add_message(request, messages.WARNING,
-                                 'Dinner time cannot be earlier than now for today')
-            return HttpResponseRedirect("/")
-
-
         if booking.is_valid():
+            # check that dinner date is in future or today
+            # if today check that time is in future
+            dinner_date_str = request.POST.get('dinner_date')
+            dinner_date = datetime.strptime(dinner_date_str, "%Y-%m-%d").date()
+            now = datetime.now()
+            time_entered_qs = BuffetPeriod.objects.filter(
+                id=request.POST.get('start_time'))
+            time_entered = get_object_or_404(time_entered_qs)
+            if dinner_date < now.date():
+                messages.add_message(request, messages.WARNING,
+                                     'Dinner date cannot be \
+                                         earlier than today')
+                return HttpResponseRedirect("/")
+            elif dinner_date == now.date() and \
+                    time_entered.start_time <= datetime.now().time():
+                messages.add_message(request, messages.WARNING,
+                                     'Dinner time cannot be earlier\
+                                        than now for today')
+                return HttpResponseRedirect("/")
             try:
+                # check if operator is booking for someone
                 if username:
                     user_to_book = User.objects.get(username=username)
                 else:
@@ -97,8 +102,8 @@ class MakeBookings(View):
 
                     # check seats availability
                     tables = book_seats(int(request.POST.get('seats')),
-                                             request.POST.get('dinner_date'),
-                                             time_entered)
+                                        request.POST.get('dinner_date'),
+                                        time_entered)
                     if len(tables) == 0:
                         # no seats found on selected date
                         messages.add_message(request, messages.WARNING,
@@ -149,9 +154,8 @@ class MakeBookings(View):
                                   check your entry and try again.')
             return HttpResponseRedirect("/")
 
-        # check availability of the dates
         cuisine_queryset = Cuisine.objects.all()
-        price_queryset = SystemPreference.objects.get(code="P")
+        price_queryset = get_object_or_404(SystemPreference, code="P")
         buffet_price = price_queryset.data
         booking_form = BookingForm(data=request.POST)
         no_bookings = Booking.objects.filter(id=None)
@@ -170,6 +174,13 @@ class MakeBookings(View):
 def book_seats(seats, day_booked, start_time):
     """ Check availability of seats and book if found
         return a dictionary of the tables/seats booked
+        Parameters:
+            seats: no of seats to check availability
+            day_booked: dinner date
+            start_time: Start time for dinner
+        Returns:
+            a dict of the tables available for the booking
+            or empty dictionary if fully booked
     """
     booked = {}
     # fetch total seats in restaurant
@@ -178,10 +189,8 @@ def book_seats(seats, day_booked, start_time):
     total_seats = total_seats_dict['total_seats__sum']
 
     # Get duration of each buffet service D
-
-    duration_qs = SystemPreference.objects.get(code="D")
+    duration_qs = get_object_or_404(SystemPreference, code="D")
     duration = duration_qs.data
-
     start_period_dt = datetime.combine(date.today(
         ), start_time.start_time) - timedelta(minutes=duration)
     start_period = start_period_dt.time()
@@ -214,7 +223,7 @@ def book_seats(seats, day_booked, start_time):
     booked_tables = {}
     for item in booked_tabs_qs:
         booked_tables[item['table_id']] = [item['table_capacity'],
-                                            item['total_seat']]
+                                           item['total_seat']]
 
     tables = DiningTable.objects.all()
     tables_available = {}
@@ -262,6 +271,19 @@ def book_seats(seats, day_booked, start_time):
 class DisplayBookingConfirm(View):
     """ Display confirmation of booking to user """
     def get(self, request, booking_id, *args, **kwargs):
+        """ Get method to display confirmation
+            message after a successful booking
+            Parameter:
+                booking_id is passed by the calling template
+        """
+        if not request.user.is_authenticated:
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 'Please login first before you can access this page\
+                                  Click the Signup button above\
+                                  or login if you already have an account ')
+            return HttpResponseRedirect("/")
+
         booking_qs = Booking.objects.select_related(
             'booked_for').filter(id=booking_id)
         booking = get_object_or_404(booking_qs)
@@ -288,21 +310,25 @@ class DisplayBookingConfirm(View):
 
 
 class BookingDetail(View):
-    """ view booking details """
+    """ view booking details history """
 
     def get(self, request, *args, **kwargs):
+        """ View booking dining history """
 
-        """ View booking details selected """
+        # check that user is logged in
+        rights = check_access(request.user)
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
         try:
             bookings = Booking.objects.filter(
                 booked_for=request.user).order_by('-booking_date')
             paginator = Paginator(bookings, 15)  # Show 15 bookings per page.
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
-        except Exception:
+        except EmptyResultSet:
             messages.add_message(request, messages.INFO,
-                                 'Detailed display of bookings\
-                                  failed, try later')
+                                 'No bookings to display. Try later')
             HttpResponseRedirect('bookings/booking_detail.html')
 
         return render(
@@ -320,6 +346,11 @@ class UpcomingBookingDetail(View):
     def get(self, request, *args, **kwargs):
 
         """ View booking details selected """
+        # check that user is logged in
+        rights = check_access(request.user)
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
         try:
             bookings = Booking.objects.filter(
                 booked_for=request.user, booking_status='B',
@@ -327,10 +358,11 @@ class UpcomingBookingDetail(View):
             paginator = Paginator(bookings, 15)  # Show 15 bookings per page.
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
-        except Exception:
+            if len(bookings) == 0:
+                raise EmptyResultSet
+        except EmptyResultSet:
             messages.add_message(request, messages.INFO,
-                                 'Detailed display of bookings\
-                                  failed, try later')
+                                 'No upcoming bookings, make a booking first')
             HttpResponseRedirect('bookings/up/upcoming_booking_detail.html')
 
         return render(
@@ -346,22 +378,20 @@ class BookForOthers(View):
     """ Make booking for another person """
 
     def get(self, request, *args, **kwargs):
+        """ View user details to select first """
 
-        """ View user details """
-        try:
+        # check that user is logged in
+        rights = check_access(request.user, ("operator", ))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
 
-            users = User.objects.all().values(
-                     'username', 'first_name', 'last_name',
-                     'email').order_by('first_name')
-            paginator = Paginator(users, 15)  # B is currently booked
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-
-        except Exception:
-            messages.add_message(request, messages.INFO,
-                                 'Detailed display of users\
-                                  failed, try later')
-            HttpResponseRedirect('cancel_booking/cancel_other_booking.html')
+        users = User.objects.all().values(
+                    'username', 'first_name', 'last_name',
+                    'email').order_by('first_name')
+        paginator = Paginator(users, 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
         return render(
             request,
@@ -372,31 +402,35 @@ class BookForOthers(View):
         )
 
     def post(self, request, *args, **kwargs):
-        try:
-            if request.POST.get('user_name'):
-                user_name = request.POST.get('user_name').strip()
-                users = User.objects.all().values(
-                        'username', 'first_name', 'last_name',
-                        'email').filter(username__icontains=user_name)
-            elif request.POST.get('email'):
-                email = request.POST.get('email').strip()
-                users = User.objects.all().values(
-                        'username', 'first_name', 'last_name',
-                        'email').filter(email__icontains=email)
-            else:
-                users = User.objects.all().values(
-                        'username', 'first_name', 'last_name',
-                        'email').order_by('first_name')
+        """ The POST method filters the displayed records
+            according to the clicked icon on the template
+        """
+        # check that user is operator
+        rights = check_access(request.user, ("operator", ))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
 
-            paginator = Paginator(users, 15)  # B is currently booked
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
+        # filter by username
+        if request.POST.get('user_name'):
+            user_name = request.POST.get('user_name').strip()
+            users = User.objects.all().values(
+                    'username', 'first_name', 'last_name',
+                    'email').filter(username__icontains=user_name)
+        # filter by email address
+        elif request.POST.get('email'):
+            email = request.POST.get('email').strip()
+            users = User.objects.all().values(
+                    'username', 'first_name', 'last_name',
+                    'email').filter(email__icontains=email)
+        else:
+            users = User.objects.all().values(
+                    'username', 'first_name', 'last_name',
+                    'email').order_by('first_name')
 
-        except Exception:
-            messages.add_message(request, messages.INFO,
-                                 'Detailed display of users\
-                                  failed, try later')
-            HttpResponseRedirect('cancel_booking/cancel_other_booking.html')
+        paginator = Paginator(users, 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
         return render(
             request,
@@ -408,23 +442,23 @@ class BookForOthers(View):
 
 
 class UpdateBookingStatus(View):
-    """ Update the status after customer has been served """
+    """ Update the status after customer has been served
+        This page enables display of bookings and filtering
+        the displayed list """
 
     def get(self, request, *args, **kwargs):
-
         """ View booking details """
-        try:
-            booking = Booking.objects.filter(booking_status='B')
-            # only current bookings
-            paginator = Paginator(booking, 15)
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
+        # check that user is logged in
+        rights = check_access(request.user, ("operator", "administrator"))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
 
-        except Exception:
-            messages.add_message(request, messages.INFO,
-                                 'Detailed display of bookings\
-                                  failed, try later')
-            HttpResponseRedirect('bookings/update/update_booking.html')
+        booking = Booking.objects.filter(booking_status='B')
+        # only current bookings
+        paginator = Paginator(booking, 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
         return render(
             request,
@@ -435,9 +469,15 @@ class UpdateBookingStatus(View):
         )
 
     def post(self, request, *args, **kwargs):
-     
-        book_status = BookingStatus.objects.get(code='B')
+        """filter booking details displayed """
 
+        rights = check_access(request.user, ("operator", "administrator"))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
+        # book_status = BookingStatus.objects.get(code='B')
+        book_status = get_object_or_404(BookingStatus, code='B')
         sdate = request.POST.get('dinner_date_start') if request.POST.get(
             'dinner_date_start') else None
         start_date = datetime.strptime(
@@ -455,18 +495,16 @@ class UpdateBookingStatus(View):
                 booking_status=book_status, dinner_date__gte=start_date,
                 dinner_date__lte=end_date)
         elif start_date:
-            print("calling sdate")
             booking = Booking.objects.filter(
                 booking_status=book_status, dinner_date=start_date)
         elif end_date:
-            print("calling edate")
             booking = Booking.objects.filter(
                 booking_status=book_status, dinner_date=end_date)
         elif username:
-            print("calling username")
-            user_obj = User.objects.get(username=username)
             booking = Booking.objects.filter(
-                booking_status=book_status, booked_for=user_obj)
+                (Q(booked_for__first_name__icontains=username)
+                 | Q(booked_for__last_name__icontains=username))
+                & Q(booking_status=book_status))
         else:
             booking = Booking.objects.filter(booking_status=book_status)
 
@@ -484,12 +522,21 @@ class UpdateBookingStatus(View):
 
 
 class BookingUpdateAction(View):
-    """ booking update action """
+    """ booking update action
+        When operator selects a booking to update
+        the booking id is passed in and updated here
+    """
 
     def get(self, request, booking_id, *args, **kwargs):
         """ Find the booking that was selected """
-        booking = Booking.objects.get(id=booking_id)
-        form = UpdateBookingForm
+
+        rights = check_access(request.user, ("administrator", "operator"))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
+        booking = get_object_or_404(Booking, id=booking_id)
+        form = UpdateBookingForm()
         return render(
             request,
             "bookings/update/update_booking_action.html",
@@ -502,10 +549,15 @@ class BookingUpdateAction(View):
     def post(self, request, booking_id, *args, **kwargs):
         """ Update booking status details selected """
 
-        booking = Booking.objects.get(id=booking_id)
+        rights = check_access(request.user, ("administrator", "operator"))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
+        booking = get_object_or_404(Booking, id=booking_id)
         status = request.POST.get('booking_status')
         if status:
-            status = BookingStatus.objects.get(code=status)
+            status = get_object_or_404(BookingStatus, code=status)
 
         if booking.booking_status == status:
             messages.add_message(request, messages.ERROR,
@@ -544,6 +596,12 @@ class BookingDetailsList(View):
     def get(self, request, *args, **kwargs):
 
         """ View booking details """
+
+        rights = check_access(request.user, ("administrator", "operator"))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
         booking = Booking.objects.all().order_by('-booking_date')
         paginator = Paginator(booking, 20)
         page_number = request.GET.get('page')
@@ -565,6 +623,11 @@ class BookingDetailsList(View):
         followed by username
         and finally booking status
         """
+        rights = check_access(request.user, ("administrator", "operator"))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
         bstatus = request.POST.get('booking_status') if request.POST.get(
             'booking_status') else None
         if bstatus:
@@ -625,7 +688,14 @@ class PastDueList(View):
 
         """ View past due booking details """
 
-        no_show_min = SystemPreference.objects.get(code="N")
+        rights = check_access(request.user, ("operator", ))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
+        # get the number of minutes past due
+        # booking time to consider as no show
+        no_show_min = get_object_or_404(SystemPreference, code="N")
         no_show = no_show_min.data
 
         today = datetime.now().date()
@@ -649,10 +719,12 @@ class PastDueList(View):
 
 
 class DeleteBooking(View):
-    """ Delete booking """
+    """ Delete booking list of eligible bookings
+        Queries the database according to criteria
+        entered by user
+    """
 
     def get(self, request, *args, **kwargs):
-
         """ View booking details """
 
         rights = check_access(request.user, "administrator")
@@ -660,18 +732,11 @@ class DeleteBooking(View):
             messages.error(request, (rights))
             return redirect('/')
 
-        try:
-            booking = Booking.objects.filter(booking_status='F')
-            # only fulfilled bookings
-            paginator = Paginator(booking, 15)
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-
-        except Exception:
-            messages.add_message(request, messages.INFO,
-                                 'Detailed display of bookings\
-                                  failed, try later')
-            HttpResponseRedirect('bookings/del/delete_booking.html')
+        booking = Booking.objects.filter(booking_status='F')
+        # only fulfilled bookings
+        paginator = Paginator(booking, 15)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
         return render(
             request,
@@ -682,6 +747,8 @@ class DeleteBooking(View):
         )
 
     def post(self, request, *args, **kwargs):
+        """ Retrieves list of bookings according to user entered criteria """
+
         rights = check_access(request.user, "administrator")
         if rights != "OK":
             messages.error(request, (rights))
@@ -733,10 +800,16 @@ class DeleteBooking(View):
 
 
 class DeleteUpdateAction(View):
-    """ booking update action """
+    """ Methods to delete the selected booking """
 
     def get(self, request, booking_id, *args, **kwargs):
-        """ Find the booking that was selected """
+        """ Find and display the booking that was selected """
+
+        rights = check_access(request.user, "administrator")
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
         booking = Booking.objects.get(id=booking_id)
         form = UpdateBookingForm
         return render(
@@ -750,6 +823,11 @@ class DeleteUpdateAction(View):
 
     def post(self, request, booking_id, *args, **kwargs):
         """ Delete booking status details selected """
+
+        rights = check_access(request.user, ("administrator", ))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
 
         booking = get_object_or_404(Booking, id=booking_id)
         booking.delete()
@@ -770,17 +848,20 @@ class DeleteUpdateAction(View):
 
 
 class EditBooking(View):
+    """ These methods enable the customer to edit the booking """
 
     def get(self, request, booking_id, *args, **kwargs):
-
+        """ Display the booking form together with the
+            booking details for editing
+        """
         rights = check_access(request.user)
         if check_access(request.user) != "OK":
             messages.error(request, (rights))
             return redirect('/')
-            
-        price_queryset = SystemPreference.objects.filter(code="P").values()
-        buffet_price = price_queryset[0]['data']
-        booking = Booking.objects.get(id=booking_id)
+
+        price_queryset = get_object_or_404(SystemPreference, code="P")
+        buffet_price = price_queryset.data
+        booking = get_object_or_404(Booking, id=booking_id)
         cuisine_queryset = Cuisine.objects.all()
         form = BookingForm(instance=booking)
 
@@ -798,17 +879,12 @@ class EditBooking(View):
 
     def post(self, request, booking_id, *args, **kwargs):
         # check if user is logged in
-        if not request.user.is_authenticated:
-            messages.add_message(request,
-                                 messages.ERROR,
-                                 'Please login first before you can complete a\
-                                  booking. Click the Signup button above\
-                                  or login\
-                                  if you already have an account ')
-            return HttpResponseRedirect("/")
+        rights = check_access(request.user)
+        if check_access(request.user) != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
 
-        booking_status_qs = BookingStatus.objects.filter(code="B")
-        booking_status = get_object_or_404(booking_status_qs)
+        booking_status = get_object_or_404(BookingStatus, code="B")
         booking_qs = BookingForm(data=request.POST)
         cuisine_choices = request.POST.getlist('cuisine_option')
         if len(cuisine_choices) == 0:
@@ -818,14 +894,41 @@ class EditBooking(View):
             return redirect("edit_booking", booking_id)
 
         if booking_qs.is_valid():
+
+            # fetch existing booking
+            booking = get_object_or_404(Booking, id=booking_id)
+            # check that dinner date is in future or today
+            # if today check that time is in future
+            dinner_date_str = request.POST.get('dinner_date')
+            dinner_date = datetime.strptime(dinner_date_str, "%Y-%m-%d").date()
+            now = datetime.now()
+            time_entered_qs = BuffetPeriod.objects.filter(
+                id=request.POST.get('start_time'))
+            time_entered = get_object_or_404(time_entered_qs)
+            if dinner_date < now.date():
+                messages.add_message(request, messages.WARNING,
+                                     'Dinner date cannot be\
+                                         earlier than today')
+                return redirect("edit_booking", booking.id)
+            elif dinner_date == now.date() and\
+                    time_entered.start_time <= datetime.now().time():
+                messages.add_message(request, messages.WARNING,
+                                     'Dinner time cannot be\
+                                          earlier than now for today')
+                return redirect("edit_booking", booking.id)
+
             try:
-                # fetch existing booking
-                booking = get_object_or_404(Booking, id=booking_id)
+
                 user_to_book = request.user
                 with transaction.atomic():
                     time_entered_qs = BuffetPeriod.objects.filter(
                         id=request.POST.get('start_time'))
                     time_entered = get_object_or_404(time_entered_qs)
+                    # delete existing tables
+                    existing_booked_table = TablesBooked.objects.filter(
+                        booking_id=booking_id)
+                    for tab in existing_booked_table:
+                        tab.delete()
                     # check seats availability
                     tables = book_seats(int(request.POST.get('seats')),
                                         request.POST.get('dinner_date'),
@@ -845,11 +948,7 @@ class EditBooking(View):
                         booking.dinner_date = request.POST.get('dinner_date')
                         booking.start_time = time_entered
                         booking.edited = True
-                        # delete existing tables
-                        existing_booked_table = TablesBooked.objects.filter(
-                            booking_id=booking_id)
-                        for tab in existing_booked_table:
-                            tab.delete()
+
                         # save tables booked
                         for table_item, seat in tables.items():
                             TablesBooked.objects.create(

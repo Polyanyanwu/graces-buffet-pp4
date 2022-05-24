@@ -13,7 +13,7 @@ from .user_auth import check_access
 @transaction.atomic
 def update_profile(request):
     """ Update user profile """
-    rights = check_access(request.user, "administrator")
+    rights = check_access(request.user, ("administrator", ))
     if rights != "OK":
         messages.error(request, (rights))
         return redirect('/')
@@ -42,7 +42,7 @@ def update_profile(request):
 def update_group(request):
     """ Add or remove user from a group
         Only administrator group members have access to this """
-    rights = check_access(request.user, "administrator")
+    rights = check_access(request.user, ("administrator", ))
     if rights != "OK":
         messages.error(request, (rights))
         return redirect('/')
@@ -74,7 +74,7 @@ def update_group(request):
                 group_form = GroupForm()
             else:
                 my_group = Group.objects.get(id=group_name)
-                if check_access(user, my_group.name) == "OK":
+                if check_access(user, (my_group.name, )) == "OK":
                     messages.error(request,
                                    ('User already in this group'))
                 else:
