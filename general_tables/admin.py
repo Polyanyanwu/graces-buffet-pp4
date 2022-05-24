@@ -1,4 +1,7 @@
-""" admin config and registration for general tables """
+""" admin config and registration for general tables
+    The summernote library was used to enable the superuser
+    to input and maintain the Terms of Use and Privacy Notice
+    for the site instead of hard coding it"""
 
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin

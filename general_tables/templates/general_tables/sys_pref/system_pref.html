@@ -1,9 +1,14 @@
+<!-- Template for the maintenance of system preference records
+It is very sensitive as changes to any of the records affect the entire application
+Only the Admin has access to this page
+The access restriction is implemented in the view -->
+
 {% extends "base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block additional_title %}- Sys Param {% endblock %}
 {% block other_java_script %}
-<script src="{% static 'js/general_tables.js' %}"></script>
+  <script src="{% static 'js/general_tables.js' %}"></script>
 {% endblock %}
 {% block content %}
 <div class="container-fluid gx-4 ">

@@ -2,6 +2,8 @@
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.db.utils import DataError
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from user_account.user_auth import check_access
 from .forms import SystemPreferenceForm
@@ -16,7 +18,7 @@ class SystemPreferenceView(View):
         """Display all system preference records and an update form"""
 
         # ensure user is in the administrator group
-        rights = check_access(request.user, "administrator")
+        rights = check_access(request.user, ("administrator", ))
         if rights != "OK":
             messages.error(request, (rights))
             return redirect('/')
@@ -38,19 +40,24 @@ class SystemPreferenceView(View):
         """ Update selected system preference record """
 
         # ensure user is in the administrator group
-        rights = check_access(request.user, "administrator")
+        rights = check_access(request.user, ("administrator", ))
         if rights != "OK":
             messages.error(request, (rights))
             return redirect('/')
 
-        if 'save_system_preference' in request.POST:
+        if 'save_system_preference' in request.POST:  # save button clicked
             selected_item = request.POST.get('pref_code')
             pref_form = get_object_or_404(SystemPreference, code=selected_item)
             data = int(request.POST.get('data'))
             pref_form.data = data
-            pref_form.save()
-            messages.add_message(request, messages.INFO,
-                                 'Data updated successfully')
+            try:
+                pref_form.save()
+                messages.add_message(request, messages.INFO,
+                                     'Data updated successfully')
+            except DataError:
+                print(" Data error saving system preference ")
+                messages.add_message(request, messages.INFO,
+                                     'Error saving cancellation, try later')
             syspref = SystemPreference.objects.all()
             form = SystemPreferenceForm(instance=syspref[0])
             selected_item = syspref[0].code
@@ -60,7 +67,7 @@ class SystemPreferenceView(View):
             curr = None
             try:
                 curr = SystemPreference.objects.get(code=selected_item)
-            except SystemPreference.DoesNotExist as exception:
+            except ObjectDoesNotExist as exception:
                 print(exception)
             if curr:
                 form = SystemPreferenceForm(instance=curr)
