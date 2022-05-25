@@ -1,6 +1,6 @@
 """ Custom form for user creation """
 
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from django import forms
 from allauth.account.forms import SignupForm
 from .models import Profile, UserGroup

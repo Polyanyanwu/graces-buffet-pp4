@@ -19,16 +19,19 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    """ After a new user is created, create a profile record too """
     if created:
         Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
+    """ When user is amended save the profile too """
     instance.profile.save()
 
 
 class UserGroup(models.Model):
+    """ Used to enable select group for updating user group """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     group_name = models.OneToOneField(Group, on_delete=models.CASCADE)
 
