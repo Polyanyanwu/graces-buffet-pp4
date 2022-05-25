@@ -731,7 +731,7 @@ class DeleteBooking(View):
     def get(self, request, *args, **kwargs):
         """ View booking details """
 
-        rights = check_access(request.user, "administrator")
+        rights = check_access(request.user, ("administrator", ))
         if rights != "OK":
             messages.error(request, (rights))
             return redirect('/')
@@ -753,7 +753,7 @@ class DeleteBooking(View):
     def post(self, request, *args, **kwargs):
         """ Retrieves list of bookings according to user entered criteria """
 
-        rights = check_access(request.user, "administrator")
+        rights = check_access(request.user, ("administrator", ))
         if rights != "OK":
             messages.error(request, (rights))
             return redirect('/')
@@ -809,7 +809,7 @@ class DeleteUpdateAction(View):
     def get(self, request, booking_id, *args, **kwargs):
         """ Find and display the booking that was selected """
 
-        rights = check_access(request.user, "administrator")
+        rights = check_access(request.user, ("administrator", ))
         if rights != "OK":
             messages.error(request, (rights))
             return redirect('/')
