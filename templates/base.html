@@ -25,23 +25,16 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
-    <style>
-        body {
-            background-color: #e6e6e6;
-        }
-    </style>
 </head>
 
 <body class="d-flex flex-column h-100 main-bg gx-4">
 
     <!-- Navigation -->
-
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container-fluid nav-area">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <h1 id="brand-logo"><i class="fas fa-utensils my-nav"></i></h1>
                 <h1 id="brand-name">Graces Buffet</h1>
-                <!-- <img src="{% static 'images/logo.webp' %}" alt="" width="120" height="100"> -->
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +46,7 @@
                     <span class="navbar-text text-muted">
                         <span>Welcome {{ user.first_name}}</span>
                     </span>
+
                     <!-- Operator sub menu -->
                     {% if request.user|has_group:"operator" %}
                     <li class="nav-item dropdown">
@@ -74,12 +68,6 @@
                         </ul>
                         {% endif %}
 
-
-
-
-
-
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" title="User Account Dropdown">
@@ -91,9 +79,6 @@
                             <li><a class="dropdown-item" href="{% url 'booking_detail' %}">Dinning History</a></li>
                             <li><a class="dropdown-item" href="{% url 'cancel_my_booking' user.username %}">Cancel
                                     Booking</a></li>
-
-
-
                             <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a>
                             </li>
                         </ul>
@@ -122,8 +107,6 @@
                         <ul class="dropdown-menu dropdown-submenu-left" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'update_group' %}">Assign User Roles</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Buffet Cuisines</a></li>
-                            <li><a class="dropdown-item" href="#">Maintain Tables</a></li>
                             <li><a class="dropdown-item" href="{% url 'system_preference' %}">System Preferences</a>
                             </li>
                             <li><a class="dropdown-item" href="{% url 'cancel_other_booking' %}">Cancel Booking
@@ -134,19 +117,15 @@
                     </li>
                     {% endif %}
 
-
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_logout' %}" title="Logout"><i
                                 class="fa-solid fa-right-to-bracket"></i></a>
                     </li>
-
-
                 </ul>
                 {% else %}
                 <!-- only show sign up and login button if user is not already signed in -->
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-
                         <a class="nav-link" href="{% url 'account_signup' %}" title="Sign Up">
                             <div class="text-center nav-icons-wrapper-lg my-nav">
                                 <div><i class="fa-solid fa-person-praying menu-icon"></i></div>

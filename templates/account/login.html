@@ -10,8 +10,8 @@
 <div class="container-fluid gx-4 ">
   <div class="row">
     <div class="col main-title text-center">
-        <h4>Welcome to Graces Buffet</h4>
-        <h5>{% trans "Please Sign In" %}</h5>
+      <h4>Welcome to Graces Buffet</h4>
+      <h5>{% trans "Please Sign In" %}</h5>
     </div>
   </div>
 </div>
@@ -23,7 +23,7 @@
 
       {% if socialaccount_providers %}
       <p>{% blocktrans with site.name as site_name %}Please sign in with one
-        of your existing third party accounts. Or, <a class= "my-link" href="{{ signup_url }}">sign up</a>
+        of your existing third party accounts. Or, <a class="my-link" href="{{ signup_url }}">sign up</a>
         for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
       <div class="socialaccount_ballot">
@@ -41,16 +41,17 @@
       {% else %}
       <p></p>
       <p>{% blocktrans %}To make a booking you need to login. If you have not created an account yet, then please
-        <a class= "my-link" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+        <a class="my-link" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
       {% endif %}
 
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form|crispy }}
         {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <a class="button secondaryAction my-link" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+        <a class="button secondaryAction my-link"
+          href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
         <button class="primaryAction btn btn-primary btn-color" type="submit">{% trans "Sign In" %}</button>
       </form>
     </div>
