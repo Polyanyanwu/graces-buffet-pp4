@@ -73,7 +73,8 @@ class MakeBookings(View):
                                  'Please select one or more cuisine\
                                       choices before proceeding')
             return HttpResponseRedirect("/")
-
+        print(booking)
+        print("booking is valid==", booking.is_valid())
         if booking.is_valid():
             # check that dinner date is in future or today
             # if today check that time is in future
