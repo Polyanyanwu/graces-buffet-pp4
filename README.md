@@ -40,6 +40,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
     - [**Frameworks and Libraries**](#frameworks-and-libraries)
     - [**Ancillary Technologies**](#ancillary-technologies)
     - [**VSCode Extensions Used**](#vscode-extensions-used)
+  - [**Testing**](#testing)
   - [**Deployment**](#deployment)
 
 ## **Objectives of the Site**
@@ -303,19 +304,18 @@ This extension assisted with the structure of README content.
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 This was very useful to check spelling errors in the code.
 
-        Testing
-            PEP8 Testing
-            Python Testing during Development
-            Manual Testing
-            HTML W3C Validator
-                HTML Validation Outcome
-                CSS Validation Outcome
-            Lighthouse
+## **Testing**
+
+Manual tests were continuously done on the application during development and as new features are added. Being an Agile approach project, I concentrated on delivery the user stories and testing them while the documentation on tests is coming at the close of the project. The code has been validated for syntactic correctness using industry standard methods like W3C, JSHint, PEP8.
+
+Automated tests were carried out on some of the requirements of the booking application and were successful.The full details of the tests carried out is available at [Tests Carried Out](/docs/testing.md)
+
         Bugs
             Current Bugs
             Resolved Bugs
 
 ## **Deployment**
+
 The application was deployed to [Heroku](https://heroku.com) where all the code and database is hosted. The static files were hosted on [Cloudinary.com](https://cloudinary.com/). Details of the fork, clone and deployment process is available [HERE](/docs/deployment.md)
 
         Credits
