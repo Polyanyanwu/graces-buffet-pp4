@@ -49,13 +49,12 @@ class CancelMyBooking(View):
             messages.error(request, (rights))
             return redirect('/')
         page_obj = None
-
         booking_id = request.POST.get('booking_id')
         booking = get_object_or_404(Booking, id=booking_id)
         booking_status = get_object_or_404(BookingStatus, code='C')
         booking.booking_status = booking_status
         booking.cancelled_by = request.user
-        booking.date_cancelled = timezone.now().date()
+        booking.date_cancelled = timezone.now()
         try:
             booking.save()
             messages.add_message(request, messages.INFO,

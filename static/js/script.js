@@ -58,7 +58,7 @@ if(document.querySelectorAll('.confirmation-btn')){
         const msg = e.target.dataset.message;
         Confirmation(msg,
             function yes() {
-                booking_id = msg = e.target.dataset.bookingId;
+                const booking_id = e.target.dataset.bookingId;
                 document.getElementById("cancel_booking_id").value = booking_id;
                 document.getElementById('cancel-booking-btn').click();
             },
