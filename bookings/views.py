@@ -57,6 +57,7 @@ class MakeBookings(View):
         booking = BookingForm(data=request.POST)
 
         cuisine_choices = request.POST.getlist('cuisine_option')
+        print("cuisine choices", cuisine_choices)
         if len(cuisine_choices) == 0:
             messages.add_message(request, messages.WARNING,
                                  'Please select one or more cuisine\

@@ -1,8 +1,9 @@
-"use strict";
+/*jshint esversion: 6 */
 
 const init = function () {
     // For the update of profile, make the email address readOnly
     // and set required to the name fields
+    "use strict";
     if(document.querySelector("#profile-update-form")){
         document.querySelector("#id_email").readOnly = true;
         document.querySelector("#id_first_name").setAttribute("required", "");
@@ -15,13 +16,13 @@ const init = function () {
     // post request to the server to retrieve the user groups
 if (document.querySelector("#group-update-form")){
     if (!document.querySelector("#id_user").value){
-        document.querySelector("#id_user").value = document.querySelector("#user_id").value
+        document.querySelector("#id_user").value = document.querySelector("#user_id").value;
     }
     document.querySelector("#id_group_name").required = false;
     document.querySelector("#id_user").addEventListener('change', (e)=>{
         e.preventDefault();
         document.getElementById('user-change-button').click();
-    })
+    });
 }
 };
 

@@ -1,4 +1,6 @@
-"use strict";
+/*jshint esversion: 6 */
+/*globals $:false */ // accept $ as global variable while testing with jshint
+
 const start_up = function () {
     messageTimeout();
 
@@ -10,6 +12,7 @@ document.addEventListener("DOMContentLoaded", start_up);
 // Timeout function to delay when a message is displayed 
 // to user before removing it from the screen
 const messageTimeout = function () {
+    "use strict";
     const messages = document.querySelectorAll('.messages');
     for (let msg of messages) {
         setTimeout(function () {
@@ -18,10 +21,11 @@ const messageTimeout = function () {
         }, 10000); // 10 seconds
     }
 
-}
+};
 
 // Function to run the confirmation modal window
 const Confirmation = function (message, yesFunction, noFunction) {
+    "use strict";
     const confirmBox = $("#confirmModal");
     confirmBox.find("#confirm-message").text(message);
     confirmBox
@@ -38,7 +42,8 @@ const Confirmation = function (message, yesFunction, noFunction) {
 // confirmation for single row of data
 if(document.getElementById('confirm_delete_notification')){
     document.getElementById('confirm_delete_notification').addEventListener('click', function () {
-        const msg = document.getElementById('confirm_delete_notification').dataset.message
+        "use strict";
+        const msg = document.getElementById('confirm_delete_notification').dataset.message;
         Confirmation(msg,
             function yes() {
                 document.getElementById('delete-notification-btn').click();
@@ -55,6 +60,7 @@ if(document.getElementById('confirm_delete_notification')){
 if(document.querySelectorAll('.confirmation-btn')){
     const rec_btn = document.querySelectorAll('.confirmation-btn');
     rec_btn.forEach(btn => btn.addEventListener('click', function(e){
+        "use strict";
         const msg = e.target.dataset.message;
         Confirmation(msg,
             function yes() {
@@ -73,10 +79,11 @@ if(document.querySelectorAll('.confirmation-btn')){
 if(document.querySelectorAll('.confirm_remove_notification')){
     const rec_btn = document.querySelectorAll('.confirm_remove_notification');
     rec_btn.forEach(btn => btn.addEventListener('click', function(e){
+        "use strict";
         const msg = e.target.dataset.message;
         Confirmation(msg,
             function yes() {
-                document.getElementById("user_group_name").value = e.target.dataset.group
+                document.getElementById("user_group_name").value = e.target.dataset.group;
                 document.getElementById('action_button').click();
             },
             function no() {
@@ -90,22 +97,24 @@ if(document.querySelectorAll('.confirm_remove_notification')){
 // assign to the email address field 
 if(document.querySelector('#contact_us')){
     if(document.querySelector('#user_email')){
-        document.querySelector('#id_sender').value = document.querySelector('#user_email').value
+        document.querySelector('#id_sender').value = document.querySelector('#user_email').value;
     }
 }
 
 // Mark existing cuisine choices as checked
 // used for Edit booking
 if(document.querySelector('#cuisine-row')){
-    const cuisine_el = document.getElementById('edit_cuisine_choices')
+    const cuisine_el = document.getElementById('edit_cuisine_choices');
     const selected = cuisine_el.innerText.split(',');
     const cuisine_options = document.querySelectorAll('.form-check-label');
     for (let cuisine of selected){  
         for (let item of cuisine_options){
+            console.log("item==", item)
             if(item.innerText.includes(cuisine.trim())){
-                const close_el = item.previousElementSibling
+                const close_el = item.previousElementSibling;
                 close_el.setAttribute('checked', '');
             }
         }
     }
 }
+
