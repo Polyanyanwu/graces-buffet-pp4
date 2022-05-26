@@ -54,6 +54,7 @@ class SystemPreference(models.Model):
         return self.data
 
     def pref_verbose(self):
+        """ Method to return the verbose name of the option """
         return dict(SystemPreference.SYSTEM_OPTIONS)[self.code]
 
 

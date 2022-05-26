@@ -24,12 +24,12 @@ class TesItemForm(TestCase):
                                         notice_date=datetime.now(), user="")
 
     def test_booking_notice_is_sent(self):
-        """ Test that Notification records is created 
+        """ Test that Notification records is created
             and email is sent to user
         """
         user = User.objects.get(username='test')
         buffet_period = BuffetPeriod.objects.get(id=1)
-        booking_status = BookingStatus.objects.get(code='B')   
+        booking_status = BookingStatus.objects.get(code='B')
         Booking.objects.create(
             booked_for=user,
             start_time=buffet_period,

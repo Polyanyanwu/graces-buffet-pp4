@@ -533,9 +533,9 @@ class UpdateBookingStatus(View):
                 booking_status=book_status, dinner_date=end_date)
         elif username:
             booking = Booking.objects.filter(
-                (Q(booked_for__first_name__icontains=username)
-                 | Q(booked_for__last_name__icontains=username))
-                & Q(booking_status=book_status))
+                (Q(booked_for__first_name__icontains=username) | Q(
+                    booked_for__last_name__icontains=username)) & Q(
+                        booking_status=book_status))
         else:
             booking = Booking.objects.filter(booking_status=book_status)
 
@@ -692,8 +692,8 @@ class BookingDetailsList(View):
             booking = Booking.objects.filter(dinner_date=end_date)
         elif username:
             booking = Booking.objects.filter(
-                Q(booked_for__first_name__icontains=username)
-                | Q(booked_for__last_name__icontains=username))
+                Q(booked_for__first_name__icontains=username) | Q(
+                    booked_for__last_name__icontains=username))
         elif bstatus:
             booking = Booking.objects.filter(booking_status=book_status)
         else:
@@ -733,9 +733,9 @@ class PastDueList(View):
         booking = Booking.objects.filter(
             (Q(dinner_date__lt=today) |
               (Q(dinner_date=today) &
-                Q(start_time__start_time__lte=(datetime.now()
-                  - timedelta(minutes=no_show)))))
-            & Q(booking_status="B")).order_by('dinner_date')
+                Q(start_time__start_time__lte=(
+                    datetime.now() - timedelta(minutes=no_show))))) & Q(
+                        booking_status="B")).order_by('dinner_date')
         paginator = Paginator(booking, 15)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -811,9 +811,9 @@ class DeleteBooking(View):
                 booking_status=book_status, dinner_date=end_date)
         elif username:
             booking = Booking.objects.filter(
-                (Q(booked_for__first_name__icontains=username)
-                 | Q(booked_for__last_name__icontains=username))
-                & Q(booking_status='F'))
+                (Q(booked_for__first_name__icontains=username) | Q(
+                    booked_for__last_name__icontains=username)) & Q(
+                        booking_status='F'))
         else:
             booking = Booking.objects.filter(booking_status=book_status)
 

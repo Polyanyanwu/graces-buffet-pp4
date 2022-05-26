@@ -9,7 +9,6 @@ from cuisine.models import Cuisine
 from .views import MakeBookings
 
 
-
 class TestViews(TestCase):
     """ test views """
 

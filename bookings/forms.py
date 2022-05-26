@@ -3,7 +3,7 @@ import sys
 from django import forms
 from django.shortcuts import get_object_or_404
 from general_tables.models import SystemPreference
-from .models import Booking, BuffetPeriod
+from .models import Booking
 from .widget import DatePickerInput
 
 

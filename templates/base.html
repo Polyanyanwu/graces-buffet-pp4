@@ -149,7 +149,7 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col-md-6 position-absolute end-0">
+            <div class="col-md-6 fixed-bottom">
                 {% for message in messages %}
                 <div class="alert {{ message.tags }} alert-dismissible show messages" role="alert">
                     {{ message | safe }}
