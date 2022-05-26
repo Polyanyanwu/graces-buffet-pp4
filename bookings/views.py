@@ -21,7 +21,7 @@ from .forms import BookingForm, UpdateBookingForm
 class MakeBookings(View):
     """ Booking main page """
 
-    def get(self, request, username="None", *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         """ Display the price per person and the booking form """
 
         price_queryset = get_object_or_404(SystemPreference, code="P")
@@ -30,16 +30,6 @@ class MakeBookings(View):
         cuisine_queryset = Cuisine.objects.all()
         form = BookingForm()
 
-        # check that django is not returning favicon when there is no parameter
-        # needed to enable reuse of this method for operator book for customer
-        if username == "favicon.ico":
-            username = "None"
-        if username == "None" and request.user.is_authenticated:
-            username = request.user.username
-        elif len(username) > 0 and request.user.is_authenticated:
-            user_to_book = User.objects.get(username=username)
-            username = user_to_book.username
-
         return render(
             request,
             "bookings/make_booking.html",
@@ -47,12 +37,11 @@ class MakeBookings(View):
                 "buffet_price": buffet_price,
                 "booking": booking,
                 "cuisines": cuisine_queryset,
-                "form": form,
-                "username": username
+                "form": form
             }
         )
 
-    def post(self, request, username, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         # check if user is logged in
         if not request.user.is_authenticated:
             messages.add_message(request,
@@ -73,8 +62,7 @@ class MakeBookings(View):
                                  'Please select one or more cuisine\
                                       choices before proceeding')
             return HttpResponseRedirect("/")
-        print(booking)
-        print("booking is valid==", booking.is_valid())
+
         if booking.is_valid():
             # check that dinner date is in future or today
             # if today check that time is in future
@@ -97,6 +85,7 @@ class MakeBookings(View):
                 return HttpResponseRedirect("/")
             try:
                 # check if operator is booking for someone
+                username = request.POST.get('username')
                 if username:
                     user_to_book = User.objects.get(username=username)
                 else:
@@ -270,6 +259,43 @@ def book_seats(seats, day_booked, start_time):
                 if allocated == seats:
                     break
     return booked
+
+
+class MakeBookingsOthers(View):
+    """ Booking main page for booking for others
+        It has only a get method and reuses the post
+        method for the MakeBooking
+    """
+
+    def get(self, request, username, *args, **kwargs):
+        """ Display the price per person and the booking form """
+        # check that user is operator or administrator
+        rights = check_access(request.user, ("operator", "administrator"))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
+        price_queryset = get_object_or_404(SystemPreference, code="P")
+        buffet_price = price_queryset.data
+        booking = Booking.objects.filter(id=None)  # empty form
+        cuisine_queryset = Cuisine.objects.all()
+        form = BookingForm()
+
+        user_to_book = User.objects.get(username=username)
+        user_fullname = user_to_book.get_full_name()
+
+        return render(
+            request,
+            "bookings/others/make_booking_others.html",
+            {
+                "buffet_price": buffet_price,
+                "booking": booking,
+                "cuisines": cuisine_queryset,
+                "form": form,
+                "username":  username,
+                "user_fullname": user_fullname
+            }
+        )
 
 
 class DisplayBookingConfirm(View):

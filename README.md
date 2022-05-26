@@ -36,6 +36,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
     - [**Fonts**](#fonts)
   - [**Database Design**](#database-design)
   - [Flowchart](#flowchart)
+  - [**Deployment**](#deployment)
 
 ## **Objectives of the Site**
 
@@ -204,13 +205,13 @@ The functionalities in the application shall be provided through two user epics:
 
 ### **Wireframes**
 
+The full wireframes are provided [HERE](/docs/wireframes.md)
+
 #### Site Map
 
 The design site map of the website is given below:
 
 ![Site Map](/docs/wireframes/site_map.jpg)
-
-The full wireframes are provided [HERE](/docs/wireframes.md)
 
 ### **Color Scheme**
 
@@ -261,7 +262,9 @@ The initial flowchart for the public interaction with the website has been produ
         Bugs
             Current Bugs
             Resolved Bugs
-        Deployment
+
+## **Deployment**
+
         Credits
             Content
             Code

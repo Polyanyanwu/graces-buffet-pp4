@@ -35,7 +35,9 @@
       "cloudinary",
       "edate",
       "forloop",
+      "makemigrations",
       "pastdue",
+      "runserver",
       "sdate",
       "summernote",
       "syspref"
