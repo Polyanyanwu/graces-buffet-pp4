@@ -1,3 +1,6 @@
+
+# Cloning and Deployment for Graces Buffet
+
 - [Cloning and Deployment for Graces Buffet](#cloning-and-deployment-for-graces-buffet)
   - [Prerequisites](#prerequisites)
     - [Fork the Repository](#fork-the-repository)
@@ -9,15 +12,13 @@
     - [**Create the Config Variables**](#create-the-config-variables)
     - [Deploy through the CLI](#deploy-through-the-cli)
 
-# Cloning and Deployment for Graces Buffet
-
 The project was developed using [GitPod IDE](https://www.gitpod.io/) (Integrated Development Environment)and pushed to [GitHub](https://github.com). The project repository is at [Graces Buffet Repository]( https://github.com/Polyanyanwu/graces-buffet-pp4). Commits to the repository were done via the Git version control available in the Gitpod.
 
 [Return to README](/README.md)
 
 ## Prerequisites
 
-1. You need to create and account in [GitHub](https://github.com).
+1. You need to create an account in [GitHub](https://github.com).
 if you don’t have any yet. Log in to your GitHub account.
 
 After logging into Github, you could decide on any of the following options:
@@ -30,7 +31,7 @@ After logging into Github, you could decide on any of the following options:
 
 Fork of a repository will create a copy of the repository in your own repositories in GitHub.
 
-You can make changes to the copy as you desire. You cans also pull the latest version from the original repository through a pull request in the upstream repository.
+You can make changes to the copy as you desire. You can also pull the latest version from the original repository through a pull request in the upstream repository.
 
 To Fork a repository you need to proceed as follows:
 
@@ -43,7 +44,7 @@ Cloning enables you to create a copy of the repository locally on your computer.
 
 To clone a repository, proceed as follows:
 
-1. Open the [Graces Buffet Repository]( https://github.com/Polyanyanwu/graces-buffet-pp4) repository.
+1. Open the [Graces Buffet Repository]( https://github.com/Polyanyanwu/graces-buffet-pp4).
 2. Click on the **Code** button.
 
 ![Code button](/docs/images/deployment/repository_code_btn.png)
@@ -52,11 +53,11 @@ To clone a repository, proceed as follows:
 
 ![Clone options](/docs/images/deployment/cloning_options.png)
 
-    1. via HTTPS
+**Through the HTTPS**
 
-* click HTTPS option and copy the link given
+* Click HTTPS option and copy the link given
 * You may also click on the Download Zip button and get a compressed zip file of the repository downloaded to your machine.
-* You can also click Open with GIthub desktop if you have it installed
+* You can also click Open with GitHub desktop if you have it installed
 * Navigate to the directory on your machine where you want to store the cloned repository.
 * Open your Terminal and type: ```git clone``` and paste the link copied above.
 * Press **Enter** and the local clone will be created.

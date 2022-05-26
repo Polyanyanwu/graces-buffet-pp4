@@ -36,6 +36,10 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
     - [**Fonts**](#fonts)
   - [**Database Design**](#database-design)
   - [Flowchart](#flowchart)
+  - [**Technologies Used**](#technologies-used)
+    - [**Frameworks and Libraries**](#frameworks-and-libraries)
+    - [**Ancillary Technologies**](#ancillary-technologies)
+    - [**VSCode Extensions Used**](#vscode-extensions-used)
   - [**Deployment**](#deployment)
 
 ## **Objectives of the Site**
@@ -247,10 +251,58 @@ The initial flowchart for the public interaction with the website has been produ
             Delete all existing enquiry results
         Future Features
         Data Model
-        Technologies Used
-            Python Libraries
-            Ancillary Technologies
-            VSCode Extensions Used
+
+## **Technologies Used**
+  
+  The main technologies used are:
+
+  1. Python3 (Django is a framework based on Python, which was used extensively in the views to deliver the application logic)
+  2. HTML (used to display the pages - Django templates makes use of HTML)
+  3. Jinja template language
+  4. CSS (used in styling some of the HTML)
+  5. Javascript
+
+### **Frameworks and Libraries**
+
+- Django framework, which is a very powerful open source project. The documentation of Django is on the [Official Django Site](https://www.djangoproject.com/).
+- [Django Allauth Package](https://django-allauth.readthedocs.io/en/latest/installation.html) was used for the user signup, password management and related functionality.
+- [Bootstrap V5.1](https://getbootstrap.com/docs/5.1/getting-started/introduction/) was used in styling and positioning the HTML elements on the pages.
+- [jQuery 3.6](https://jquery.com/) for rendering the modal confirmation of actions on the application.
+- [Font Awesome - fontawesomefree V 5.15.3](https://fontawesome.com/) was used to deliver the icons on the home page.
+- [Cloudinary](https://cloudinary.com/) was used in rendering static files and images on the website.
+- [Summernote](https://summernote.org/) enabled the Admin to create WYSIWYG Terms of Use and Privacy Policy which makes it become dynamic and loaded form database records.
+- [Django Crispy Forms)(https://django-crispy-forms.readthedocs.io/en/latest/) was helpful to display some of the forms on the pages.
+- [Dj-database-url](https://pypi.org/project/dj-database-url/) assisted with accessing the database.
+- [Psycopg2](https://pypi.org/project/psycopg2/) was the PostgreSQL database adapter for the Python programming language that was used in the project.
+
+### **Ancillary Technologies**
+
+- [Balsamiq](https://balsamiq.com/) was used to create  the Wireframes for the application.
+- [Google Fonts](https://fonts.google.com/) was used for the fonts in the application.
+- [TinyPNG](https://tinypng.com/) for resizing all the images.
+- [Multi Device Mockup Generator](https://techsini.com/multi-mockup/index.php) was used to create the Mockup image at the top of the README.
+- [PEP8 validation](http://pep8online.com/) : A Python code online validation application.
+- [JShint](https://jshint.com/) : for validation of the Javascript used.
+- [W3C Markup Validation Service](validator.w3.org) : A free application that was used to check the HTML and CSS files for errors.
+- [Visual Studio Code](https://code.visualstudio.com/): The code editor used for the application development. With numerous [extensions](#vscode-extensions-used) available it is an excellent environment for writing efficient codes.
+- [Git](https://git-scm.com/) : For Version control.
+- [GitPod](https://www.gitpod.io/) : the Integrated Development Environment.
+- [GitHub](https://github.com/)  for hosting the repository.
+- [Heroku](https://www.heroku.com/home) : hosting the live website.
+
+### **VSCode Extensions Used**
+
+Some VSCode extensions were used during the development of the application. They are:
+
+- [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
+This extension assisted to give meaningful messages on the Python code regarding structure and syntax.
+- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+This assisted with production of this README with Table of Contents in particular.
+- [markdown lint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+This extension assisted with the structure of README content.
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+This was very useful to check spelling errors in the code.
+
         Testing
             PEP8 Testing
             Python Testing during Development
