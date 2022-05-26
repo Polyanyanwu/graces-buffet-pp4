@@ -1,8 +1,7 @@
 {% load static %}
 {% load user_belong_group %}
 <!DOCTYPE html>
-<html lang="en">
-<html class="h-100">
+<html lang="en" class="h-100">
 
 <head>
     <title>Graces Buffet {% block additional_title %}{% endblock %}</title>
@@ -34,8 +33,9 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container-fluid nav-area">
             <a class="navbar-brand" href="{% url 'home' %}">
-                <h1 id="brand-logo"><i class="fas fa-utensils my-nav"></i></h1>
-                <h1 id="brand-name">Graces Buffet</h1>
+                <h1 id="brand-logo"> <i class="fas fa-utensils my-nav"></i>
+                    <span id="brand-name">Graces Buffet</span>
+                </h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -193,8 +193,9 @@
             <a href="{% url 'contact_us' %}">Contact Us </a>
             <span>|</span>
             <span><a href="http://www.linkedin.com/in/Polycarp-Anyanwu-PMP" target="_blank" rel="noopener"
-                    title="LinkedIn" aria-label="Check us out on LinkedIn"></a><i
-                    class="fab fa-linkedin"></i></a></span>
+                    title="LinkedIn" aria-label="Check us out on LinkedIn">
+                    <i class="fab fa-linkedin"></i></a>
+            </span>
             <span>|</span>
             <a href="https://github.com/Polyanyanwu" target="_blank" rel="noopener"
                 aria-label="Check us out on Github"><i class="fab fa-github"></i></a>
