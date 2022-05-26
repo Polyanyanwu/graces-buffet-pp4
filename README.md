@@ -264,6 +264,7 @@ The initial flowchart for the public interaction with the website has been produ
             Resolved Bugs
 
 ## **Deployment**
+The application was deployed to [Heroku](https://heroku.com) where all the code and database is hosted. The static files were hosted on [Cloudinary.com](https://cloudinary.com/). Details of the fork, clone and deployment process is available [HERE](/docs/deployment.md)
 
         Credits
             Content

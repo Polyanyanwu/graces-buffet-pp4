@@ -1,6 +1,19 @@
-# Cloning and Deployment for Grace Buffet
+- [Cloning and Deployment for Graces Buffet](#cloning-and-deployment-for-graces-buffet)
+  - [Prerequisites](#prerequisites)
+    - [Fork the Repository](#fork-the-repository)
+    - [Cloning the Repository](#cloning-the-repository)
+    - [Application Dependencies](#application-dependencies)
+  - [Deployment to Heroku](#deployment-to-heroku)
+    - [**Create Heroku App**](#create-heroku-app)
+    - [**Create Database in Heroku**](#create-database-in-heroku)
+    - [**Create the Config Variables**](#create-the-config-variables)
+    - [Deploy through the CLI](#deploy-through-the-cli)
+
+# Cloning and Deployment for Graces Buffet
 
 The project was developed using [GitPod IDE](https://www.gitpod.io/) (Integrated Development Environment)and pushed to [GitHub](https://github.com). The project repository is at [Graces Buffet Repository]( https://github.com/Polyanyanwu/graces-buffet-pp4). Commits to the repository were done via the Git version control available in the Gitpod.
+
+[Return to README](/README.md)
 
 ## Prerequisites
 
@@ -68,3 +81,60 @@ The project was developed mainly with Django and relevant packages. In Django/Py
 
 The application was deployed to [Heroku](https://heroku.com) where all the code and database is hosted. The static files were hosted on [Cloudinary.com](https://cloudinary.com/)
 
+ The live site is accessible at [Graces Buffet](https://graces-buffet.herokuapp.com/).
+
+Find below steps that were used to effectively deploy the application to the Heroku platform.
+
+### **Create Heroku App**
+
+1. Sign up / Log in to [Heroku](https://heroku.com) and create an account.
+
+2. From the Heroku Dashboard page select 'New' and then 'Create New App'
+
+![Heroku New App](/docs/images/deployment/create_application.png)
+
+3. From the Create New App form that opens, input an App Name and chose a Region (Europe or United States). When you enter an App Name if it is available, Heroku will indicate that it is available. If its not available you chose another name. Application names in Heroku are unique. I created the app (graces-buffet).
+
+![Heroku New](/docs/images/deployment/create_new_app.png)
+
+### **Create Database in Heroku**
+
+4. Its time to create the Database Resource. Postgres DB was used for the project. From the Heroku Dashboard, select your application name by clicking on it, then click on the Resources tab. From the search bar that opens in the Resources tab, input postgres and heroku will automatically display a suggested list of resources matching the name you inputted.
+
+![Postgres DB Search](/docs/images/deployment/postgres_search.png)
+
+Click on the Heroku Postgres and Heroku will display the Order form for you to select the Plan you need. If it is for app development like we are doing, select the Free plan.
+![Postgres Plan](/docs/images/deployment/create_db_resource.png)
+Click on Submit Order Form to complete the process.
+Heroku provision's the database and automatically creates a record in the Config Vars (see below) for the Database URL. This URL is very essential for you to access the database from your application.
+
+### **Create the Config Variables**
+
+5. The next thing to do is to create the necessary Config environment variables needed for the application to run.
+* From the Settings tab, click on the Reveal Config Vars button to open the Config Vars which shows empty KEY and VALUE settings. In my own application I am using Postgres DB, Cloudinary, email forwarding and the required keys are listed below:
+
+![Config Vars](/docs/images/deployment/config_vars.png)
+
+* If you have not done so, proceed to [Cloudinary site](https://cloudinary.com/), create an account.
+Click on your cloudinary dashboard and you will find the necessary variables to copy and use to create the Config Vars in Heroku.
+My dashboard looks like this:
+
+![Config Vars](/docs/images/deployment/cloudinary.png)
+
+* You need to enter the Config Var keys "CLOUDINARY_URL", "CLOUD_NAME", "API_KEY" and "API_SECRET" from the values in your Cloudinary dashboard.
+* For the "SECRET_KEY" variable you can generate one from [Generate Django Secret Key](https://miniwebtool.com/django-secret-key-generator/)
+* Enter the Email key details depending on your email service provider.
+
+### Deploy through the CLI
+
+* You need to enable two-factor authentication in your Heroku account.
+* Click on Account Settings in Heroku
+* Copy your API which you will use in logging into the Heroku from the Terminal in your development environment.
+* Return to your Gitpod or development IDE
+* Add Heroku as a remote repository to your workspace using ```git remote add heroku <url address of your app on heroku> ```
+* type ```heroku login -i```
+* You will be prompted for your Heroku email and password
+* For the password, enter the API key you copied from step 2 above.
+* Finally, type ```git push heroku main``` where main is the branch you want to deploy.
+
+[Return to README](/README.md)
