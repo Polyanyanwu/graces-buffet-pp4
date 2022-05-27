@@ -24,9 +24,6 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
       - [**A. Admin user**](#a-admin-user)
       - [**B. Operator**](#b-operator)
       - [**C. Public**](#c-public)
-    - [Features Implemented](#features-implemented)
-      - [Sign Up](#sign-up)
-      - [Login](#login)
     - [**Agile Initiative**](#agile-initiative)
       - [**Epics**](#epics)
     - [**User Stories**](#user-stories)
@@ -35,6 +32,11 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
       - [Site Map](#site-map)
     - [**Color Scheme**](#color-scheme)
     - [**Fonts**](#fonts)
+  - [**Features Implemented**](#features-implemented)
+    - [**Sign Up \& Login**](#sign-up--login)
+    - [Menu Options for Public User](#menu-options-for-public-user)
+      - [**Make Booking**](#make-booking)
+      - [User Account Dropdown](#user-account-dropdown)
   - [**Database Design**](#database-design)
   - [Flowchart](#flowchart)
   - [**Technologies Used**](#technologies-used)
@@ -124,30 +126,6 @@ There shall be three roles for the application:
 
 Only the Admin will use the Admin portal, while Operator and Public will use the application main page. Accessible menu items will depend on the role assigned to the user by the operator.
 
-### Features Implemented
-
-The website is used for the booking of seats for a number of persons in a stated date and time. To book successfully a user need to sign up with a valid email address. There are three roles for the application public, operator and administrator. We shall discuss the features under these three roles and in addition to the sign up process.
-
-#### Sign Up
-
-When the website opens to a new user, the Signup and Login icons are shown on the right edge of the screen. 
-![Signup](/docs/images/features/welcome.png)
-
-Click on the signup button will display the signup page where the user details and email are inputted. All the fields are required and the email will be verified before a user is able to login.
-
-![Signup Profile](/docs/images/features/create_account.png)
-
-Once the form is completed, the user is informed that an email has been forwarded to the given address for verification. The email will usually be received within few minutes depending on the network situation. 
-
-![Signup Profile](/docs/images/features/verify_email.png)
-
-Clicking on the link provided in the email verification email will direct the user to a page to click to verify the email. Once the user clicks on the Confirm button, the user is routed to the Login page.
-
-![Signup Profile](/docs/images/features/confirm_email.png)
-
-#### Login 
-
-
 
 
 ### **Agile Initiative**
@@ -204,8 +182,101 @@ In order to enhance the user experience and have consistent look and feel throug
 The font for the website is "Exo", which was chosen from [Google fonts](https://fonts.google.com/specimen/Exo?query=exo). This font looks great to me for a website where the user need not struggle to see details of the site.
 ![Font](/docs/font.png)
 
-                Background Image
-                Flowchart
+## **Features Implemented**
+
+The website is used for the booking of seats for a number of persons in a stated date and time. To book successfully a user need to sign up with a valid email address. There are three roles for the application public, operator and administrator. We shall discuss the features under these three roles and in addition to the sign up process.
+
+### **Sign Up & Login**
+
+When the website opens to a new user, the Signup and Login icons are shown on the right edge of the screen. 
+![Signup](/docs/images/features/welcome.png)
+
+Click on the signup button will display the signup page where the user details and email are inputted. All the fields are required and the email will be verified before a user is able to login.
+
+![Signup Profile](/docs/images/features/create_account.png)
+
+Once the form is completed, the user is informed that an email has been forwarded to the given address for verification. The email will usually be received within few minutes depending on the network situation. 
+
+![Signup Profile](/docs/images/features/verify_email.png)
+
+Clicking on the link provided in the email verification email will direct the user to a page to click to verify the email. Once the user clicks on the Confirm button, the user is routed to the Login page.
+
+![Signup Profile](/docs/images/features/confirm_email.png)
+
+The user can login with either the username or email address provided during the signup.
+If the credentials inputted are correct, an acknowledgement of the successful login is given at the footer area and a menu of options is displayed at the top right corner of the page.
+
+![Success Login](/docs/images/features/success_signin.png)
+
+If the username/email and password provided do not match, a message is displayed to the user and login is not permitted.
+
+### Menu Options for Public User
+
+#### **Make Booking**
+
+The booking page is the main page when a user opens the website. To effectively make a booking, a user need to be authenticated (logged in).
+The booking requests the dinner date, the time (displayed as a dropdown menu of available time slots), number of persons, and options for the buffet. A user is required to indicate, at least, one buffet option. This is to enable the restaurant owner plan ahead to know dinner options that people want at a given date.
+
+![Booking Page](/docs/images/features/booking.png)
+
+When a user clicks Let's Go button the form is validated and the application checks the availability of seats for the requested date, time and number of persons. If all is okay, the booking is confirmed and a message is displayed on the screen plus and email sent to the registered email address with a copy in the Notifications page for the user. A confirmation booking page is displayed with the details of the booking.
+
+![Booking confirmation](/docs/images/features/booking_confirm.png)
+
+The user without operator or administrator group privilege is presented with menu options as follows:
+
+#### User Account Dropdown
+
+1. Person icon has a dropdown menu for User Account comprising of:
+
+- ##### **My Profile**
+
+Selecting My Profile will display the Profile Update page where the user can update names, phone number and input any special requests to the restaurant. The email is displayed but not editable as change of email need verification and it is provided as a menu option.
+
+![Update Profile](/docs/images/features/update_profile.png)
+
+- ##### **Update Email**
+  
+The update email option enables the user to add or remove email address and also designate one email as the primary one for the application
+![Update Email](/docs/images/features/update_email.png)
+
+- ##### **Dining History**
+  
+Dining history displays all the bookings made by a customer including cancelled, fulfilled and active ones. Deleted ones are no longer available.
+![Dining History](/docs/images/features/dining_history.png)
+
+- ##### **Cancel Booking**
+  
+A customer may decide to cancel booking and selects this option. A list of all bookings with status "Booked" is displayed with a Cancel button available for the user to click for any of the bookings desired to be cancelled. This cancel booking functionality can also be invoked from the Up Coming booking page.
+![Cancel Booking](/docs/images/features/cancel_booking.png)
+  
+When the user has selected the booking to cancel, a confirmation modal window is displayed requesting the user to confirm the cancellation. If the user affirms the cancellation, the booking is marked as cancelled and removed from the active booking list.
+  
+![Cancel Booking Confirmation](/docs/images/features/cancel_booking_confirm.png)
+
+- ##### **Reset Password**
+  
+The password reset feature enables the user to reset password. An email is sent to the user through the email address inputted with a link to enable the password reset.
+  
+![Reset Password](/docs/images/features/reset_password.png)
+  
+2. #### Upcoming Events
+
+There is upcoming events represented with a calendar icon. When this icon is clicked, a list of bookings that are still active (status Booked) is displayed for the user. From this list the user can opt to cancel or edit the booking.
+  
+![Upcoming Events](/docs/images/features/upcoming_booking.png)
+
+If a user decides to edit the booking, a page is displayed with the current booking details where the user can change any of the details and get a instant confirmation feedback, email and copy of the email is available at the notifications menu item. If the cancel button is clicked, the user is requested to confirm cancellation of the booking, and the booking is cancelled if affirmed.
+
+3. ##### **Notifications**
+
+A Notifications icon is shown with a bell. The Notifications contain all the actions taken on the bookings. Notification record is created automatically if a booking is created, edited or cancelled. The user has option to delete the notification at the Notification Details page.
+![Notifications](/docs/images/features/notifications.png)
+![Notification Details](/docs/images/features/notice_detail.png)
+
+4. The search icon brings the user to the home page
+
+5. The last icon on the right is the logout icon which displays a logout confirmation page for the user.
 
 ## **Database Design**
 

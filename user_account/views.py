@@ -13,7 +13,7 @@ from .user_auth import check_access
 @transaction.atomic
 def update_profile(request):
     """ Update user profile """
-    rights = check_access(request.user, ("administrator", ))
+    rights = check_access(request.user)
     if rights != "OK":
         messages.error(request, (rights))
         return redirect('/')
