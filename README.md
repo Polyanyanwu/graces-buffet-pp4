@@ -37,12 +37,24 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
     - [Menu Options for Public User](#menu-options-for-public-user)
       - [**Make Booking**](#make-booking)
       - [User Account Dropdown](#user-account-dropdown)
-    - [Feature Options for Operator User](#feature-options-for-operator-user)
-      - [Update Booking Status](#update-booking-status)
-      - [Book for Customer](#book-for-customer)
-      - [Cancel Booking for Customer](#cancel-booking-for-customer)
-      - [Past Due Guest List](#past-due-guest-list)
-      - [Booking Details List](#booking-details-list)
+        - [**My Profile**](#my-profile)
+        - [**Update Email**](#update-email)
+        - [**Cancel Booking**](#cancel-booking)
+        - [**Reset Password**](#reset-password)
+      - [Upcoming Events](#upcoming-events)
+      - [**Notifications**](#notifications)
+    - [**Feature Options for Operator User**](#feature-options-for-operator-user)
+      - [**Update Booking Status**](#update-booking-status)
+      - [**Book for Customer**](#book-for-customer)
+      - [**Cancel Booking for Customer**](#cancel-booking-for-customer)
+      - [**Past Due Guest List**](#past-due-guest-list)
+      - [**Booking Details List**](#booking-details-list)
+    - [**Feature Options for Administrator User**](#feature-options-for-administrator-user)
+      - [**Assign User Roles**](#assign-user-roles)
+      - [**System Preferences**](#system-preferences)
+      - [**Cancel Booking for Customer -Admin**](#cancel-booking-for-customer--admin)
+      - [**Update Booking Status - Admin**](#update-booking-status---admin)
+      - [**Delete Fulfilled Booking**](#delete-fulfilled-booking)
   - [**Database Design**](#database-design)
   - [Flowchart](#flowchart)
   - [**Technologies Used**](#technologies-used)
@@ -235,15 +247,15 @@ The user without operator or administrator group privilege is presented with men
 
 #### User Account Dropdown
 
-1. Person icon has a dropdown menu for User Account comprising of:
+Person icon has a dropdown menu for User Account comprising of:
 
-- ##### **My Profile**
+##### **My Profile**
 
 Selecting My Profile will display the Profile Update page where the user can update names, phone number and input any special requests to the restaurant. The email is displayed but not editable as change of email need verification and it is provided as a menu option.
 
 ![Update Profile](/docs/images/features/update_profile.png)
 
-- ##### **Update Email**
+##### **Update Email**
   
 The update email option enables the user to add or remove email address and also designate one email as the primary one for the application
 ![Update Email](/docs/images/features/update_email.png)
@@ -253,7 +265,7 @@ The update email option enables the user to add or remove email address and also
 Dining history displays all the bookings made by a customer including cancelled, fulfilled and active ones. Deleted ones are no longer available.
 ![Dining History](/docs/images/features/dining_history.png)
 
-- ##### **Cancel Booking**
+##### **Cancel Booking**
   
 A customer may decide to cancel booking and selects this option. A list of all bookings with status "Booked" is displayed with a Cancel button available for the user to click for any of the bookings desired to be cancelled. This cancel booking functionality can also be invoked from the Up Coming booking page.
 ![Cancel Booking](/docs/images/features/cancel_booking.png)
@@ -262,13 +274,13 @@ When the user has selected the booking to cancel, a confirmation modal window is
   
 ![Cancel Booking Confirmation](/docs/images/features/cancel_booking_confirm.png)
 
-- ##### **Reset Password**
+##### **Reset Password**
   
 The password reset feature enables the user to reset password. An email is sent to the user through the email address inputted with a link to enable the password reset.
   
 ![Reset Password](/docs/images/features/reset_password.png)
-  
-2. #### Upcoming Events
+
+#### Upcoming Events
 
 There is upcoming events represented with a calendar icon. When this icon is clicked, a list of bookings that are still active (status Booked) is displayed for the user. From this list the user can opt to cancel or edit the booking.
   
@@ -276,24 +288,25 @@ There is upcoming events represented with a calendar icon. When this icon is cli
 
 If a user decides to edit the booking, a page is displayed with the current booking details where the user can change any of the details and get a instant confirmation feedback, email and copy of the email is available at the notifications menu item. If the cancel button is clicked, the user is requested to confirm cancellation of the booking, and the booking is cancelled if affirmed.
 
-3. ##### **Notifications**
+#### **Notifications**
 
 A Notifications icon is shown with a bell. The Notifications contain all the actions taken on the bookings. Notification record is created automatically if a booking is created, edited or cancelled. The user has option to delete the notification at the Notification Details page.
+
 ![Notifications](/docs/images/features/notifications.png)
 ![Notification Details](/docs/images/features/notice_detail.png)
 
-4. The search icon brings the user to the home page
+1. The search icon brings the user to the home page
 
-5. The last icon on the right is the logout icon which displays a logout confirmation page for the user.
+2. The last icon on the right is the logout icon which displays a logout confirmation page for the user.
 
-### Feature Options for Operator User
+### **Feature Options for Operator User**
 
-An operator has access to the Public Menu but is also is presented with additional dropdown menu which is a person icon with a +. To become an operator a user has to signup first and the Administrator will add operator to the groups for the user.
+An operator has access to the Public Menu but is also presented with additional dropdown menu which is a person icon with a +. To become an operator a user has to signup first and the Administrator will add operator to the groups for the user.
 The Operator menu is shown below:
 
 ![Operator Menu](/docs/images/features/operator_menu.png)
 
-#### Update Booking Status
+#### **Update Booking Status**
 
 The Operator group user can update booking status. Status can be changed to Cancelled, Fulfilled. A list of all active bookings are presented. The user can filter by the user names or dinner date range. When a booking has been selected, an Booking Detail Update Action page is displayed enabling the user to choose the status to change to. When the Update button is clicked, the user is requested to confirm the update via a modal confirmation window before the update is effected.
 
@@ -301,7 +314,7 @@ The Operator group user can update booking status. Status can be changed to Canc
 
 ![Update Booking Status Action](/docs/images/features/booking_update_action.png)
 
-#### Book for Customer
+#### **Book for Customer**
 
 The Book for Customer enables the Operator to make a booking on behalf of a customer. The system will present a list of customers for the user to select from. The list could be filtered by the username or email address of the customer. Once the user is selected by clicking the Select button beside the listed user, the booking page resembling the one on the home page is displayed where the user will enter the details. The customer the user is booking for is displayed on the page to guide the user.
 
@@ -309,23 +322,60 @@ The Book for Customer enables the Operator to make a booking on behalf of a cust
 
 ![Update Booking Status Action](/docs/images/features/book_for_customer_entry.png)
 
-#### Cancel Booking for Customer
+#### **Cancel Booking for Customer**
 
 This option enables the Operator to cancel booking for a customer. A list of customers is displayed where the user can select the customer from. The list has option to filter just as in the Book for Customer above. When the customer is selected a page having the customers list of active bookings is displayed. Clicking on the Cancel button will present a modal window requesting user confirms the cancellation. The booking is then cancelled and an email is sent to the customer plus a notification record created for the customer.
 
 ![Cancel Booking for customer Action](/docs/images/features/cancel_booking_customer.png)
 
-#### Past Due Guest List
+#### **Past Due Guest List**
 
 This option displays a list of all bookings that are still active but dinner date is in the past. The operator could then decide to change the status for such bookings.
 
 ![Past Due Guest](/docs/images/features/past_due_guest.png)
 
-#### Booking Details List
+#### **Booking Details List**
 
 This is a general query of all bookings in the application. User could filter the list by the customer first or last name, dinner date range or booking status.
 
-![Booking Details List](/docs/images/features/booking_details_operator.png)
+### **Feature Options for Administrator User**
+
+An Administrator has access to the Public Menu but is also presented with additional dropdown menu which is a person icon with a cog. To become an Administrator a user has to signup first and an Administrator will add administrator to the groups for the user. This administrator role is different from the super-admin which has access to the Admin panel. The Admin panel user could be added to the administrator page from the users option.
+The administrator menu is shown below:
+
+![Administrator Menu](/docs/images/features/admin_user_menu.png)
+
+#### **Assign User Roles**
+
+The administrator can use this option to put or remove any user from any group. The form that is displayed is shown below:
+
+![Assign User Role](/docs/images/features/update_user_group.png)
+
+The administrator first selects a user and the groups the user belongs to is displayed, if any. To remove existing group click Remove button. To add a group select the group from the group dropdown and click Add.
+
+#### **System Preferences**
+
+The application requires a set of configurations to work effectively. E.g. is the estimated duration of service for each customer. This enables the application to determine if a particular date and time has vacant seats or is fully booked. If for example a user books the restaurant at 2pm, the application will hold that seat from 2pm to the duration of service specified in the system preference before that seat can be available to another person. The administrator is expected to update this sparingly only after observation of service duration.
+
+![System Preference Update](/docs/images/features/sys_pref.png)
+
+Maximum person per online booking controls dynamic display of the number of people dropdown on the booking form.
+
+#### **Cancel Booking for Customer -Admin**
+
+The Cancel Booking for customer is the same functionality that is available for the operator group described above.
+
+#### **Update Booking Status - Admin**
+
+The is akin to the same functionality available to the Operator group.
+
+#### **Delete Fulfilled Booking**
+
+This option displays a list of all bookings that are have been fulfilled to enable the administrator to delete them. When a booking is selected, a Delete Action page is displayed where the user can click on Delete button to proceed to confirm the deletion.
+
+![Delete Booking](/docs/images/features/delete_booking.png)
+
+![Delete Booking Action](/docs/images/features/delete_booking_action.png)
 
 ## **Database Design**
 
@@ -340,13 +390,6 @@ The database Entity Diagram is given below:
 The initial flowchart for the public interaction with the website has been produced to guide the application development. As the site unfolds, it may differ slightly as requirements may change slightly in the course of development.
 
 ![Flowchart](/docs/wireframes/flowchart.png)
-        Features
-            Go through the Instructions
-            Print existing result of enquiries
-            Run new enquiry
-            Delete all existing enquiry results
-        Future Features
-        Data Model
 
 ## **Technologies Used**
   
