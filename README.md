@@ -64,7 +64,8 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
     - [**VSCode Extensions Used**](#vscode-extensions-used)
   - [**Testing**](#testing)
   - [**Bugs**](#bugs)
-    - [Current Bugs](#current-bugs)
+    - [**Current Bugs**](#current-bugs)
+    - [**Resolved Bugs**](#resolved-bugs)
   - [**Deployment**](#deployment)
 
 ## **Objectives of the Site**
@@ -465,9 +466,29 @@ Automated tests were carried out on some of the requirements of the booking appl
 
 ## **Bugs**
 
-### Current Bugs
+### **Current Bugs**
 
-            Resolved Bugs
+- In some of the pages pagination has been implemented. During testing it was noticed that if a page is filtered and paginated, the first page returns with the filtered list but subsequent pages will disregard the filtering. I noticed its happening because the next pages are rendered from the get request while the filtered list are returning from the post method. This could not be rectified at this time as it was noticed late when the app was loaded with enough data to test the pagination.
+
+### **Resolved Bugs**
+
+- The system was returning to Booking Detail Update action when the next pagination button is clicked. This was resolved at commit[0785e2](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/0785e2662900989042c4c6810f821cec5ad6a1de) by returning the user to the Update Booking Select Booking page using ```redirect``` instead of returning with context.
+  
+- Public user was mistakenly prevented from updating profile. This was resolved vi commit [3e79f05](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/3e79f05dfa0beb8405395f34cf9c8c67d72f2b66) by removing the restriction placed in the view class.
+  
+- It was noticed at some stage that putting the /admin url to open the admin panel was opening the Book for Customer page instead of the admin panel. This was resolved by ```creating a make_booking_others.html``` and letting the ```make_booking.html``` be for only customer booking because it is the main page at commit [5bd6ff](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/5bd6ffcbf5791b7cd8233beeca3d30a53e6951fe).
+
+- Cancel booking confirmation stopped working when strict mode was introduced in the JavaScript. It was resolved though commit [e27ae0](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/e27ae05d09df70692099b955a948693d9d68f2fd) by defining the ```const booking_id``` before its use.
+
+- Delete Booking was giving Error 500 after I changed the checking of access to accept a tuple of group names instead of only one group name. This was resolved by converting single group names pass to the check_access method to tuple via commit [d7bbef](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/d7bbefaf906860869f925335ef59c1153843d1f7)
+  
+- Clicking on any cuisine was selecting the first one. It was fixed by changing the id for the html element to a unique cuisine name via commit [6b1ff6](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/6b1ff6f477744ede707d196dba5bbb5025412d5a)
+  
+- Dinner date shown in notifications was including time as Midnight instead of only the date. Fixing was by introducing date format for the dinner date via commit [e3ccbe](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/e3ccbe4a6a6795bb8071ee924c4e0774b3f9c506)
+
+- Index out of range was coming up during booking caused by wrong index when determining available seats resolved via commit [b41c78](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/b41c7843ee9ae7fddc1d5726c94c80de894490fc)
+
+- Deployment to Heroku was failing due to collectstatic. I had to add the Cloudinary CLOUD_NAME, API_KEY, and API_SECRET in addition to the CLOUDINARY_URL before it could start working: commit [210ea0](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/210ea0bfcae68b4e4594a9dbbf7a3fe8a3755cf1)
 
 ## **Deployment**
 
