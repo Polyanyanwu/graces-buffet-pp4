@@ -118,7 +118,6 @@ class ContactUs(View):
     def post(self, request, *args, **kwargs):
         """ save the contact form for user """
         form = ContactForm(data=request.POST)
-        print(form)
         if form.is_valid():
             form_message = form.save(commit=False)
             if request.user.is_authenticated:

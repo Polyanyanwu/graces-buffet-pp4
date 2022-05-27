@@ -57,7 +57,6 @@ class MakeBookings(View):
         booking = BookingForm(data=request.POST)
 
         cuisine_choices = request.POST.getlist('cuisine_option')
-        print("cuisine choices", cuisine_choices)
         if len(cuisine_choices) == 0:
             messages.add_message(request, messages.WARNING,
                                  'Please select one or more cuisine\
@@ -607,18 +606,11 @@ class BookingUpdateAction(View):
         booking.save()
         messages.add_message(request, messages.INFO,
                              'Booking updated successfully')
-        bookings = Booking.objects.filter(booking_status='B')
+        bookings = Booking.objects.filter(booking_status=status)
         paginator = Paginator(bookings, 15)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-
-        return render(
-            request,
-            "bookings/update/update_booking.html",
-            {
-                "bookings": page_obj
-            }
-        )
+        return redirect('update_booking')
 
 
 class BookingDetailsList(View):

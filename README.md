@@ -37,6 +37,12 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
     - [Menu Options for Public User](#menu-options-for-public-user)
       - [**Make Booking**](#make-booking)
       - [User Account Dropdown](#user-account-dropdown)
+    - [Feature Options for Operator User](#feature-options-for-operator-user)
+      - [Update Booking Status](#update-booking-status)
+      - [Book for Customer](#book-for-customer)
+      - [Cancel Booking for Customer](#cancel-booking-for-customer)
+      - [Past Due Guest List](#past-due-guest-list)
+      - [Booking Details List](#booking-details-list)
   - [**Database Design**](#database-design)
   - [Flowchart](#flowchart)
   - [**Technologies Used**](#technologies-used)
@@ -212,6 +218,8 @@ If the username/email and password provided do not match, a message is displayed
 
 ### Menu Options for Public User
 
+![Public User Menu](/docs/images/features/public_user_menu.png)
+
 #### **Make Booking**
 
 The booking page is the main page when a user opens the website. To effectively make a booking, a user need to be authenticated (logged in).
@@ -277,6 +285,47 @@ A Notifications icon is shown with a bell. The Notifications contain all the act
 4. The search icon brings the user to the home page
 
 5. The last icon on the right is the logout icon which displays a logout confirmation page for the user.
+
+### Feature Options for Operator User
+
+An operator has access to the Public Menu but is also is presented with additional dropdown menu which is a person icon with a +. To become an operator a user has to signup first and the Administrator will add operator to the groups for the user.
+The Operator menu is shown below:
+
+![Operator Menu](/docs/images/features/operator_menu.png)
+
+#### Update Booking Status
+
+The Operator group user can update booking status. Status can be changed to Cancelled, Fulfilled. A list of all active bookings are presented. The user can filter by the user names or dinner date range. When a booking has been selected, an Booking Detail Update Action page is displayed enabling the user to choose the status to change to. When the Update button is clicked, the user is requested to confirm the update via a modal confirmation window before the update is effected.
+
+![Update Booking Status](/docs/images/features/update_booking_status.png)
+
+![Update Booking Status Action](/docs/images/features/booking_update_action.png)
+
+#### Book for Customer
+
+The Book for Customer enables the Operator to make a booking on behalf of a customer. The system will present a list of customers for the user to select from. The list could be filtered by the username or email address of the customer. Once the user is selected by clicking the Select button beside the listed user, the booking page resembling the one on the home page is displayed where the user will enter the details. The customer the user is booking for is displayed on the page to guide the user.
+
+![Book for Customer -Select Customer](/docs/images/features/book_for_customer.png)
+
+![Update Booking Status Action](/docs/images/features/book_for_customer_entry.png)
+
+#### Cancel Booking for Customer
+
+This option enables the Operator to cancel booking for a customer. A list of customers is displayed where the user can select the customer from. The list has option to filter just as in the Book for Customer above. When the customer is selected a page having the customers list of active bookings is displayed. Clicking on the Cancel button will present a modal window requesting user confirms the cancellation. The booking is then cancelled and an email is sent to the customer plus a notification record created for the customer.
+
+![Cancel Booking for customer Action](/docs/images/features/cancel_booking_customer.png)
+
+#### Past Due Guest List
+
+This option displays a list of all bookings that are still active but dinner date is in the past. The operator could then decide to change the status for such bookings.
+
+![Past Due Guest](/docs/images/features/past_due_guest.png)
+
+#### Booking Details List
+
+This is a general query of all bookings in the application. User could filter the list by the customer first or last name, dinner date range or booking status.
+
+![Booking Details List](/docs/images/features/booking_details_operator.png)
 
 ## **Database Design**
 

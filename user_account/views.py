@@ -62,7 +62,6 @@ def update_group(request):
             messages.success(request, ('Group removed successfully'))
 
         elif 'add_user_group' in request.POST:
-            print(request.POST)
             group_name = request.POST.get('group_name')
             user_sent = request.POST.get('user')
             user = get_object_or_404(User, id=user_sent)
