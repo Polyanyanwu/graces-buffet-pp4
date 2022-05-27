@@ -67,6 +67,11 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
     - [**Current Bugs**](#current-bugs)
     - [**Resolved Bugs**](#resolved-bugs)
   - [**Deployment**](#deployment)
+  - [**Credits**](#credits)
+    - [**Content**](#content)
+    - [**Code**](#code)
+    - [**Media**](#media)
+    - [**Acknowledgements**](#acknowledgements)
 
 ## **Objectives of the Site**
 
@@ -494,8 +499,45 @@ Automated tests were carried out on some of the requirements of the booking appl
 
 The application was deployed to [Heroku](https://heroku.com) where all the code and database is hosted. The static files were hosted on [Cloudinary.com](https://cloudinary.com/). Details of the fork, clone and deployment process is available [HERE](/docs/deployment.md)
 
-        Credits
-            Content
-            Code
-            Media
-            Acknowledgements
+## **Credits**
+
+### **Content**
+
+- The terms of use was adapted from the Terms and Conditions of [Opentable.ie](https://www.opentable.ie/legal/terms-and-conditions). The idea of the booking page I used was borrowed from [Opentable](https://www.opentable.ie).
+
+- The privacy policy on the main page was an adaptation of [Milano.ie](https://milano.ie/about-us/privacy-policy)
+  
+### **Code**
+
+- Online [books by Agiliq](https://books.agiliq.com/en/latest/README.html) was a very good resource for getting better ideas of Django ORM.
+  
+- Numerous [Stackoverflow](https://stackoverflow.com/) postings furnished ideas leading to my figuring out how to overcome some challenges.
+
+- Aggregation of Queryset examples from [Riptutorial](https://riptutorial.com/django/example/13050/average--minimum--maximum--sum-from-queryset) was very helpful.
+
+- Sample use of Q from [Codegrepper.com](https://www.codegrepper.com/code-examples/python/django+import+Q) assisted when I was at crossroads. 
+
+- [W3schools](https://www.w3schools.com/)  
+
+- [W3docs](https://www.w3docs.com/)
+  
+- [GeeksforGeeks](https://www.geeksforgeeks.org/)
+
+### **Media**
+
+- The images of the buffet were downloaded from [unsplash](https://unsplash.com/photos/STqHLqMne3k),
+[dreamstime.com](https://www.dreamstime.com/royalty-free-stock-photo-malay-buffet-image15700285) and
+[dreamstime](https://www.dreamstime.com/photos-images/buffet.html)
+
+- The 403 error message image was downloaded from [gsatatic](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3Crb5tO7_ixFPKD62WWLao6lOdPyl-vzd7w&usqp=CAU) 
+- The 404 Page not found image was downloaded from [CCM.net](https://ccm.net/contents/1079-page-not-found-where-is-the-404-error-coming-from)
+  
+### **Acknowledgements**
+
+- Many thanks to my mentor [Brian O'Hare](https://code-institute-room.slack.com/team/U02H67B6DS6) for the encouragement and criticism of my work that led to its eventual refinement.
+
+- Thanks to [Simen Daehlin](https://code-institute-room.slack.com/team/U4MVA9YQP) for pushing me further to add what he called "make it intuitive" for a better user experience leading to interconnecting the functionalities where desired.
+
+- Many thanks to the Code Institute's team (Lecturers and Tutors) for challenging me further and supporting when needed. The [Slack](code-institute-room.slack.com) community was always my first place to search issues and its very helpful.
+  
+- I'm grateful to my family for their support as I take this bold step to change residence and update skills.
