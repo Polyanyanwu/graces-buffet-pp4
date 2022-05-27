@@ -41,6 +41,7 @@
       "runserver",
       "sdate",
       "summernote",
-      "syspref"
+      "syspref",
+      "timeboxes"
    ]
 }
