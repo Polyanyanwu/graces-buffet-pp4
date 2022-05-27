@@ -24,6 +24,9 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
       - [**A. Admin user**](#a-admin-user)
       - [**B. Operator**](#b-operator)
       - [**C. Public**](#c-public)
+    - [Features Implemented](#features-implemented)
+      - [Sign Up](#sign-up)
+      - [Login](#login)
     - [**Agile Initiative**](#agile-initiative)
       - [**Epics**](#epics)
     - [**User Stories**](#user-stories)
@@ -120,6 +123,32 @@ There shall be three roles for the application:
     4. Enquiries on booking history
 
 Only the Admin will use the Admin portal, while Operator and Public will use the application main page. Accessible menu items will depend on the role assigned to the user by the operator.
+
+### Features Implemented
+
+The website is used for the booking of seats for a number of persons in a stated date and time. To book successfully a user need to sign up with a valid email address. There are three roles for the application public, operator and administrator. We shall discuss the features under these three roles and in addition to the sign up process.
+
+#### Sign Up
+
+When the website opens to a new user, the Signup and Login icons are shown on the right edge of the screen. 
+![Signup](/docs/images/features/welcome.png)
+
+Click on the signup button will display the signup page where the user details and email are inputted. All the fields are required and the email will be verified before a user is able to login.
+
+![Signup Profile](/docs/images/features/create_account.png)
+
+Once the form is completed, the user is informed that an email has been forwarded to the given address for verification. The email will usually be received within few minutes depending on the network situation. 
+
+![Signup Profile](/docs/images/features/verify_email.png)
+
+Clicking on the link provided in the email verification email will direct the user to a page to click to verify the email. Once the user clicks on the Confirm button, the user is routed to the Login page.
+
+![Signup Profile](/docs/images/features/confirm_email.png)
+
+#### Login 
+
+
+
 
 ### **Agile Initiative**
 
