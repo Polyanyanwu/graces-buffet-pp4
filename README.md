@@ -56,6 +56,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
       - [**Update Booking Status - Admin**](#update-booking-status---admin)
       - [**Delete Fulfilled Booking**](#delete-fulfilled-booking)
     - [**The Admin Panel**](#the-admin-panel)
+  - [Future Features to Implement](#future-features-to-implement)
   - [**Database Design**](#database-design)
   - [Flowchart](#flowchart)
   - [**Technologies Used**](#technologies-used)
@@ -397,6 +398,16 @@ There a few important tables to be maintained by the application which the proje
 - Contacts - to review or delete contact us messages sent by customers
 
 The above could all be placed under the administrator in the main application but for lack of enough time to do so. These are features that could be added to the user interface in future.
+
+## Future Features to Implement
+
+- It will be desirable to include social authentication to ease the user experience.
+  
+- Addition of credit/debit card will ensure only serious customers make bookings.
+  
+- The functionalities listed under "The Admin Panel" above could be implemented and made available to the administrator menu to have uniform experience for the administrator.
+  
+- I had listed "Reasons for cancellation" to be obtained during cancellation but couldn't include it at this time. It would be desirable for the restaurant owner to have feedback on why bookings are cancelled.
 
 ## **Database Design**
 
