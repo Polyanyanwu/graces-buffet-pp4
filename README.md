@@ -55,6 +55,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
       - [**Cancel Booking for Customer -Admin**](#cancel-booking-for-customer--admin)
       - [**Update Booking Status - Admin**](#update-booking-status---admin)
       - [**Delete Fulfilled Booking**](#delete-fulfilled-booking)
+    - [**The Admin Panel**](#the-admin-panel)
   - [**Database Design**](#database-design)
   - [Flowchart](#flowchart)
   - [**Technologies Used**](#technologies-used)
@@ -62,6 +63,8 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
     - [**Ancillary Technologies**](#ancillary-technologies)
     - [**VSCode Extensions Used**](#vscode-extensions-used)
   - [**Testing**](#testing)
+  - [**Bugs**](#bugs)
+    - [Current Bugs](#current-bugs)
   - [**Deployment**](#deployment)
 
 ## **Objectives of the Site**
@@ -377,6 +380,18 @@ This option displays a list of all bookings that are have been fulfilled to enab
 
 ![Delete Booking Action](/docs/images/features/delete_booking_action.png)
 
+### **The Admin Panel**
+
+There a few important tables to be maintained by the application which the project time constraint didn't enable us to implement. They were included in the Admin panel to enable the superuser to maintain those tables. They are listed below with their purposes:
+
+- Cuisines - add the name, description and image of the cuisine types available. The application has been loaded with four cuisines which were added using this admin panel.
+- Booking Status - Could change the description of the booking status. The booking status are all fixed and critical to the overall functioning of the application. The superuser could alter their descriptions.
+- Dining Tables - add or remove dining tables with their seating capacity. When new tables/seats are acquired the superuser will add or remove them from the admin panel.
+- Home Messages - maintain the text for the Terms of Use and Privacy Policy. Its not expected to change often.
+- Contacts - to review or delete contact us messages sent by customers
+
+The above could all be placed under the administrator in the main application but for lack of enough time to do so. These are features that could be added to the user interface in future.
+
 ## **Database Design**
 
 The database used in this project is a relational database, Postgres. It is provided by Heroku.
@@ -448,8 +463,10 @@ Manual tests were continuously done on the application during development and as
 
 Automated tests were carried out on some of the requirements of the booking application and were successful.The full details of the tests carried out is available at [Tests Carried Out](/docs/testing.md)
 
-        Bugs
-            Current Bugs
+## **Bugs**
+
+### Current Bugs
+
             Resolved Bugs
 
 ## **Deployment**
