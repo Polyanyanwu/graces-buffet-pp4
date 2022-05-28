@@ -60,3 +60,9 @@ class UpdateBookingForm(forms.ModelForm):
         """ Specify the model to use and HTML5 date picker """
         model = Booking
         fields = ['booking_status']
+
+    def __init__(self, *args, **kwargs):
+        """ Make Booking Status required and remove empty selection"""
+        super().__init__(*args, **kwargs)
+        self.fields['booking_status'].required = True
+        self.fields['booking_status'].empty_label = None

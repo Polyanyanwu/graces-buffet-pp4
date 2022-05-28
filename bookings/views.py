@@ -587,8 +587,12 @@ class BookingUpdateAction(View):
 
         booking = get_object_or_404(Booking, id=booking_id)
         status = request.POST.get('booking_status')
-        if status:
+        if len(status.strip()) != 0:
             status = get_object_or_404(BookingStatus, code=status)
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 'Please select a booking status first')
+            return redirect('update_booking_action', booking_id)
 
         if booking.booking_status == status:
             messages.add_message(request, messages.ERROR,
