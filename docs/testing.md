@@ -399,6 +399,13 @@ A Reset password page is opened
 3. Buttons are provided to click and select to update status
 4. Status of booking changes after confirmation of status change
 
+- Login with user that belongs to operator group
+- Click on the Operator dropdown icon (person icon with +)
+- Click on Update Booking Status menu item
+- A list of all active bookings is displayed
+- You can reduce the list by filtering with a date range or any of user first name or last name.
+- From the Select New Status dropdown, select the new status (Fulfilled or Cancelled), selecting Booked status will result in a message requesting you make a different choice.
+
 #### O3. Operator Make Booking for Customer
 
 1. Make booking option is available for operator

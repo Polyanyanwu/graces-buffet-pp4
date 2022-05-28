@@ -109,7 +109,6 @@ if(document.querySelector('#cuisine-row')){
     const cuisine_options = document.querySelectorAll('.form-check-label');
     for (let cuisine of selected){  
         for (let item of cuisine_options){
-            console.log("item==", item)
             if(item.innerText.includes(cuisine.trim())){
                 const close_el = item.previousElementSibling;
                 close_el.setAttribute('checked', '');
