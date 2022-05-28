@@ -204,7 +204,7 @@ The Price per Person is displayed in big font on the home page immediately befor
 - Click on the dropdown having clock icon
 - User can select the desired time slot. Available time slots are maintained by the Admin.
 
-![Select Time](/docs/images/test/time_period.png)
+![Select Time](/docs/images/test/select_time.png)
 
 Beyond the user story requirement, the time slot selected is validated to ensure it is not in the past when the dinner date is same date as system date.
 
@@ -224,6 +224,8 @@ The booking form is immediately available once the website is opened.
 ![Signup Icon](/docs/images/test/signup_icon.png)
 
 - Click on the Sign Up and the Signup form is displayed for the user to input the username, email address and names.
+- Email is sent to user to confirm the email address provided.
+- Click on the link in the email received and you are set to login successfully.
 
 1. A signed-in user can save a booking and receive immediate confirmation plus an email
 
@@ -255,7 +257,6 @@ To test the fully booked validation:
 A confirmation page is displayed showing the user the details of the booking once it is successful. An email is also sent to the primary email address of the user.
 
 ![Booking confirmation page](/docs/images/test/booking_confirm_page.png)
-![Booking confirmation email](/docs/images/test/booking_confirm_email.png)
 
 #### P7. Public user can see images and descriptions of buffet types
 
@@ -311,16 +312,46 @@ When a user goes through the P6 or P8 tests above to make or cancel a booking em
 1. Signup option is available to user on the home page and when trying to complete a booking
 2. Successful signup will enable user login with the created email and password
 
+These criteria have been tested via P6 above. Signup is available once the website opens. If a user is already signed in, the signup icon is no longer available and its is replace by the Logout icon.
+
 #### U2. User sign in and sign out easily
 
 1. Sign-in link available on home page
 2. Sign-in page opens when link is clicked
 3. Full user menu is available when successfully signed in
+4. Logout link is available
+5. Logout confirmation is requested before user is logged out.
+
+- Open the Graces Buffet website
+- Click on the Login option on the right edge of the page
+- A Sign in page is displayed where username or email address and password is entered.
+- Enter a wrong password and error message is displayed informing the user of the wrong entry.
+- Enter the correct username/email and password and the success message is displayed
+- User first name is display along full menu for the user depending on the group profile the user belongs to.
+  
+![User Sign in](/docs/images/test/signin.png)
+
+After successful sign in the user menu is available through the icons at the right edge of the page.
+
+- Click on the logout icon and a logout confirmation page is opened.
+- Click Sign out button to confirm the log out or Cancel to remain signed in.
+
+![User Log out](/docs/images/test/signout.png)
 
 #### U3. Registered user can change password
 
 1. Reset password link available at sign-in page
 2. Reset password page opens and enables user successfully reset password
+
+- Click the Login icon
+- Sign in page opens
+- Click the Forgot Password
+A Reset password page is opened
+- Enter an email address where the password reset link will be sent
+- Click on the link in the received email
+- Enter new password and repeat password.
+- You are logged in if the passwords match.
+
 
 #### U4. User can update profile
 

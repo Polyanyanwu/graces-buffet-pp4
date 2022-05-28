@@ -476,7 +476,7 @@ This was very useful to check spelling errors in the code.
 
 ## **Testing**
 
-Manual tests were continuously done on the application during development and as new features are added. Being an Agile approach project, I concentrated on delivery the user stories and testing them while the documentation on tests is coming at the close of the project. The code has been validated for syntactic correctness using industry standard methods like W3C, JSHint, PEP8.
+Manual tests were continuously done on the application during development and as new features are added. Being an Agile approach project, I concentrated on delivering the user stories and testing them while the documentation on tests is coming at the close of the project. The code has been validated for syntactic correctness using industry standard methods like W3C, JSHint, PEP8.
 
 Automated tests were carried out on some of the requirements of the booking application and were successful.The full details of the tests carried out is available at [Tests Carried Out](/docs/testing.md)
 
