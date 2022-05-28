@@ -13,25 +13,34 @@
     - [**Automated Test on Models**](#automated-test-on-models)
     - [**Automated Test on Views**](#automated-test-on-views)
   - [**Manual Tests**](#manual-tests)
-    - [Make Booking](#make-booking)
-    - [Authenticated Public access booking](#authenticated-public-access-booking)
-  - [**Authentication Acceptance Test**](#authentication-acceptance-test)
-    - [U1. User account creation](#u1-user-account-creation)
-    - [U2. User sign in and sign out easily](#u2-user-sign-in-and-sign-out-easily)
-    - [U3. Registered user can change password](#u3-registered-user-can-change-password)
-    - [U4. User can update profile](#u4-user-can-update-profile)
-  - [Operator Role Acceptance Tests](#operator-role-acceptance-tests)
-    - [O1. Operator can cancel bookings](#o1-operator-can-cancel-bookings)
-    - [O2. Operator can Update Booking Status](#o2-operator-can-update-booking-status)
-    - [O3. Operator Make Booking for Customer](#o3-operator-make-booking-for-customer)
-    - [O4. Operator Make enquiry on bookings](#o4-operator-make-enquiry-on-bookings)
-  - [Site owner/Admin Acceptance Tests](#site-owneradmin-acceptance-tests)
-    - [**A1. Admin can assign user role to registered users**](#a1-admin-can-assign-user-role-to-registered-users)
-    - [A2. Admin can set system preferences](#a2-admin-can-set-system-preferences)
-    - [A3. Admin can cancel bookings where necessary](#a3-admin-can-cancel-bookings-where-necessary)
-    - [A4. Admin can update bookings where necessary](#a4-admin-can-update-bookings-where-necessary)
-    - [A5. Admin can maintain buffet categories](#a5-admin-can-maintain-buffet-categories)
-    - [A6. Admin can maintain table/seat types and quantities available](#a6-admin-can-maintain-tableseat-types-and-quantities-available)
+    - [**Public Booking Acceptance Test**](#public-booking-acceptance-test)
+      - [P1. Public user want a user-friendly interactive website](#p1-public-user-want-a-user-friendly-interactive-website)
+      - [P2. Public user want to be able to access the website using different devices for same friendly experience](#p2-public-user-want-to-be-able-to-access-the-website-using-different-devices-for-same-friendly-experience)
+      - [P3. Public user has option to select number of people for the dinner](#p3-public-user-has-option-to-select-number-of-people-for-the-dinner)
+      - [P4. Public user can see the buffet price](#p4-public-user-can-see-the-buffet-price)
+      - [P5. Public user can have time options to select from on a chosen date](#p5-public-user-can-have-time-options-to-select-from-on-a-chosen-date)
+      - [P6. Public user can make booking so that the dinner time is confirmed](#p6-public-user-can-make-booking-so-that-the-dinner-time-is-confirmed)
+      - [P7. Public user can see images and descriptions of buffet types](#p7-public-user-can-see-images-and-descriptions-of-buffet-types)
+      - [P8. Public user can cancel a booking](#p8-public-user-can-cancel-a-booking)
+      - [P9. Public user can view booking history](#p9-public-user-can-view-booking-history)
+      - [P10. Public user can receive email notifications](#p10-public-user-can-receive-email-notifications)
+    - [**Authentication Acceptance Test**](#authentication-acceptance-test)
+      - [U1. User account creation](#u1-user-account-creation)
+      - [U2. User sign in and sign out easily](#u2-user-sign-in-and-sign-out-easily)
+      - [U3. Registered user can change password](#u3-registered-user-can-change-password)
+      - [U4. User can update profile](#u4-user-can-update-profile)
+    - [Operator Role Acceptance Tests](#operator-role-acceptance-tests)
+      - [O1. Operator can cancel bookings](#o1-operator-can-cancel-bookings)
+      - [O2. Operator can Update Booking Status](#o2-operator-can-update-booking-status)
+      - [O3. Operator Make Booking for Customer](#o3-operator-make-booking-for-customer)
+      - [O4. Operator Make enquiry on bookings](#o4-operator-make-enquiry-on-bookings)
+    - [Site owner/Admin Acceptance Tests](#site-owneradmin-acceptance-tests)
+      - [**A1. Admin can assign user role to registered users**](#a1-admin-can-assign-user-role-to-registered-users)
+      - [A2. Admin can set system preferences](#a2-admin-can-set-system-preferences)
+      - [A3. Admin can cancel bookings where necessary](#a3-admin-can-cancel-bookings-where-necessary)
+      - [A4. Admin can update bookings where necessary](#a4-admin-can-update-bookings-where-necessary)
+      - [A5. Admin can maintain buffet categories](#a5-admin-can-maintain-buffet-categories)
+      - [A6. Admin can maintain table/seat types and quantities available](#a6-admin-can-maintain-tableseat-types-and-quantities-available)
 
 ## **Code Validation**
 
@@ -111,62 +120,116 @@ All the tests were successful and the evidence is given below:
 
 The application was thoroughly tested at each step of the development process and guided by the agreed Acceptance Criteria for each user story.  Below are the result and evidence of the manual testing of all aspects of the application, some done at development stage and others after deployment. The tests cover all the user stories developed at the beginning of the project and those that came in the process of the development.
 
-### Make Booking
+### **Public Booking Acceptance Test**
 
-Several test were made on the booking functionality:
+#### P1. Public user want a user-friendly interactive website
 
-1. Test that the user is logged in before confirming a booking.
-2. Test dropdown time options is available on booking form
-3. Buffet price is available on booking form.
-4. Select number of people on booking form.
-5. Test that dinner date is not earlier than today
-6. Display details of buffet types
-7. Test that if dinner date is today, dinner time cannot be earlier than now
-8. Check for available seats on the given date and time.
-9. Test that the user is directed to booking confirmation page after a successful booking.
-10. Test that booking confirmation email is sent.
-11. Access site on different device.
-12. Booking form is available to user
+1. Booking details are visible on home page
 
-### Authenticated Public access booking
+- Open a web browser
+- Input the Graces Buffet url (https://graces-buffet.herokuapp.com/)
+- The booking details is shown on the home page when the site is opened
 
-1. Test view booking history
-2. Cancel booking
-3. Can view notifications
-4. Menu has option for cancel booking
-5. Cancel booking page has details of all active bookings
-6. A button is available to click and cancel desired booking
-7. Feedback is given and list of bookings updated immediately
-8. Option for booking history available on the menu
-9. Booking history page contains details of all previous bookings
-10. Email is received upon confirmation/cancellation of booking
+1. Responsive in mobile and desktop browsers
 
-## **Authentication Acceptance Test**
+- Open the URL address of the website in desktop computer, laptop computer, iphone, ipad, samsung phone.
+- The application is responsive and user can effectively complete a booking
 
-### U1. User account creation
+![Graces Buffet Website](/docs/images/test/small_width_device.png)
+Graces Buffet website opened in a small width Samsung phone
+
+1. Feedback on user actions are given
+
+- Login as public user
+- Input a date that is in the past
+- Application responds with error message that dinner date cannot be earlier than today
+
+![Dinner Date message](/docs/images/test/dinner_date_earlier.png)
+
+Similarly when trying to book without logging in, booking is cancelled, booking is successfully done, login is successful, log out is successful and others appropriate message is displayed to the user.
+
+![Login Required](/docs/images/test/login_required.png)
+
+1. User finds links to navigate to other functions easy
+
+- Open the website
+- Login successfully
+- Icons on the right edge of the page have tooltips that describe their purpose
+- Icons with dropdown menu indicate with down pointing arrow
+- There is also linkage from Upcoming Booking to edit or cancel the booking.
+
+1. Font is legible
+2. Color contrast is effective
+
+#### P2. Public user want to be able to access the website using different devices for same friendly experience
+
+1. Website is accessible on different sized devices
+2. Information is easy to find both on small and large screens
+
+#### P3. Public user has option to select number of people for the dinner
+
+1. On the booking form a selection box is available with options for number of people
+
+#### P4. Public user can see the buffet price
+
+1. The booking form displays the price per person
+
+#### P5. Public user can have time options to select from on a chosen date
+
+1. On the booking form a selection box is available with options for available time slots
+
+#### P6. Public user can make booking so that the dinner time is confirmed
+
+1. Booking form is available to user
+2. Signup form is available to user
+3. A signed-in user can save a booking and receive immediate confirmation plus an email
+
+#### P7. Public user can see images and descriptions of buffet types
+
+1. Images and description of buffet types available on the booking page
+
+#### P8. Public user can cancel a booking
+
+1. Menu has option for cancel booking
+2. Cancel booking page has details of all active bookings
+3. A button is available to click and cancel desired booking
+4. Feedback is given and list of bookings updated immediately
+
+#### P9. Public user can view booking history
+
+1. Option for booking history available on the menu
+2. Booking history page contains details of all previous bookings
+
+#### P10. Public user can receive email notifications
+
+1. Email is received upon confirmation/cancellation of booking
+
+### **Authentication Acceptance Test**
+
+#### U1. User account creation
 
 1. Signup option is available to user on the home page and when trying to complete a booking
 2. Successful signup will enable user login with the created email and password
 
-### U2. User sign in and sign out easily
+#### U2. User sign in and sign out easily
 
 1. Sign-in link available on home page
 2. Sign-in page opens when link is clicked
 3. Full user menu is available when successfully signed in
 
-### U3. Registered user can change password
+#### U3. Registered user can change password
 
 1. Reset password link available at sign-in page
 2. Reset password page opens and enables user successfully reset password
 
-### U4. User can update profile
+#### U4. User can update profile
 
 1. Profile option available to signed in user
 2. Profile page opens and enables user to change names/phone or email as needed
 
-## Operator Role Acceptance Tests
+### Operator Role Acceptance Tests
 
-### O1. Operator can cancel bookings
+#### O1. Operator can cancel bookings
 
 1. Menu option for cancel booking available
 2. Ability to select all active bookings
@@ -175,51 +238,51 @@ Several test were made on the booking functionality:
 5. Feedback message on successful cancellation
 6. Updated list of active bookings
 
-### O2. Operator can Update Booking Status
+#### O2. Operator can Update Booking Status
 
 1. Menu option for update booking is available
 2. A page is provided where active bookings are displayed
 3. Buttons are provided to click and select to update status
 4. Status of booking changes after confirmation of status change
 
-### O3. Operator Make Booking for Customer
+#### O3. Operator Make Booking for Customer
 
 1. Make booking option is available for operator
 2. Operator can find the customer using phone or email address
 3. Successful booking visible on booking history enquiry
 
-### O4. Operator Make enquiry on bookings
+#### O4. Operator Make enquiry on bookings
 
 1. Booking history enquiry available
 2. Query has options to select date range and booking status
 3. List of data is displayed meeting the given criteria
 
-## Site owner/Admin Acceptance Tests
+### Site owner/Admin Acceptance Tests
 
-### **A1. Admin can assign user role to registered users**
+#### **A1. Admin can assign user role to registered users**
 
 1. Options for user role is available on the user profile
 2. Setting the user role restricts the user to the assigned role
 
-### A2. Admin can set system preferences
+#### A2. Admin can set system preferences
 
 1. System preferences available in the Admin panel
 2. Changes made affect the working of the application
 
-### A3. Admin can cancel bookings where necessary
+#### A3. Admin can cancel bookings where necessary
 
 1. Admin is able to cancel bookings same like the Operator role
 
-### A4. Admin can update bookings where necessary
+#### A4. Admin can update bookings where necessary
 
 1. Admin is able to update bookings same like the Operator role
 
-### A5. Admin can maintain buffet categories
+#### A5. Admin can maintain buffet categories
 
 1. Buffet types table available for maintenance in Admin panel
 2. Changes made at the Admin panel reflects on the main site
 
-### A6. Admin can maintain table/seat types and quantities available
+#### A6. Admin can maintain table/seat types and quantities available
 
 1. Table/Seats available to update on the Admin panel
 2. Changes made at the Admin panel reflects on the main site
