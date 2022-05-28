@@ -506,6 +506,8 @@ Automated tests were carried out on some of the requirements of the booking appl
 
 - Deployment to Heroku was failing due to collectstatic. I had to add the Cloudinary CLOUD_NAME, API_KEY, and API_SECRET in addition to the CLOUDINARY_URL before it could start working: commit [210ea0](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/210ea0bfcae68b4e4594a9dbbf7a3fe8a3755cf1)
 
+- While testing the seat booking for fully booked situation, it was noticed that the seats were still being allocated even when the full capacity was reached for a given date and time. It was observed that the booked date in the tables booked records was auto saving the date booked instead of the dinner date causing our algorithm to fail. The fix was to change the booked date to null=False in the model and then save the booked date as dinner date in the views via commit [5fff49](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/5fff49da510bf629c4b451ae31687e8e82eb9880)
+
 ## **Deployment**
 
 The application was deployed to [Heroku](https://heroku.com) where all the code and database is hosted. The static files were hosted on [Cloudinary.com](https://cloudinary.com/). Details of the fork, clone and deployment process is available [HERE](/docs/deployment.md)

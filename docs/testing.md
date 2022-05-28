@@ -240,12 +240,29 @@ Several validations are carried out by the application.
 a. The date is validated to ensure it is not in the past
 b. The time is validated to ensure it is not in the past if the date is today
 c. The cuisine choices are validated to ensure the user selected at least one cuisine
-d. Validation is done on the available seats for the selected time slot. In doing this validation consideration is given for seats that are occuppied estimated buffet service period before and after the selected time slot. 
+d. Validation is done on the available seats for the selected time slot. In doing this validation consideration is given for seats that are occupied  before and after the selected time slot +/- the estimated buffet service period.
 
+Various validation messages are shown below:
+
+![Booking Validations](/docs/images/test/booking_validations.png)
+
+To test the fully booked validation:
+
+1. Make a booking for a given date and time, say 2 July 2022 @ 14:00:00 and 10-people seating or maximum available.
+2. Repeat the booking in 1 a few times and you will get the fully booked message when the seats available are less than the people you desire to book.
+3. Try again with a different time for same day and you may get booked if seats are available for that different time.
+
+A confirmation page is displayed showing the user the details of the booking once it is successful. An email is also sent to the primary email address of the user.
+
+![Booking confirmation page](/docs/images/test/booking_confirm_page.png)
+![Booking confirmation email](/docs/images/test/booking_confirm_email.png)
 
 #### P7. Public user can see images and descriptions of buffet types
 
 1. Images and description of buffet types available on the booking page
+
+- Open the Graces Buffet website
+- Name, image and description of available buffets are displayed on the booking form. The buffet types including the images are entered by the Admin via the Admin panel.
 
 #### P8. Public user can cancel a booking
 
@@ -253,15 +270,39 @@ d. Validation is done on the available seats for the selected time slot. In doin
 2. Cancel booking page has details of all active bookings
 3. A button is available to click and cancel desired booking
 4. Feedback is given and list of bookings updated immediately
+To test the items 1 to 4 proceed as follows:
+
+- Open the Graces Buffet website
+- Signup if you have not done so
+- Login to the application
+- Click on the User Account menu via the people icon dropdown
+- Click on the Cancel Booking menu item
+A list of all the active bookings are displayed.
+- Click on the booking to be cancelled and a confirmation modal window is displayed with Okay or Cancel option.
+- Click on the Okay button and the booking is canceled, the page is refreshed with the booking no longer on the list.
+An email is also sent to the user on the cancellation, plus an entry in the Notifications record for the user.
+
+![Booking cancellation](/docs/images/test/cancel_booking.png)
 
 #### P9. Public user can view booking history
 
 1. Option for booking history available on the menu
 2. Booking history page contains details of all previous bookings
 
+- Open the Graces Buffet website
+- Signup if you have not done so
+- Login to the application
+- Click on the User Account menu via the people icon dropdown
+- Click on Dining History and a list of all bookings make by the user is displayed except any fulfilled ones that may have been deleted by the Admin.
+
+![Dining History](/docs/images/test/dining_history.png)
+
 #### P10. Public user can receive email notifications
 
 1. Email is received upon confirmation/cancellation of booking
+When a user goes through the P6 or P8 tests above to make or cancel a booking email is sent resembling the sample below:
+
+![Booking Email Confirmation](/docs/images/test/booking_confirm_email.png)
 
 ### **Authentication Acceptance Test**
 
