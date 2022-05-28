@@ -437,6 +437,11 @@ Same validations like when customer is booking for self is done.
 2. Query has options to select date range and booking status
 3. List of data is displayed meeting the given criteria
 
+- Login with user that belongs to operator group
+- Click on the Operator dropdown icon (person icon with +)
+- Click on Booking Details List
+The bookings are displayed with input fields to enable operator enter any of the search criteria. The application will first filter by dates and booking status together if all were inputted, then dates together, followed by dates separately, followed by username, and finally booking status.
+
 ### Site owner/Admin Acceptance Tests
 
 #### **A1. Admin can assign user role to registered users**
