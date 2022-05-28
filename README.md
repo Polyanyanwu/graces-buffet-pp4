@@ -508,6 +508,8 @@ Automated tests were carried out on some of the requirements of the booking appl
 
 - While testing the seat booking for fully booked situation, it was noticed that the seats were still being allocated even when the full capacity was reached for a given date and time. It was observed that the booked date in the tables booked records was auto saving the date booked instead of the dinner date causing our algorithm to fail. The fix was to change the booked date to null=False in the model and then save the booked date as dinner date in the views via commit [5fff49](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/5fff49da510bf629c4b451ae31687e8e82eb9880)
 
+- Update booking status action crashes when no status is selected. The post method was not redirecting the user back to the page when no booking status was selected. It was fixed by preventing the empty option on the selection for booking status and also redirecting the user properly if that should ever happen via Commit [6fc8d2](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/6fc8d2d6c170949827389ea9934e3c47fc788e09).
+
 ## **Deployment**
 
 The application was deployed to [Heroku](https://heroku.com) where all the code and database is hosted. The static files were hosted on [Cloudinary.com](https://cloudinary.com/). Details of the fork, clone and deployment process is available [HERE](/docs/deployment.md)

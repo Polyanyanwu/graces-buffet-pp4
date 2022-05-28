@@ -404,13 +404,32 @@ A Reset password page is opened
 - Click on Update Booking Status menu item
 - A list of all active bookings is displayed
 - You can reduce the list by filtering with a date range or any of user first name or last name.
-- From the Select New Status dropdown, select the new status (Fulfilled or Cancelled), selecting Booked status will result in a message requesting you make a different choice.
+- From the Select New Status dropdown, select the new status (Fulfilled or Cancelled), selecting Booked status will result in a message requesting you select a different status.
+- Click the Okay or Cancel button of the Confirmation modal window.
+- The Status is updated, user is directed back to the booking list
+- A success feedback is displayed
+
+![Update Booking Status](/docs/images/test/update_booking_status.png)
 
 #### O3. Operator Make Booking for Customer
 
 1. Make booking option is available for operator
 2. Operator can find the customer using phone or email address
 3. Successful booking visible on booking history enquiry
+
+- Login with user that belongs to operator group
+- Click on the Operator dropdown icon (person icon with +)
+- Click on Book for Customer menu item
+A lst of customers is displayed. The acceptance criteria wanted the list to filter by phone or email, however during development phone number was not required. I decided to provide filtering the list by email and username - both fields are required.
+- Select the customer by clicking the Select button beside the customer.
+- The booking form is displayed, same like when customer is booking for self except that the name of the customer is displayed
+- Enter the dinner date, time, select number of persons and cuisine choices.
+Same validations like when customer is booking for self is done.
+- Booking confirmation is displayed together with a success message.
+- Log in as the user that booking was made for
+- Click on the Calendar icon for Up coming bookings and the booking is shown on the list.
+
+![Book for Customer](/docs/images/test/booking_for_customer.png)
 
 #### O4. Operator Make enquiry on bookings
 
