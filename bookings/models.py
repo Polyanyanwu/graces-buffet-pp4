@@ -143,7 +143,7 @@ class TablesBooked(models.Model):
     table_id = models.ForeignKey(DiningTable, on_delete=models.PROTECT)
     table_capacity = models.PositiveSmallIntegerField()
     seats_booked = models.PositiveSmallIntegerField(default=0)
-    date_booked = models.DateField(auto_now=True)
+    date_booked = models.DateField(null=False)
     time_booked = models.TimeField(null=True)
 
     def __str__(self):

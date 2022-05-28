@@ -124,21 +124,22 @@ The application was thoroughly tested at each step of the development process an
 
 #### P1. Public user want a user-friendly interactive website
 
-1. Booking details are visible on home page
+1. **Booking details are visible on home page**
 
 - Open a web browser
 - Input the Graces Buffet url (https://graces-buffet.herokuapp.com/)
 - The booking details is shown on the home page when the site is opened
 
-1. Responsive in mobile and desktop browsers
+2. **Responsive in mobile and desktop browsers**
 
 - Open the URL address of the website in desktop computer, laptop computer, iphone, ipad, samsung phone.
 - The application is responsive and user can effectively complete a booking
 
 ![Graces Buffet Website](/docs/images/test/small_width_device.png)
 Graces Buffet website opened in a small width Samsung phone
+The responsiveness was well tested using the Google Chrome developer tools to simulate different screen widths.
 
-1. Feedback on user actions are given
+3. **Feedback on user actions are given**
 
 - Login as public user
 - Input a date that is in the past
@@ -146,43 +147,101 @@ Graces Buffet website opened in a small width Samsung phone
 
 ![Dinner Date message](/docs/images/test/dinner_date_earlier.png)
 
-Similarly when trying to book without logging in, booking is cancelled, booking is successfully done, login is successful, log out is successful and others appropriate message is displayed to the user.
+Similarly when trying to book without logging in, booking is cancelled, booking is successfully done, login is successful, log out is successful and others, appropriate message is displayed to the user.
 
 ![Login Required](/docs/images/test/login_required.png)
 
-1. User finds links to navigate to other functions easy
+4. User finds links to navigate to other functions easy
 
 - Open the website
 - Login successfully
 - Icons on the right edge of the page have tooltips that describe their purpose
-- Icons with dropdown menu indicate with down pointing arrow
+- Icons with dropdown menu are indicated with down pointing arrow
 - There is also linkage from Upcoming Booking to edit or cancel the booking.
+![Nav Icons](/docs/images/test/icons_menu.png)
 
-1. Font is legible
-2. Color contrast is effective
+5. Font is legible
+
+All fonts are legible when any page is displayed. Accessibility report from Lighthouse shows between 81% to 98% on each of the pages of the website.
+
+![Accessibility Report](/docs/images/test/access.png)
+
+6. Color contrast is effective
+
+The contrast was okay as the accessibility report above shows.
 
 #### P2. Public user want to be able to access the website using different devices for same friendly experience
 
 1. Website is accessible on different sized devices
-2. Information is easy to find both on small and large screens
+
+This requirements were met with tests reported on P1 2. above.
+
+1. Information is easy to find both on small and large screens
+
+This requirements were met with tests reported on P1 2. above.
 
 #### P3. Public user has option to select number of people for the dinner
 
 1. On the booking form a selection box is available with options for number of people
 
+- Open the Graces Buffet website
+- Click on the dropdown having people icon
+- User can select the desired number of persons limited by the number set by the Admin
+
+![Select people](/docs/images/test/select_people.png)
+
 #### P4. Public user can see the buffet price
 
 1. The booking form displays the price per person
+
+The Price per Person is displayed in big font on the home page immediately before the booking form.
 
 #### P5. Public user can have time options to select from on a chosen date
 
 1. On the booking form a selection box is available with options for available time slots
 
+- Open the Graces Buffet website
+- Click on the dropdown having clock icon
+- User can select the desired time slot. Available time slots are maintained by the Admin.
+
+![Select Time](/docs/images/test/time_period.png)
+
+Beyond the user story requirement, the time slot selected is validated to ensure it is not in the past when the dinner date is same date as system date.
+
+![Time Validation Message](/docs/images/test/dinner_time_earlier.png)
+
 #### P6. Public user can make booking so that the dinner time is confirmed
 
 1. Booking form is available to user
+
+The booking form is immediately available once the website is opened.
+
 2. Signup form is available to user
-3. A signed-in user can save a booking and receive immediate confirmation plus an email
+
+- Open the Graces Buffet website
+- At the right edge of the home page, the signup and login icons are visible. These icons are hidden once a user has logged into the website.
+
+![Signup Icon](/docs/images/test/signup_icon.png)
+
+- Click on the Sign Up and the Signup form is displayed for the user to input the username, email address and names.
+
+1. A signed-in user can save a booking and receive immediate confirmation plus an email
+
+- Open the Graces Buffet website
+- Signup if you have not done so
+- Login to the application
+- Click calendar icon on the booking form and select a dinner date
+- Click on the clock icon and select a time slot for the dinner
+- Click on the people icon and select number of people for the dinner
+- Click on one or more cuisine choices
+- Click Let's Go button
+
+Several validations are carried out by the application.
+a. The date is validated to ensure it is not in the past
+b. The time is validated to ensure it is not in the past if the date is today
+c. The cuisine choices are validated to ensure the user selected at least one cuisine
+d. Validation is done on the available seats for the selected time slot. In doing this validation consideration is given for seats that are occuppied estimated buffet service period before and after the selected time slot. 
+
 
 #### P7. Public user can see images and descriptions of buffet types
 

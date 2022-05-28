@@ -116,6 +116,7 @@ class MakeBookings(View):
                                 seats_booked=seat,
                                 table_id=table_item,
                                 time_booked=time_entered.start_time,
+                                date_booked=booking.instance.dinner_date,
                                 table_capacity=table_item.total_seats)
 
                     # save the cuisine choices
@@ -979,6 +980,7 @@ class EditBooking(View):
                                 seats_booked=seat,
                                 table_id=table_item,
                                 time_booked=time_entered.start_time,
+                                date_booked=booking.instance.dinner_date,
                                 table_capacity=table_item.total_seats)
 
                     # delete existing cuisine choices
