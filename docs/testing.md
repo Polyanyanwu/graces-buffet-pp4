@@ -449,6 +449,25 @@ The bookings are displayed with input fields to enable operator enter any of the
 1. Options for user role is available on the user profile
 2. Setting the user role restricts the user to the assigned role
 
+The user role functionality was implemented using groups from the Django Allauth package. What I did was to create a page for the Administrator to add or remove users from groups. The Admin first creates the operator and administrator group using the Admin panel. Public users do not belong to any group but must be signed in to access the public menu items.
+
+To test adding and removing groups from users proceed as follows:
+
+- Login with user that belongs to administrator group (the initial administrator can be added from the User in Admin panel).
+- Click on Assign User Roles
+- The Update User Group form is displayed
+- Click Add without selecting a group
+System issues a warning message to select a group before clicking Add
+- Select another user from the dropdown list of users
+The groups the user belongs to is displayed
+- Click on Remove beside one of the groups belonging to the current displayed user
+- Click Okay when the Confirmation prompt comes up.
+The group is removed from the user.
+- Login as the user that has a group removed
+You will notice that the menu for that user is no longer available. If the user bypasses the menu and types the url directly, still access is denied as the access right is also checked at the view level.
+
+![Admin Assign Group](/docs/images/test/admin_menu.png)
+
 #### A2. Admin can set system preferences
 
 1. System preferences available in the Admin panel
