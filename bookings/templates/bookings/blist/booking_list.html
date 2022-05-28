@@ -56,7 +56,7 @@
 
                 {% for booking in bookings %}
                 <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
+                    <th scope="row">{{forloop.counter0|add:bookings.start_index}}</th>
                     <td>{{ booking.dinner_date|date:'d M, Y'}}</td>
                     <td>{{ booking.start_time}}</td>
                     <td>{{ booking.booked_for.first_name }} {{ booking.booked_for.last_name }}</td>
