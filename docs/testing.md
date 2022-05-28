@@ -352,11 +352,23 @@ A Reset password page is opened
 - Enter new password and repeat password.
 - You are logged in if the passwords match.
 
+![User Log out](/docs/images/test/password_reset.png)
 
 #### U4. User can update profile
 
 1. Profile option available to signed in user
 2. Profile page opens and enables user to change names/phone or email as needed
+
+- Login to Graces Buffet
+- Click on the User Account dropdown
+- Click My Profile from the dropdown menu
+- The Update Profile page opens
+- Input desired changes
+- Click save
+- The profile is updated with a success message displayed to the user.
+- User is directed to home page.
+
+![Update Profile](/docs/images/test/profile_update.png)
 
 ### Operator Role Acceptance Tests
 
@@ -368,6 +380,17 @@ A Reset password page is opened
 4. Confirmation to proceed with the cancellation
 5. Feedback message on successful cancellation
 6. Updated list of active bookings
+
+- Login with user that belongs to operator group
+- Click on the Operator dropdown icon (person icon with +)
+- Click on Cancel Booking for Customer
+- Select the customer from the displayed list, you can filter the list by the customer email or username
+- A page opens with the active bookings of the customer
+- Select the booking to be cancelled from the list of displayed bookings by clicking the Cancel button
+- Click Okay when the confirmation modal displays.
+- A success feedback is given and the list of active bookings is updated
+
+![Cancel Booking for Customer](/docs/images/test/cancel_booking_operator.png)
 
 #### O2. Operator can Update Booking Status
 

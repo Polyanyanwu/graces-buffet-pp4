@@ -8,7 +8,6 @@
             <h4>Cancel Booking for Customer</h4>
         </div>
     </div>
-
     <table class="table table-striped">
         <thead>
             <tr>
@@ -24,7 +23,7 @@
             <form method="POST" action="{% url 'cancel_other_booking' %}">
                 {% csrf_token %}
                 <tr>
-                    <th scope="row"></th>>
+                    <th scope="row"></th>
                     <td><input type="text" value="" name="user_name" placeholder="Username">
                         <button type="submit" name="find-username" title="Click to search">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -64,5 +63,5 @@
             {% endif %}
         </ul>
     </nav>
-
-    {% endblock %}
+</div>
+{% endblock %}
