@@ -55,6 +55,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
       - [**Cancel Booking for Customer -Admin**](#cancel-booking-for-customer--admin)
       - [**Update Booking Status - Admin**](#update-booking-status---admin)
       - [**Delete Fulfilled Booking**](#delete-fulfilled-booking)
+      - [**Cuisine Summary Report**](#cuisine-summary-report)
     - [**The Admin Panel**](#the-admin-panel)
   - [Future Features to Implement](#future-features-to-implement)
   - [**Database Design**](#database-design)
@@ -379,11 +380,17 @@ The is akin to the same functionality available to the Operator group.
 
 #### **Delete Fulfilled Booking**
 
-This option displays a list of all bookings that are have been fulfilled to enable the administrator to delete them. When a booking is selected, a Delete Action page is displayed where the user can click on Delete button to proceed to confirm the deletion.
+This option displays a list of all bookings that have been fulfilled to enable the administrator to delete them. When a booking is selected, a Delete Action page is displayed where the user can click on Delete button to proceed to confirm the deletion.
 
 ![Delete Booking](/docs/images/features/delete_booking.png)
 
 ![Delete Booking Action](/docs/images/features/delete_booking_action.png)
+
+#### **Cuisine Summary Report**
+
+This feature enables the Administrator to know the summary of cuisines selected by customers for a given date.
+
+![Cuisine Summary](/docs/images/features/cuisine_summary.png)
 
 ### **The Admin Panel**
 
@@ -393,7 +400,7 @@ There a few important tables to be maintained by the application which the proje
 - Booking Status - Could change the description of the booking status. The booking status are all fixed and critical to the overall functioning of the application. The superuser could alter their descriptions.
 - Dining Tables - add or remove dining tables with their seating capacity. When new tables/seats are acquired the superuser will add or remove them from the admin panel.
 - Home Messages - maintain the text for the Terms of Use and Privacy Policy. Its not expected to change often.
-- Contacts - to review or delete contact us messages sent by customers
+- Contacts - to review or delete contact us messages sent by customers.
 
 The above could all be placed under the administrator in the main application but for lack of enough time to do so. These are features that could be added to the user interface in future.
 
@@ -411,9 +418,13 @@ The above could all be placed under the administrator in the main application bu
 
 The database used in this project is a relational database, Postgres. It is provided by Heroku.
 
-The database Entity Diagram is given below:
+The initial design database Entity Diagram is given below:
 
 ![Entity Diagram](/docs/wireframes/entity_diagram.png)
+
+There were few modifications to the initial database model leading to the final implemented model shown below:
+
+![Final Entity Diagram](/docs/wireframes/graces_model.png)
 
 ## Flowchart
 
