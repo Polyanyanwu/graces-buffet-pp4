@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from user_account.user_auth import check_access
 from general_tables.models import BookingStatus
-from bookings.models import Booking
+from bookings.models import Booking, TablesBooked
 
 
 class CancelMyBooking(View):
@@ -55,8 +55,10 @@ class CancelMyBooking(View):
         booking.booking_status = booking_status
         booking.cancelled_by = request.user
         booking.date_cancelled = timezone.now()
+
         try:
             booking.save()
+            TablesBooked.objects.filter(booking_id=booking).delete()
             messages.add_message(request, messages.INFO,
                                  'Booking has been cancelled successfully')
         except DataError:
@@ -65,7 +67,7 @@ class CancelMyBooking(View):
                                  'Error saving cancellation, try later')
         # status B is currently booked
         bookings = Booking.objects.filter(
-            booked_for=request.user, booking_status='B',
+            booked_for=booking.booked_for, booking_status='B',
             dinner_date__gte=datetime.now().date()).order_by('-booking_date')
         paginator = Paginator(bookings, 15)
         page_number = request.GET.get('page')
@@ -81,7 +83,8 @@ class CancelMyBooking(View):
             request,
             "cancel_booking/cancel_my_booking.html",
             {
-                "bookings": page_obj
+                "bookings": page_obj,
+                "user_to_cancel": booking.booked_for.get_full_name()
             }
         )
 

@@ -294,7 +294,7 @@ There is upcoming events represented with a calendar icon. When this icon is cli
   
 ![Upcoming Events](/docs/images/features/upcoming_booking.png)
 
-If a user decides to edit the booking, a page is displayed with the current booking details where the user can change any of the details and get an instant confirmation feedback, email and copy of the email is available at the notifications menu item. If the cancel button is clicked, the user is requested to confirm cancellation of the booking, and the booking is cancelled if affirmed.
+If a user decides to edit the booking, a page is displayed with the current booking details where the user can change any of the details and get an instant confirmation feedback, email is sent and copy of the email is available at the notifications menu item. If the cancel button is clicked, the user is requested to confirm cancellation of the booking, and the booking is cancelled if affirmed.
 
 #### **Notifications**
 
@@ -309,7 +309,7 @@ A Notifications icon is shown with a bell. The Notifications contain all the act
 
 ### **Feature Options for Operator User**
 
-An operator has access to the Public Menu but is also presented with additional dropdown menu which is a person icon with a +. To become an operator a user has to signup first and the Administrator will add operator to the groups for the user.
+An operator has access to the Public Menu but is also presented with additional dropdown menu which is accessed via a person icon with a +. To become an operator a user has to signup first and the Administrator will add operator to the groups for the user.
 The Operator menu is shown below:
 
 ![Operator Menu](/docs/images/features/operator_menu.png)
@@ -332,7 +332,7 @@ The Book for Customer enables the Operator to make a booking on behalf of a cust
 
 #### **Cancel Booking for Customer**
 
-This option enables the Operator to cancel booking for a customer. A list of customers is displayed where the user can select the customer from. The list has option to filter just as in the Book for Customer above. When the customer is selected a page having the customers list of active bookings is displayed. Clicking on the Cancel button will present a modal window requesting user confirms the cancellation. The booking is then cancelled and an email is sent to the customer plus a notification record created for the customer.
+This option enables the Operator to cancel booking for a customer. A list of customers is displayed where the user can select the customer from. The list has option to filter just as in the Book for Customer above. When the customer is selected a page having the customers list of active bookings is displayed. Clicking on the Cancel button will present a modal window requesting user confirms the cancellation. The booking is then cancelled and an email is sent to the customer plus a notification record created for the customer. The seats are also released.
 
 ![Cancel Booking for customer Action](/docs/images/features/cancel_booking_customer.png)
 
