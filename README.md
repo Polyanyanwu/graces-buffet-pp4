@@ -154,8 +154,6 @@ There shall be three roles for the application:
 
 Only the Admin will use the Admin portal, while Operator and Public will use the application main page. Accessible menu items will depend on the role assigned to the user by the operator.
 
-
-
 ### **Agile Initiative**
 
 The project will consist of one initiative which is to provide an intuitive user-friendly online restaurant booking/reservation for the administration of Graces Buffet.
@@ -216,14 +214,14 @@ The website is used for the booking of seats for a number of persons in a stated
 
 ### **Sign Up & Login**
 
-When the website opens to a new user, the Signup and Login icons are shown on the right edge of the screen. 
+When the website opens to a new user, the Signup and Login icons are shown on the right edge of the screen.
 ![Signup](/docs/images/features/welcome.png)
 
 Click on the signup button will display the signup page where the user details and email are inputted. All the fields are required and the email will be verified before a user is able to login.
 
 ![Signup Profile](/docs/images/features/create_account.png)
 
-Once the form is completed, the user is informed that an email has been forwarded to the given address for verification. The email will usually be received within few minutes depending on the network situation. 
+Once the form is completed, the user is informed that an email has been forwarded to the given address for verification. The email will usually be received within few minutes depending on the network situation.
 
 ![Signup Profile](/docs/images/features/verify_email.png)
 
@@ -231,8 +229,7 @@ Clicking on the link provided in the email verification email will direct the us
 
 ![Signup Profile](/docs/images/features/confirm_email.png)
 
-The user can login with either the username or email address provided during the signup.
-If the credentials inputted are correct, an acknowledgement of the successful login is given at the footer area and a menu of options is displayed at the top right corner of the page.
+The user can login with either the username or email address provided during the signup. If the credentials inputted are correct, an acknowledgement of the successful login is given at the footer area and a menu of options is displayed at the top right corner of the page.
 
 ![Success Login](/docs/images/features/success_signin.png)
 
@@ -249,7 +246,7 @@ The booking requests the dinner date, the time (displayed as a dropdown menu of 
 
 ![Booking Page](/docs/images/features/booking.png)
 
-When a user clicks Let's Go button the form is validated and the application checks the availability of seats for the requested date, time and number of persons. If all is okay, the booking is confirmed and a message is displayed on the screen plus and email sent to the registered email address with a copy in the Notifications page for the user. A confirmation booking page is displayed with the details of the booking.
+When a user clicks Let's Go button the form is validated and the application checks the availability of seats for the requested date, time and number of persons. If all is okay, the booking is confirmed and a message is displayed on the screen plus an email sent to the registered email address with a copy in the Notifications page for the user. A confirmation booking page is displayed with the details of the booking.
 
 ![Booking confirmation](/docs/images/features/booking_confirm.png)
 
@@ -277,10 +274,11 @@ Dining history displays all the bookings made by a customer including cancelled,
 
 ##### **Cancel Booking**
   
-A customer may decide to cancel booking and selects this option. A list of all bookings with status "Booked" is displayed with a Cancel button available for the user to click for any of the bookings desired to be cancelled. This cancel booking functionality can also be invoked from the Up Coming booking page.
+A customer may decide to cancel booking and selects this option. A list of all bookings with status "Booked" is displayed with a Cancel button available for the user to click for any of the bookings desired to be cancelled. This cancel booking functionality can also be invoked from the Up Coming booking page. At design stage I had intended a maximum period within which cancellation could be accepted, however since no charges are involved in this system, I stepped that now.
+
 ![Cancel Booking](/docs/images/features/cancel_booking.png)
   
-When the user has selected the booking to cancel, a confirmation modal window is displayed requesting the user to confirm the cancellation. If the user affirms the cancellation, the booking is marked as cancelled and removed from the active booking list.
+When the user has selected the booking to cancel, a confirmation modal window is displayed requesting the user to confirm the cancellation. If the user affirms the cancellation, the booking is marked as cancelled and removed from the active booking list. The reasons for cancellation was not included in this system and could be good for future update.
   
 ![Cancel Booking Confirmation](/docs/images/features/cancel_booking_confirm.png)
 
@@ -296,7 +294,7 @@ There is upcoming events represented with a calendar icon. When this icon is cli
   
 ![Upcoming Events](/docs/images/features/upcoming_booking.png)
 
-If a user decides to edit the booking, a page is displayed with the current booking details where the user can change any of the details and get a instant confirmation feedback, email and copy of the email is available at the notifications menu item. If the cancel button is clicked, the user is requested to confirm cancellation of the booking, and the booking is cancelled if affirmed.
+If a user decides to edit the booking, a page is displayed with the current booking details where the user can change any of the details and get an instant confirmation feedback, email and copy of the email is available at the notifications menu item. If the cancel button is clicked, the user is requested to confirm cancellation of the booking, and the booking is cancelled if affirmed.
 
 #### **Notifications**
 
@@ -318,7 +316,7 @@ The Operator menu is shown below:
 
 #### **Update Booking Status**
 
-The Operator group user can update booking status. Status can be changed to Cancelled, Fulfilled. A list of all active bookings are presented. The user can filter by the user names or dinner date range. When a booking has been selected, an Booking Detail Update Action page is displayed enabling the user to choose the status to change to. When the Update button is clicked, the user is requested to confirm the update via a modal confirmation window before the update is effected.
+The Operator group user can update booking status. Status can be changed to Cancelled or Fulfilled. A list of all active bookings are presented. The user can filter by the user names or dinner date range. When a booking has been selected, a Booking Detail Update Action page is displayed enabling the user to choose the status to change to. When the Update button is clicked, the user is requested to confirm the update via a modal confirmation window before the update is effected.
 
 ![Update Booking Status](/docs/images/features/update_booking_status.png)
 
