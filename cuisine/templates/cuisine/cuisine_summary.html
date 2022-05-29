@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid gx-4 ">
+  <div class="row">
+    <div class="col main-title text-center">
+      <h4>Cuisine Summary</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <form method="POST" action="{% url 'cuisine_summary' %}">
+      {% csrf_token %}
+      <div class="col-sm-4 md-2 mx-auto mt-4">
+        <span>Dinner Date</span>
+        <span>{{ form.dinner_date }}</span>
+        <button id="cuisine_sum-btn" type="submit" name="cuisine_sum_btn" class="btn btn-color">Load</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8 md-4 mx-auto">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cuisine Name</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cuisine in cuisines %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{ cuisine.cuisine_id__name }}</td>
+            <td>{{ cuisine.total_cuisine }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% endblock %}
