@@ -510,6 +510,8 @@ Automated tests were carried out on some of the requirements of the booking appl
 
 - Update booking status action crashes when no status is selected. The post method was not redirecting the user back to the page when no booking status was selected. It was fixed by preventing the empty option on the selection for booking status and also redirecting the user properly if that should ever happen via Commit [6fc8d2](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/6fc8d2d6c170949827389ea9934e3c47fc788e09).
 
+- From the Past Due List an operator could opt to Update the booking status but after the update, the operator was being redirected to Booking List instead of Past Due List. I had to uses a session variable to enable the system remember where the operator invoked the update status from and return accordingly. See commit [aebca5](https://github.com/Polyanyanwu/graces-buffet-pp4/commit/aebca5c979c9529bd234757d786710904d32d722)
+
 ## **Deployment**
 
 The application was deployed to [Heroku](https://heroku.com) where all the code and database is hosted. The static files were hosted on [Cloudinary.com](https://cloudinary.com/). Details of the fork, clone and deployment process is available [HERE](/docs/deployment.md)
