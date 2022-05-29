@@ -445,6 +445,8 @@ The initial flowchart for the public interaction with the website has been produ
 - [Django Crispy Forms)(https://django-crispy-forms.readthedocs.io/en/latest/) was helpful to display some of the forms on the pages.
 - [Dj-database-url](https://pypi.org/project/dj-database-url/) assisted with accessing the database.
 - [Psycopg2](https://pypi.org/project/psycopg2/) was the PostgreSQL database adapter for the Python programming language that was used in the project.
+- [Django Extensions](https://django-extensions.readthedocs.io/en/latest/graph_models.html) enabled auto generation of database model graph.
+- [Graphviz](http://www.graphviz.org/) used to generate database model graph
 
 ### **Ancillary Technologies**
 
@@ -526,7 +528,13 @@ The application was deployed to [Heroku](https://heroku.com) where all the code 
 
 - Online [books by Agiliq](https://books.agiliq.com/en/latest/README.html) was a very good resource for getting better ideas of Django ORM.
   
-- Numerous [Stackoverflow](https://stackoverflow.com/) postings furnished ideas leading to my figuring out how to overcome some challenges.
+- Numerous [Stack Overflow](https://stackoverflow.com/) postings furnished ideas leading to my figuring out how to overcome some challenges.
+
+- Timmy O'Mahony[https://stackoverflow.com/questions/9939917/django-row-number-in-pagination] for the code for continuing record number when paginated.
+
+- [Brian Neal](https://groups.google.com/g/django-users/c/J2FUloVUlzk) for the idea of removing empty selection option from a select field.
+
+- [Stack Overflow](https://stackoverflow.com/questions/7682804/django-model-forms-setting-a-required-field) make a fried required on a form.
 
 - Aggregation of Queryset examples from [Riptutorial](https://riptutorial.com/django/example/13050/average--minimum--maximum--sum-from-queryset) was very helpful.
 
