@@ -28,12 +28,14 @@
                 <td>{{ booking.booked_for.first_name }} {{ booking.booked_for.last_name }}</td>
                 <td>{{ booking.seats }}</td>
                 <td>{{ booking.cuisines }}</td>
-                <td> <a href="{% url 'update_booking_action' booking.id %}" class="btn btn-sm btn-color">Update</a>
-                </td>
-                </td>
+                <form method="POST" action="{% url 'past_due_list_booking_id' booking.id %}">
+                    {% csrf_token %}
+                    <td>
+                        <button type="submit" class="btn btn-sm btn-color" name="{{booking.id}}">Update</button>
+                    </td>
+                </form>
             </tr>
             {% endfor %}
-
         </tbody>
     </table>
 

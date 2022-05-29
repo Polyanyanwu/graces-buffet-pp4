@@ -484,6 +484,7 @@ class UpdateBookingStatus(View):
         if rights != "OK":
             messages.error(request, (rights))
             return redirect('/')
+        request.session['Update_return'] = 'Select Booking'
 
         booking = Booking.objects.filter(booking_status='B')
         # only current bookings
@@ -566,6 +567,10 @@ class BookingUpdateAction(View):
             messages.error(request, (rights))
             return redirect('/')
 
+        return_to = request.session.get('Update_return')
+        if not return_to:
+            return_to = "Select Booking"
+
         booking = get_object_or_404(Booking, id=booking_id)
         form = UpdateBookingForm()
         return render(
@@ -573,7 +578,8 @@ class BookingUpdateAction(View):
             "bookings/update/update_booking_action.html",
             {
                 "booking": booking,
-                "form": form
+                "form": form,
+                "return_to": return_to
             }
         )
 
@@ -584,7 +590,7 @@ class BookingUpdateAction(View):
         if rights != "OK":
             messages.error(request, (rights))
             return redirect('/')
-
+        return_to = request.session.get('Update_return')
         booking = get_object_or_404(Booking, id=booking_id)
         status = request.POST.get('booking_status')
         if len(status.strip()) != 0:
@@ -615,7 +621,11 @@ class BookingUpdateAction(View):
         paginator = Paginator(bookings, 15)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-        return redirect('update_booking')
+
+        if return_to == "past_due_list":
+            return redirect(return_to)
+        else:
+            return redirect('update_booking')
 
 
 class BookingDetailsList(View):
@@ -744,6 +754,18 @@ class PastDueList(View):
                 "bookings": page_obj
             }
         )
+
+    def post(self, request, booking_id, *args, **kwargs):
+        """ Put where the user is calling the update action into session
+            This is to enable the user return to the proper invoking view
+         """
+        rights = check_access(request.user, ("administrator", "operator"))
+        if rights != "OK":
+            messages.error(request, (rights))
+            return redirect('/')
+
+        request.session['Update_return'] = 'past_due_list'
+        return redirect('update_booking_action', int(booking_id))
 
 
 class DeleteBooking(View):

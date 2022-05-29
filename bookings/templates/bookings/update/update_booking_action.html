@@ -56,18 +56,19 @@
                             </button>
                         </td>
                     </tr>
-                    <tr>
-
-                    </tr>
-
                 </tbody>
             </table>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-4 md-3 mx-auto">
+            {% if return_to == 'Select Booking' %}
             <span> <a class="btn btn-color" href="{% url 'update_booking' %}" title="Return to Select Booking">Return
                     to Select Booking</a> </span>
+            {% else %}
+            <span> <a class="btn btn-color" href="{% url 'past_due_list' %}" title="Return to Past Due List">
+                    Return to Past Due List</a> </span>
+            {% endif %}
         </div>
     </div>
 </div>

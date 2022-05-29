@@ -25,6 +25,8 @@ urlpatterns = [
           name='booking_details_list'),
      path('bookings/pastdue/', views.PastDueList.as_view(),
           name='past_due_list'),
+     path('bookings/pastdue/<booking_id>', views.PastDueList.as_view(),
+          name='past_due_list_booking_id'),
      path('bookings/del/', views.DeleteBooking.as_view(),
           name='delete_booking'),
      path('bookings/del/<booking_id>', views.DeleteUpdateAction.as_view(),
