@@ -21,7 +21,7 @@
     <tbody>
       {% for notice in notifications %}
       <tr>
-        <th scope="row">{{ forloop.counter }}</th>
+        <th scope="row">{{forloop.counter0|add:notifications.start_index}}</th>
         <td>{{ notice.notice_date|date:'d-M-Y H:i' }}</td>
         <td>{{ notice.subject }}</td>
         <td><a class="btn btn-color btn-sm" aria-current="page" href="{% url 'notification_detail' notice.pk %}"
@@ -30,5 +30,14 @@
       {% endfor %}
     </tbody>
   </table>
-
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      {% if notifications.has_previous %}
+      <li><a href="?page={{ notifications.previous_page_number }}" class="btn btn-color">&laquo; PREV </a></li>
+      {% endif %}
+      {% if notifications.has_next %}
+      <li><a href="?page={{ notifications.next_page_number }}" class="btn btn-color ms-2"> NEXT &raquo;</a></li>
+      {% endif %}
+    </ul>
+  </nav>
   {% endblock %}
