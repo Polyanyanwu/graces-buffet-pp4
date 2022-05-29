@@ -41,6 +41,7 @@
       - [A4. Admin can update bookings where necessary](#a4-admin-can-update-bookings-where-necessary)
       - [A5. Admin can maintain buffet categories](#a5-admin-can-maintain-buffet-categories)
       - [A6. Admin can maintain table/seat types and quantities available](#a6-admin-can-maintain-tableseat-types-and-quantities-available)
+      - [A6. Admin can view summary of cuisine selections for a given date](#a6-admin-can-view-summary-of-cuisine-selections-for-a-given-date)
 
 ## **Code Validation**
 
@@ -473,6 +474,19 @@ You will notice that the menu for that user is no longer available. If the user 
 1. System preferences available in the Admin panel
 2. Changes made affect the working of the application
 
+- Login with user that belongs to administrator group.
+- Click on System Preferences
+- The Maintain System Preference form is displayed with all the records and their existing values.
+- Click on the Select button for Maximum persons per online booking.
+The code and data changes to reflect your selection
+- Enter the value 8 in the data field
+- Click Save
+Message is displayed conveying successful update, validation on the data field is also done as it must be a number
+- Click on the Graces Buffet logo or the Find Seats to book search icon to return to the main booking page
+- Click on the people dropdown and the persons is now limited to 8.
+
+![System Preference Update](/docs/images/test/sys_pref.png)
+
 #### A3. Admin can cancel bookings where necessary
 
 1. Admin is able to cancel bookings same like the Operator role
@@ -486,7 +500,43 @@ You will notice that the menu for that user is no longer available. If the user 
 1. Buffet types table available for maintenance in Admin panel
 2. Changes made at the Admin panel reflects on the main site
 
+- Open the admin panel with the address [Graces Buffet Admin](https://graces-buffet.herokuapp.com/admin/)
+- When prompted enter a superuser name and password
+- Locate the Cuisine app and click on Cuisines
+A list of existing cuisines in the system is listed, you can add a new cuisine by clicking the Add Cuisine button, delete a cuisine by selecting the cuisine and using the action dropdown, or click on a cuisine to edit it.
+- Click on any of the Cuisines, e.g "Italian yummy"
+- Change the yummy to Yummy
+- Return to the booking form and the name of the cuisine has changed from "Italian yummy" to "Italian Yummy"
+- Similarly new records were added with images upload and they reflect on the available cuisines.
+  
+![Cuisine Update](/docs/images/test/cuisines.png)
+
 #### A6. Admin can maintain table/seat types and quantities available
 
 1. Table/Seats available to update on the Admin panel
 2. Changes made at the Admin panel reflects on the main site
+
+- Open the admin panel with the address [Graces Buffet Admin](https://graces-buffet.herokuapp.com/admin/)
+- When prompted enter a superuser name and password
+- Locate the General Tables and click on Dining Tables
+- A list of already entered tables is displayed
+- Click on any table to edit and save it
+- Click on Add Dining Table to create a new record
+- Create bookings for a given date and time until Fully Booked message is obtained
+- Add new table with required number of seats
+- Try the booking again, and this time it is successful as the table entered has increased the capacity.
+
+![Booking tables](/docs/images/test/tables_test.png)
+
+#### A6. Admin can view summary of cuisine selections for a given date
+
+1. Cuisine Summary report available on Administrator menu
+2. Report accepts a date and displays count of total selections for each cuisine type for the date
+
+- Sign in with a user that has administrator group membership
+- Click on Cuisine Summary from the administrator menu
+The cuisine summary is displayed with the current date's summary
+- Select a desired date and click Load button
+The cuisine summary is displayed for the chosen date.
+
+![Cuisine Summary](/docs/images/test/cuisine_summary.png)
