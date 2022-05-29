@@ -1,6 +1,7 @@
 """ home view for the home page, contact us, terms of use and privacy policy"""
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -35,11 +36,16 @@ class ViewNotification(View):
                                  'No notifications for you yet. \
                                   Make a booking first before you receive \
                                   notifications.')
+            notifications = notice_qs
+        else:
+            paginator = Paginator(notice_qs, 16)
+            page_number = request.GET.get('page')
+            notifications = paginator.get_page(page_number)
         return render(
             request,
             "home/get_notification.html",
             {
-                "notifications": notice_qs
+                "notifications": notifications
             }
         )
 
