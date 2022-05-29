@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'fontawesomefree',
     'django_summernote',
+    'django_extensions',
     'home',
     'user_account',
     'general_tables',
