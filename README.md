@@ -21,6 +21,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
   - [**Objectives of the Site**](#objectives-of-the-site)
   - [**User Experience Design**](#user-experience-design)
     - [**Initial Design Features**](#initial-design-features)
+      - [**User Interaction**](#user-interaction)
     - [**User Roles**](#user-roles)
       - [**A. Admin user**](#a-admin-user)
       - [**B. Operator**](#b-operator)
@@ -110,7 +111,9 @@ The site has objective of providing easy to use restaurant dining reservation sy
     3. Asian food
 
 - Price of buffet per person is displayed but payment will be after service delivery at the restaurant.
-User Interaction
+
+#### **User Interaction**
+
 - A user will need to login to complete making a booking. Initially the book a date & time screen will be presented. User could decide to check availability first but to complete the booking, user needs to create an account.
 
 - An email address and password would be sufficient to create an account, but the email has to be confirmed with a code to be emailed to the user.A user remains signed in until user choses to sign out, in line with current UX design.
@@ -157,7 +160,7 @@ There shall be three roles for the application:
     3. Cancel bookings
     4. Enquiries on booking history
 
-Only the Admin will use the Admin portal, while Operator and Public will use the application main page. Accessible menu items will depend on the role assigned to the user by the operator.
+Only the Admin will use the Admin portal, while Operator and Public will use the application main page. Accessible menu items will depend on the role assigned to the user by the administrator.
 
 [>> Bact to TOC](#table-of-contents)
 

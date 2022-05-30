@@ -42,28 +42,19 @@ class MakeBookings(View):
         )
 
     def post(self, request, *args, **kwargs):
-        # check if user is logged in
-        if not request.user.is_authenticated:
-            messages.add_message(request,
-                                 messages.ERROR,
-                                 'Please login first before you can complete a\
-                                  booking. Click the Signup button above\
-                                  or login\
-                                  if you already have an account ')
-            return HttpResponseRedirect("/")
-
+        """ Process the booking submitted """
         booking_status_qs = BookingStatus.objects.filter(code="B")
         booking_status = get_object_or_404(booking_status_qs)
         booking = BookingForm(data=request.POST)
-
+        to_return = False
         cuisine_choices = request.POST.getlist('cuisine_option')
         if len(cuisine_choices) == 0:
             messages.add_message(request, messages.WARNING,
                                  'Please select one or more cuisine\
                                       choices before proceeding')
-            return HttpResponseRedirect("/")
+            to_return = True
 
-        if booking.is_valid():
+        if booking.is_valid() and not to_return:
             # check that dinner date is in future or today
             # if today check that time is in future
             dinner_date_str = request.POST.get('dinner_date')
@@ -71,77 +62,100 @@ class MakeBookings(View):
             ans = is_dinner_date_in_future(dinner_date_str, stime)
             if ans['msg'] != "OK":
                 messages.add_message(request, messages.WARNING, ans['msg'])
-                return redirect('home')
-            time_entered = ans['time_entered']
-            try:
-                # check if operator is booking for someone
-                username = request.POST.get('username')
-                if username:
-                    user_to_book = User.objects.get(username=username)
-                else:
-                    user_to_book = request.user
-                with transaction.atomic():
-                    booking.save(commit=False)
+                to_return = True
 
+            if not to_return:
+                time_entered = ans['time_entered']
+                try:
                     # check seats availability
                     tables = book_seats(int(request.POST.get('seats')),
                                         request.POST.get('dinner_date'),
                                         time_entered)
-                    if len(tables) == 0:
-                        # no seats found on selected date
-                        messages.add_message(request, messages.WARNING,
-                                             'So sorry, Graces Buffet is fully booked\
-                        on your chosen date and time. Try another date/time.')
-                        return HttpResponseRedirect("/")
-                    else:
-                        # save booking first
-                        booking.instance.booked_for = user_to_book
-                        booking.instance.booked_by = request.user
-                        booking.instance.booking_status = booking_status
-                        booking.save()
-                        # save tables booked
-                        for table_item, seat in tables.items():
-                            TablesBooked.objects.create(
-                                booking_id=booking.instance,
-                                seats_booked=seat,
-                                table_id=table_item,
-                                time_booked=time_entered.start_time,
-                                date_booked=booking.instance.dinner_date,
-                                table_capacity=table_item.total_seats)
+                    # check if user is logged in
+                    if not request.user.is_authenticated:
+                        if len(tables) > 0:
+                            messages.add_message(
+                                request, messages.SUCCESS,
+                                'Seats are available but please login\
+                                first before you can complete a\
+                                booking. Click the Signup button above\
+                                or login if you already have an account ')
+                        else:
+                            messages.add_message(request, messages.WARNING,
+                                                 'So sorry, Graces Buffet is \
+                                                  fully booked on your \
+                                                    chosen date and time. Try\
+                                                    another date/time.')
+                        to_return = True
 
-                    # save the cuisine choices
-                    cuisines = ""
-                    if len(cuisine_choices) > 0:
-                        for choice in cuisine_choices:
-                            cuisine_qs = Cuisine.objects.filter(id=choice)
-                            cuisine_rec = get_object_or_404(cuisine_qs)
-                            cuisines += cuisine_rec.name + ", "
-                            CuisineChoice.objects.create(
-                                booking_id=booking.instance,
-                                cuisine_id=cuisine_rec)
-                            booking.instance.cuisines = cuisines[:-2]
-                            booking.save()
-                    messages.add_message(request, messages.INFO,
-                                         'Thank you: Your booking has\
-                                          been confirmed.')
-                    return HttpResponseRedirect(reverse('booking_confirm',
-                                                args=[booking.instance.id]))
-            except IntegrityError:
-                messages.add_message(request, messages.WARNING,
-                                     'Your booking could not be completed now\
-                                     check your entry and try again.')
-                return HttpResponseRedirect("/")
+                    if not to_return:
+                        # check if operator is booking for someone
+                        username = request.POST.get('username')
+                        if username:
+                            user_to_book = User.objects.get(username=username)
+                        else:
+                            user_to_book = request.user
+                        with transaction.atomic():
+                            booking.save(commit=False)
+
+                            if len(tables) == 0:
+                                # no seats found on selected date
+                                messages.add_message(request, messages.WARNING,
+                                                     'So sorry, Graces Buffet is \
+                                fully booked on your chosen date and time. \
+                                Try another date/time.')
+                                to_return = True
+                            else:
+                                # save booking first
+                                booking.instance.booked_for = user_to_book
+                                booking.instance.booked_by = request.user
+                                booking.instance.booking_status = \
+                                    booking_status
+                                booking.save()
+                                # save tables booked
+                                for table_item, seat in tables.items():
+                                    TablesBooked.objects.create(
+                                        booking_id=booking.instance,
+                                        seats_booked=seat,
+                                        table_id=table_item,
+                                        time_booked=time_entered.start_time,
+                                        date_booked=booking.instance
+                                                .dinner_date,
+                                        table_capacity=table_item.total_seats)
+
+                            # save the cuisine choices
+                            cuisines = ""
+                            if len(cuisine_choices) > 0:
+                                for choice in cuisine_choices:
+                                    cuisine_qs = Cuisine.objects.filter(
+                                        id=choice)
+                                    cuisine_rec = get_object_or_404(cuisine_qs)
+                                    cuisines += cuisine_rec.name + ", "
+                                    CuisineChoice.objects.create(
+                                        booking_id=booking.instance,
+                                        cuisine_id=cuisine_rec)
+                                    booking.instance.cuisines = cuisines[:-2]
+                                    booking.save()
+                            messages.add_message(request, messages.INFO,
+                                                 'Thank you: Your booking has\
+                                                been confirmed.')
+                            return HttpResponseRedirect(reverse(
+                                'booking_confirm', args=[booking.instance.id]))
+                except IntegrityError:
+                    messages.add_message(request, messages.WARNING,
+                                         'Your booking could not be completed now\
+                                        check your entry and try again.')
+                    to_return = True
         else:
             booking_form = BookingForm()
             messages.add_message(request, messages.WARNING,
                                  'Your booking could not be completed now\
                                   check your entry and try again.')
-            return HttpResponseRedirect("/")
 
         cuisine_queryset = Cuisine.objects.all()
         price_queryset = get_object_or_404(SystemPreference, code="P")
         buffet_price = price_queryset.data
-        booking_form = BookingForm(data=request.POST)
+        booking_form = BookingForm(request.POST or None)
         no_bookings = Booking.objects.filter(id=None)
         return render(
             request,

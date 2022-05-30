@@ -46,7 +46,7 @@ class CuisineSummary(View):
         if rights != "OK":
             messages.error(request, (rights))
             return redirect('/')
-        form = BookingForm()
+        form = BookingForm(request.POST or None)
         dinner_date = request.POST.get('dinner_date')
         cuisines = CuisineChoice.objects.filter(
             booking_id__dinner_date=dinner_date).values(
