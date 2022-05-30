@@ -10,13 +10,8 @@ from .models import Booking, TablesBooked, Notification
 class BookingAdmin(admin.ModelAdmin):
     ''' Maintain booking list '''
     model = Booking
-    list_filter = ('dinner_date', 'cuisines', 'booked_for')
-
-
-@admin.register(TablesBooked)
-class TablesBookedAdmin(admin.ModelAdmin):
-    ''' Maintain tables booked list '''
-    model = TablesBooked
+    list_filter = ('booking_status', 'cuisines')
+    list_display = ('booked_for', 'dinner_date', 'cuisines', 'booking_status')
 
 
 @admin.register(Notification)

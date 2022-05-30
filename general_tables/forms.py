@@ -20,3 +20,4 @@ class HomeMessageForm(forms.Form):
     """ Privacy Notice and Terms of Use data """
     model = HomeMessage
     description = forms.CharField(widget=SummernoteWidget())
+    fields = ('code', 'description')

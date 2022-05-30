@@ -3,6 +3,7 @@
 The Graces Buffet is a web application that powers a buffet seat reservation system for a hypothetical restaurant in Dublin Ireland.  
 
 ![Graces Buffet](/docs/images/responsive.png)
+
 ## Live Site
 
 [Graces Buffet Live](https://graces-buffet.herokuapp.com)
@@ -124,7 +125,7 @@ User Interaction
 
 - Login button will change to Logout when a user successfully logged in. The name of the logged in user will be displayed.
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 ### **User Roles**
 
@@ -158,7 +159,7 @@ There shall be three roles for the application:
 
 Only the Admin will use the Admin portal, while Operator and Public will use the application main page. Accessible menu items will depend on the role assigned to the user by the operator.
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 ### **Agile Initiative**
 
@@ -193,7 +194,7 @@ MoSCow prioritization was used and the User Stories were categorized into Must H
 
 Major bugs encountered in the course of the development were raised on GitHub as issues and closed when resolved.
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 ### **Wireframes**
 
@@ -241,7 +242,7 @@ The user can login with either the username or email address provided during the
 
 ![Success Login](/docs/images/features/success_signin.png)
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 If the username/email and password provided do not match, a message is displayed to the user and login is not permitted.
 
@@ -262,7 +263,7 @@ When a user clicks Let's Go button the form is validated and the application che
 
 The user without operator or administrator group privilege is presented with menu options as follows:
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 #### User Account Dropdown
 
@@ -279,7 +280,7 @@ Selecting My Profile will display the Profile Update page where the user can upd
 The update email option enables the user to add or remove email address and also designate one email as the primary one for the application
 ![Update Email](/docs/images/features/update_email.png)
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 ##### **Dining History**
   
@@ -302,7 +303,7 @@ The password reset feature enables the user to reset password. An email is sent 
   
 ![Reset Password](/docs/images/features/reset_password.png)
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 #### Upcoming Events
 
@@ -323,7 +324,7 @@ A Notifications icon is shown with a bell. The Notifications contain all the act
 
 2. The last icon on the right is the logout icon which displays a logout confirmation page for the user.
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 ### **Feature Options for Operator User**
 
@@ -348,7 +349,7 @@ The Book for Customer enables the Operator to make a booking on behalf of a cust
 
 ![Update Booking Status Action](/docs/images/features/book_for_customer_entry.png)
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 #### **Cancel Booking for Customer**
 
@@ -362,7 +363,7 @@ This option displays a list of all bookings that are still active but dinner dat
 
 ![Past Due Guest](/docs/images/features/past_due_guest.png)
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 #### **Booking Details List**
 
@@ -383,7 +384,7 @@ The administrator can use this option to put or remove any user from any group. 
 
 The administrator first selects a user and the groups the user belongs to is displayed, if any. To remove existing group click Remove button. To add a group select the group from the group dropdown and click Add.
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 #### **System Preferences**
 
@@ -409,7 +410,7 @@ This option displays a list of all bookings that have been fulfilled to enable t
 
 ![Delete Booking Action](/docs/images/features/delete_booking_action.png)
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 #### **Cuisine Summary Report**
 
@@ -439,7 +440,7 @@ The above could all be placed under the administrator in the main application bu
   
 - I had listed "Reasons for cancellation" to be obtained during cancellation but couldn't include it at this time. It would be desirable for the restaurant owner to have feedback on why bookings are cancelled.
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 ## **Database Design**
 
@@ -453,7 +454,7 @@ There were few modifications to the initial database model leading to the final 
 
 ![Final Entity Diagram](/docs/wireframes/graces_model.png)
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 ## Flowchart
 
@@ -514,7 +515,7 @@ This extension assisted with the structure of README content.
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 This was very useful to check spelling errors in the code.
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)
 
 ## **Testing**
 
@@ -613,4 +614,4 @@ Credit to Google for its search engine easily showing useful search results all 
   
 - I'm grateful to my family for their support as I take this bold step to change residence and update skills.
 
-[>> Bact to TOC](#graces-buffet-website)
+[>> Bact to TOC](#table-of-contents)

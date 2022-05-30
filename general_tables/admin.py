@@ -6,7 +6,7 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 from .models import (
-    BookingStatus, BuffetPeriod, SystemPreference, DiningTable, HomeMessage)
+    BookingStatus, BuffetPeriod, DiningTable, HomeMessage)
 
 
 @admin.register(BookingStatus)
@@ -14,6 +14,19 @@ class BookingStatusAdmin(admin.ModelAdmin):
     ''' Maintain booking status list '''
     model = BookingStatus
     list_display = ('code', 'description', )
+
+    def get_actions(self, request):
+        """ Disable delete action from Booking status as it is critical
+            to system function. Admin can change the description only
+        """
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
+    def has_delete_permission(self, request, obj=None):
+        """ Remove Delete button from everyone """
+        return False
 
 
 @admin.register(BuffetPeriod)
@@ -27,13 +40,6 @@ class BuffetPeriodsAdmin(admin.ModelAdmin):
         return obj.start_time.strftime("%H:%M")
 
 
-@admin.register(SystemPreference)
-class SystemPreferenceAdmin(admin.ModelAdmin):
-    ''' Maintain System Preferences list '''
-    model = SystemPreference
-    list_display = ('code', 'data', )
-
-
 @admin.register(DiningTable)
 class DiningTableAdmin(admin.ModelAdmin):
     ''' Maintain dining tables '''
@@ -44,5 +50,5 @@ class DiningTableAdmin(admin.ModelAdmin):
 @admin.register(HomeMessage)
 class HomeMessageAdmin(SummernoteModelAdmin):
     """ Maintain Text for Privacy policy & Terms of Use"""
-    list_display = ('code', 'description', )
+    list_display = ('code', )
     summernote_fields = ('description')
