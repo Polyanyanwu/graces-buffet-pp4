@@ -2,7 +2,7 @@
 from datetime import datetime
 from django.test import TestCase, RequestFactory, Client
 from django.contrib.messages.storage.fallback import FallbackStorage
-from django.shortcuts import reverse
+from django.contrib.auth.models import Group
 from django.contrib.auth.models import User, AnonymousUser
 from general_tables.models import SystemPreference, BookingStatus, BuffetPeriod
 from cuisine.models import Cuisine
@@ -23,6 +23,9 @@ class TestViews(TestCase):
         BuffetPeriod.objects.create(start_time=datetime.now().time())
         Cuisine.objects.create(name='Nigerian Cuisine',
                                description="Nigerian Cuisine")
+        # Needed because template tags on the base looks for the two groups
+        Group.objects.create(name='operator')
+        Group.objects.create(name='administrator')
 
     def test_booking_home_page(self):
         """ test that home page responds """
@@ -39,27 +42,30 @@ class TestViews(TestCase):
         messages = FallbackStorage(request)
         setattr(request, '_messages', messages)
         request.user = AnonymousUser()
-        response = MakeBookings.as_view()(request, f"{self.user.username}")
+        response = MakeBookings.as_view()(request)
         response.client = Client()
-        self.assertRedirects(response, reverse("home"))
+        assert response.status_code == 200
 
     def test_cuisine_choice_is_required(self):
         """ When authenticated user signs in
             test that cuisine choice is required """
         buffet_period = BuffetPeriod.objects.get(id=1)
-        request = self.factory.post('/testuser', {'booking_date':
-                                    datetime.now(),
-                                    'dinner_date': datetime.now().date(),
-                                    'seats': 3, 'start_time': buffet_period.id,
-                                    'cuisine_option': []})
-        request.user = self.user
+        dinner_date = datetime.strptime('2022-08-21', "%Y-%m-%d").date()
+        request = self.factory.post(
+            '/', {'booking_date': datetime.now(),
+                  'dinner_date': dinner_date,
+                  'seats': 3, 'start_time': buffet_period.id,
+                  'cuisine_option': []})
 
+        request.user = self.user
         setattr(request, 'session', 'session')
         messages = FallbackStorage(request)
         setattr(request, '_messages', messages)
 
-        response = MakeBookings.as_view()(request, f"{self.user.username}")
+        response = MakeBookings.as_view()(request)
         response.client = Client()
+
         # if cuisine choice is not selected user is redirected
-        # to booking page at home
-        self.assertRedirects(response, reverse("home"))
+        # to booking page at home, but if booking succeeded user is redirected
+        # to confirmation page
+        assert response.status_code == 200

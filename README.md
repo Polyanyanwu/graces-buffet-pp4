@@ -209,6 +209,10 @@ The design site map of the website is given below:
 
 ![Site Map](/docs/wireframes/site_map.jpg)
 
+The final site map after developing the website is given below.
+
+![Final Site Map](/docs/wireframes/site_map_final.png)
+
 ### **Color Scheme**
 
 In order to enhance the user experience and have consistent look and feel throughout the website, I chose a color scheme through the [Colors.co](https://coolors.co/). The color palette used is shown below:
@@ -256,15 +260,13 @@ If the username/email and password provided do not match, a message is displayed
 #### **Make Booking**
 
 The booking page is the main page when a user opens the website. To effectively make a booking, a user need to be authenticated (logged in).
-The booking requests the dinner date, the time (displayed as a dropdown menu of available time slots), number of persons, and options for the buffet. A user is required to indicate, at least, one buffet option. This is to enable the restaurant owner plan ahead to know dinner options that people want at a given date.
+The booking requests the dinner date, the time (displayed as a dropdown menu of available time slots), number of persons, and options for the buffet. A user is required to indicate, at least, one buffet option. This is to enable the restaurant owner plan ahead to know dinner options that people want at a given date. A user may click the Let's Go button without signing in, in that case a search for availability of the seats for the indicated data and time is done. A feed back is given to user but requested to login to save the availability.
 
 ![Booking Page](/docs/images/features/booking.png)
 
 When a user clicks Let's Go button the form is validated and the application checks the availability of seats for the requested date, time and number of persons. If all is okay, the booking is confirmed and a message is displayed on the screen plus an email sent to the registered email address with a copy in the Notifications page for the user. A confirmation booking page is displayed with the details of the booking.
 
 ![Booking confirmation](/docs/images/features/booking_confirm.png)
-
-The user without operator or administrator group privilege is presented with menu options as follows:
 
 [>> Bact to TOC](#table-of-contents)
 

@@ -19,7 +19,7 @@ The project was developed using [GitPod IDE](https://www.gitpod.io/) (Integrated
 ## Prerequisites
 
 1. You need to create an account in [GitHub](https://github.com).
-if you don’t have any yet. Log in to your GitHub account.
+if you don’t have any yet. Login to your GitHub account.
 
 After logging into Github, you could decide on any of the following options:
 

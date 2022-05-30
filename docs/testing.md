@@ -117,7 +117,7 @@ The evidence of the test outcome is given below:
 
 The views automated test affirmed that:
 
-1. THe home page responds
+1. The home page responds
 2. Anonymous user is disallowed to post a booking
 3. Check that cuisine choice is required
 
