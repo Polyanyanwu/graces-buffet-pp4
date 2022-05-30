@@ -1,11 +1,11 @@
 """ Utility module for Bookings App """
 
 from datetime import timedelta, datetime, date
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.shortcuts import get_object_or_404
 from general_tables.models import\
-    (DiningTable, SystemPreference, BuffetPeriod)
-from .models import TablesBooked
+    (DiningTable, SystemPreference, BuffetPeriod, BookingStatus)
+from .models import TablesBooked, Booking
 
 
 def book_seats(seats, day_booked, start_time):
@@ -109,7 +109,7 @@ def is_dinner_date_in_future(dinner_date_str, start_time):
     """
     check that dinner date is in future or today
     if today check that time is in future
-    Parameters: 
+    Parameters:
         dinner_date_str: String of dinner date from POST
         start_time: start_time selected from POST
     Returns:
@@ -130,3 +130,105 @@ def is_dinner_date_in_future(dinner_date_str, start_time):
     answer['msg'] = msg
     answer['time_entered'] = time_entered
     return answer
+
+
+def query_booking(request, req_type, calling_module, booking_status=None):
+    """ Query the Booking table based on criteria entered by user
+        If request type is post write the criteria to session
+        If type is get, retrieve criteria from session
+    Parameters:
+        request : the request to extract the criteria from
+        req_ty: a String of the request type
+        calling_module: the function that called
+        booking_status: some modules have fixed booking status
+    Returns:
+        filtered booking table
+    """
+    if req_type == 'get':
+        query_dict = request.session.get(calling_module)
+        if query_dict:
+            sdate = query_dict['start_date']
+            edate = query_dict['end_date']
+            bstatus = query_dict['booking_status']
+            username = query_dict['username']
+            start_date = datetime.strptime(
+                sdate, "%Y-%m-%d").date() if sdate else None
+            end_date = datetime.strptime(
+                edate, "%Y-%m-%d").date() if edate else None
+        else:
+            if booking_status:
+                return Booking.objects.filter(
+                    booking_status=booking_status).order_by('-booking_date')
+            else:
+                return Booking.objects.all().order_by('-booking_date')
+    else:
+
+        bstatus = request.POST.get('booking_status') if request.POST.get(
+            'booking_status') else None
+        if bstatus:
+            book_status = BookingStatus.objects.get(code=bstatus)
+
+        sdate = request.POST.get('dinner_date_start') if request.POST.get(
+            'dinner_date_start') else None
+        start_date = datetime.strptime(
+            sdate, "%Y-%m-%d").date() if sdate else None
+
+        edate = request.POST.get('dinner_date_end') if request.POST.get(
+            'dinner_date_end') else None
+        end_date = datetime.strptime(
+            edate, "%Y-%m-%d").date() if edate else None
+
+        username = request.POST.get('user_name') if request.POST.get(
+            'user_name') else None
+        query_dict = {}
+        query_dict['start_date'] = sdate
+        query_dict['end_date'] = edate
+        query_dict['booking_status'] = bstatus
+        query_dict['username'] = username
+        request.session[calling_module] = query_dict
+
+    if start_date and end_date and bstatus and username:
+        booking = Booking.objects.filter(
+            Q(dinner_date__gte=start_date) &
+            Q(booking_status=bstatus) &
+            Q(dinner_date__lte=end_date) &
+            (Q(booked_for__first_name__icontains=username)
+                | Q(booked_for__last_name__icontains=username))).order_by(
+                    '-dinner_date')
+    elif start_date and end_date and username:
+        booking = Booking.objects.filter(
+            Q(dinner_date__gte=start_date) &
+            Q(dinner_date__lte=end_date) &
+            (Q(booked_for__first_name__icontains=username)
+                | Q(booked_for__last_name__icontains=username))).order_by(
+                    '-dinner_date')
+    elif start_date and end_date and bstatus:
+        booking = Booking.objects.filter(
+            dinner_date__gte=start_date,
+            booking_status=bstatus,
+            dinner_date__lte=end_date).order_by('-dinner_date')
+    elif start_date and end_date:
+        booking = Booking.objects.filter(
+            dinner_date__gte=start_date,
+            dinner_date__lte=end_date).order_by('-dinner_date')
+    elif start_date:
+        booking = Booking.objects.filter(dinner_date=start_date).order_by(
+            '-dinner_date')
+    elif end_date:
+        booking = Booking.objects.filter(dinner_date=end_date).order_by(
+            '-dinner_date')
+    elif username:
+        booking = Booking.objects.filter(
+            Q(booked_for__first_name__icontains=username) | Q(
+                booked_for__last_name__icontains=username)).order_by(
+                    '-dinner_date')
+    elif bstatus:
+        booking = Booking.objects.filter(booking_status=book_status).order_by(
+            '-dinner_date')
+    else:
+        booking = Booking.objects.all().order_by('-dinner_date')
+
+    if booking_status:
+        booking = booking.filter(booking_status=booking_status).order_by(
+            '-dinner_date')
+    return booking
