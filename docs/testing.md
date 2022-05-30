@@ -147,7 +147,8 @@ The application was thoroughly tested at each step of the development process an
 - The application is responsive and user can effectively complete a booking
 
 ![Graces Buffet Website](/docs/images/test/small_width_device.png)
-Graces Buffet website opened in a small width Samsung phone
+
+Graces Buffet website opened in a small width Samsung phone.
 The responsiveness was well tested using the Google Chrome developer tools to simulate different screen widths.
 
 3. **Feedback on user actions are given**

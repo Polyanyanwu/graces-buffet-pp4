@@ -55,14 +55,16 @@ To clone a repository, proceed as follows:
 
 **Through the HTTPS**
 
-* Click HTTPS option and copy the link given
-* You may also click on the Download Zip button and get a compressed zip file of the repository downloaded to your machine.
-* You can also click Open with GitHub desktop if you have it installed
-* Navigate to the directory on your machine where you want to store the cloned repository.
-* Open your Terminal and type: ```git clone``` and paste the link copied above.
-* Press **Enter** and the local clone will be created.
+- Click HTTPS option and copy the link given
+- You may also click on the Download Zip button and get a compressed zip file of the repository downloaded to your machine.
+- You can also click Open with GitHub desktop if you have it installed
+- Navigate to the directory on your machine where you want to store the cloned repository.
+- Open your Terminal and type: ```git clone``` and paste the link copied above.
+- Press **Enter** and the local clone will be created.
 
 For further information visit [Cloning Repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line).
+
+[<< Back to README](/README.md) [>> Bact to TOC](#cloning-and-deployment-for-graces-buffet)
 
 ### Application Dependencies
 
@@ -109,6 +111,8 @@ Click on the Heroku Postgres and Heroku will display the Order form for you to s
 Click on Submit Order Form to complete the process.
 Heroku provision's the database and automatically creates a record in the Config Vars (see below) for the Database URL. This URL is very essential for you to access the database from your application.
 
+[<< Back to README](/README.md) [>> Bact to TOC](#cloning-and-deployment-for-graces-buffet)
+
 ### **Create the Config Variables**
 
 5. The next thing to do is to create the necessary Config environment variables needed for the application to run.
@@ -138,4 +142,4 @@ My dashboard looks like this:
 * For the password, enter the API key you copied from step 2 above.
 * Finally, type ```git push heroku main``` where main is the branch you want to deploy.
 
-[Return to README](/README.md)
+[<< Back to README](/README.md)   [>> Bact to TOC](#cloning-and-deployment-for-graces-buffet)
