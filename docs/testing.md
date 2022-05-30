@@ -1,6 +1,6 @@
 # **Testing of Graces Buffet Website**
 
-[Return to README](/README.md)
+[<< Back to README](/README.md)
 - [**Testing of Graces Buffet Website**](#testing-of-graces-buffet-website)
   - [**Code Validation**](#code-validation)
     - [**W3C Validation for HTML**](#w3c-validation-for-html)
@@ -59,6 +59,8 @@ The [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) was used 
 
 ![CSS Validation](/docs/images/code_test/css_validation.png)
 
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
+
 ### **JSHint**
 
 The [JSHint](https://jshint.com/) was used to validate codes from the three JavaScript files for semantic and syntax errors. No warnings or error were found.
@@ -66,6 +68,8 @@ The [JSHint](https://jshint.com/) was used to validate codes from the three Java
 ![General Tables JavaScript](/docs/images/code_test/jshint_gen_tab.png)
 ![Profile JavaScript](/docs/images/code_test/jshint_profile.png)
 ![General Script Validation](/docs/images/code_test/jshint_script.png)
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 ### **PEP8**
 
@@ -83,6 +87,8 @@ PEP8 result for the bookings.test_views.py
 [Lighthouse](https://developers.google.com/web/tools/lighthouse/?utm_source=devtools) available in Google Chrome DevTools, Microsoft Edge were used to test the deployed site performance, accessibility and user experience.  
 
 ![Lighthouse](/docs/images/code_test/lighthouse.png)
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 ## **Automated Tests**
 
@@ -104,6 +110,8 @@ The bookings form test was used to:
 The evidence of the test outcome is given below:
 
 ![Model test](/docs/images/code_test/test_model.png)
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 ### **Automated Test on Views**
 
@@ -131,6 +139,8 @@ The application was thoroughly tested at each step of the development process an
 - Input the Graces Buffet url (https://graces-buffet.herokuapp.com/)
 - The booking details is shown on the home page when the site is opened
 
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
+
 2. **Responsive in mobile and desktop browsers**
 
 - Open the URL address of the website in desktop computer, laptop computer, iphone, ipad, samsung phone.
@@ -152,6 +162,8 @@ Similarly when trying to book without logging in, booking is cancelled, booking 
 
 ![Login Required](/docs/images/test/login_required.png)
 
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
+
 4. User finds links to navigate to other functions easy
 
 - Open the website
@@ -170,6 +182,8 @@ All fonts are legible when any page is displayed. Accessibility report from Ligh
 6. Color contrast is effective
 
 The contrast was okay as the accessibility report above shows.
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 #### P2. Public user want to be able to access the website using different devices for same friendly experience
 
@@ -196,6 +210,8 @@ This requirements were met with tests reported on P1 2. above.
 1. The booking form displays the price per person
 
 The Price per Person is displayed in big font on the home page immediately before the booking form.
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 #### P5. Public user can have time options to select from on a chosen date
 
@@ -249,6 +265,8 @@ Various validation messages are shown below:
 
 ![Booking Validations](/docs/images/test/booking_validations.png)
 
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
+
 To test the fully booked validation:
 
 1. Make a booking for a given date and time, say 2 July 2022 @ 14:00:00 and 10-people seating or maximum available.
@@ -265,6 +283,8 @@ A confirmation page is displayed showing the user the details of the booking onc
 
 - Open the Graces Buffet website
 - Name, image and description of available buffets are displayed on the booking form. The buffet types including the images are entered by the Admin via the Admin panel.
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 #### P8. Public user can cancel a booking
 
@@ -285,6 +305,8 @@ A list of all the active bookings are displayed.
 An email is also sent to the user on the cancellation, plus an entry in the Notifications record for the user.
 
 ![Booking cancellation](/docs/images/test/cancel_booking.png)
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 #### P9. Public user can view booking history
 
@@ -339,6 +361,8 @@ After successful sign in the user menu is available through the icons at the rig
 
 ![User Log out](/docs/images/test/signout.png)
 
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
+
 #### U3. Registered user can change password
 
 1. Reset password link available at sign-in page
@@ -370,6 +394,8 @@ A Reset password page is opened
 - User is directed to home page.
 
 ![Update Profile](/docs/images/test/profile_update.png)
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 ### Operator Role Acceptance Tests
 
@@ -412,6 +438,8 @@ A Reset password page is opened
 
 ![Update Booking Status](/docs/images/test/update_booking_status.png)
 
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
+
 #### O3. Operator Make Booking for Customer
 
 1. Make booking option is available for operator
@@ -442,6 +470,8 @@ Same validations like when customer is booking for self is done.
 - Click on the Operator dropdown icon (person icon with +)
 - Click on Booking Details List
 The bookings are displayed with input fields to enable operator enter any of the search criteria. The application will first filter by dates and booking status together if all were inputted, then dates together, followed by dates separately, followed by username, and finally booking status.
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 ### Site owner/Admin Acceptance Tests
 
@@ -487,6 +517,8 @@ Message is displayed conveying successful update, validation on the data field i
 
 ![System Preference Update](/docs/images/test/sys_pref.png)
 
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
+
 #### A3. Admin can cancel bookings where necessary
 
 1. Admin is able to cancel bookings same like the Operator role
@@ -510,6 +542,8 @@ A list of existing cuisines in the system is listed, you can add a new cuisine b
 - Similarly new records were added with images upload and they reflect on the available cuisines.
   
 ![Cuisine Update](/docs/images/test/cuisines.png)
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
 
 #### A6. Admin can maintain table/seat types and quantities available
 
@@ -540,3 +574,5 @@ The cuisine summary is displayed with the current date's summary
 The cuisine summary is displayed for the chosen date.
 
 ![Cuisine Summary](/docs/images/test/cuisine_summary.png)
+
+[<< Back to README](/README.md) [>> Bact to TOC](#testing-of-graces-buffet-website)
