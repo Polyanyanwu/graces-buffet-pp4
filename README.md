@@ -6,7 +6,7 @@ The Graces Buffet is a web application that powers a buffet seat reservation sys
 
 ## Live Site
 
-[Graces Buffet Live](https://graces-buffet.herokuapp.com)
+[Graces Buffet Live](https://graces-buffet.onrender.com)
 
 ## Repository
 

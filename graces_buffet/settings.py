@@ -35,8 +35,13 @@ if development:
     ALLOWED_HOSTS = ['localhost', os.environ.get("HEROKU_HOSTNAME")]
     DEBUG = True
 else:
-    ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
+    # ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
     DEBUG = False
+    ALLOWED_HOSTS = ['localhost']
+    # Add Render.com URL to allowed hosts
+    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+    if RENDER_EXTERNAL_HOSTNAME:
+        ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
